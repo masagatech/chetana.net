@@ -1,0 +1,58 @@
+E:\Working\Chetana\Chetana_Solution\Other_Z\bin\Debug\Other_Z.dll
+E:\Working\Chetana\Chetana_Solution\Other_Z\bin\Debug\Other_Z.pdb
+E:\Working\Chetana\Chetana_Solution\Other_Z\bin\Debug\Idv.Chetana.Common.dll
+E:\Working\Chetana\Chetana_Solution\Other_Z\bin\Debug\Idv.Chetana.DAL.dll
+E:\Working\Chetana\Chetana_Solution\Other_Z\bin\Debug\Idv.Chetana.Common.pdb
+E:\Working\Chetana\Chetana_Solution\Other_Z\bin\Debug\Idv.Chetana.DAL.pdb
+E:\Working\Chetana\Chetana_Solution\Other_Z\obj\Debug\ResolveAssemblyReference.cache
+E:\Working\Chetana\Chetana_Solution\Other_Z\obj\Debug\Other_Z.dll
+E:\Working\Chetana\Chetana_Solution\Other_Z\obj\Debug\Other_Z.pdb
+E:\Working\Chetana\Chetana_Solution - 03-01-16\Other_Z\bin\Debug\Other_Z.dll
+E:\Working\Chetana\Chetana_Solution - 03-01-16\Other_Z\bin\Debug\Other_Z.pdb
+E:\Working\Chetana\Chetana_Solution - 03-01-16\Other_Z\bin\Debug\Idv.Chetana.Common.dll
+E:\Working\Chetana\Chetana_Solution - 03-01-16\Other_Z\bin\Debug\Idv.Chetana.DAL.dll
+E:\Working\Chetana\Chetana_Solution - 03-01-16\Other_Z\bin\Debug\Idv.Chetana.Common.pdb
+E:\Working\Chetana\Chetana_Solution - 03-01-16\Other_Z\bin\Debug\Idv.Chetana.DAL.pdb
+E:\Working\Chetana\Chetana_Solution - 03-01-16\Other_Z\obj\Debug\ResolveAssemblyReference.cache
+E:\Working\Chetana\Chetana_Solution - 03-01-16\Other_Z\obj\Debug\Other_Z.dll
+E:\Working\Chetana\Chetana_Solution - 03-01-16\Other_Z\obj\Debug\Other_Z.pdb
+E:\Working\Chetana_Solution\Other_Z\bin\Debug\Other_Z.dll
+E:\Working\Chetana_Solution\Other_Z\bin\Debug\Other_Z.pdb
+E:\Working\Chetana_Solution\Other_Z\bin\Debug\Idv.Chetana.Common.dll
+E:\Working\Chetana_Solution\Other_Z\bin\Debug\Idv.Chetana.DAL.dll
+E:\Working\Chetana_Solution\Other_Z\bin\Debug\Idv.Chetana.DAL.pdb
+E:\Working\Chetana_Solution\Other_Z\obj\Debug\Other_Z.dll
+E:\Working\Chetana_Solution\Other_Z\obj\Debug\Other_Z.pdb
+E:\Working\Chetana_Solution\Other_Z\obj\Debug\Other_Z.csprojResolveAssemblyReference.cache
+E:\Working\Chetana_Solution - Copy\Other_Z\bin\Debug\Other_Z.dll
+E:\Working\Chetana_Solution - Copy\Other_Z\bin\Debug\Other_Z.pdb
+E:\Working\Chetana_Solution - Copy\Other_Z\bin\Debug\Idv.Chetana.Common.dll
+E:\Working\Chetana_Solution - Copy\Other_Z\bin\Debug\Idv.Chetana.DAL.dll
+E:\Working\Chetana_Solution - Copy\Other_Z\bin\Debug\Idv.Chetana.DAL.pdb
+E:\Working\Chetana_Solution - Copy\Other_Z\obj\Debug\Other_Z.dll
+E:\Working\Chetana_Solution - Copy\Other_Z\obj\Debug\Other_Z.pdb
+E:\Working\Chetana_Solution - Copy\Other_Z\obj\Debug\Other_Z.csprojResolveAssemblyReference.cache
+E:\Working\Work Backup\Chetana_Solution - 14-10-2016\Other_Z\bin\Debug\Other_Z.dll
+E:\Working\Work Backup\Chetana_Solution - 14-10-2016\Other_Z\bin\Debug\Other_Z.pdb
+E:\Working\Work Backup\Chetana_Solution - 14-10-2016\Other_Z\bin\Debug\Idv.Chetana.Common.dll
+E:\Working\Work Backup\Chetana_Solution - 14-10-2016\Other_Z\bin\Debug\Idv.Chetana.DAL.dll
+E:\Working\Work Backup\Chetana_Solution - 14-10-2016\Other_Z\bin\Debug\Idv.Chetana.DAL.pdb
+E:\Working\Work Backup\Chetana_Solution - 14-10-2016\Other_Z\obj\Debug\ResolveAssemblyReference.cache
+E:\Working\Work Backup\Chetana_Solution - 14-10-2016\Other_Z\obj\Debug\Other_Z.dll
+E:\Working\Work Backup\Chetana_Solution - 14-10-2016\Other_Z\obj\Debug\Other_Z.pdb
+E:\Working\Chetana_Solution - 14-10-2016\Other_Z\bin\Debug\Other_Z.dll
+E:\Working\Chetana_Solution - 14-10-2016\Other_Z\bin\Debug\Other_Z.pdb
+E:\Working\Chetana_Solution - 14-10-2016\Other_Z\bin\Debug\Idv.Chetana.Common.dll
+E:\Working\Chetana_Solution - 14-10-2016\Other_Z\bin\Debug\Idv.Chetana.DAL.dll
+E:\Working\Chetana_Solution - 14-10-2016\Other_Z\bin\Debug\Idv.Chetana.DAL.pdb
+E:\Working\Chetana_Solution - 14-10-2016\Other_Z\obj\Debug\Other_Z.csprojResolveAssemblyReference.cache
+E:\Working\Chetana_Solution - 14-10-2016\Other_Z\obj\Debug\Other_Z.dll
+E:\Working\Chetana_Solution - 14-10-2016\Other_Z\obj\Debug\Other_Z.pdb
+D:\Working\Chetana_Solution - 14-10-2016\Other_Z\bin\Debug\Other_Z.dll
+D:\Working\Chetana_Solution - 14-10-2016\Other_Z\bin\Debug\Other_Z.pdb
+D:\Working\Chetana_Solution - 14-10-2016\Other_Z\bin\Debug\Idv.Chetana.Common.dll
+D:\Working\Chetana_Solution - 14-10-2016\Other_Z\bin\Debug\Idv.Chetana.DAL.dll
+D:\Working\Chetana_Solution - 14-10-2016\Other_Z\bin\Debug\Idv.Chetana.DAL.pdb
+D:\Working\Chetana_Solution - 14-10-2016\Other_Z\obj\Debug\Other_Z.csprojResolveAssemblyReference.cache
+D:\Working\Chetana_Solution - 14-10-2016\Other_Z\obj\Debug\Other_Z.dll
+D:\Working\Chetana_Solution - 14-10-2016\Other_Z\obj\Debug\Other_Z.pdb

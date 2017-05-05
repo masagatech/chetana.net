@@ -1,0 +1,42 @@
+C:\Users\PRATIK\Documents\Visual Studio 2008\Projects\OtherNewClass\bin\Debug\OtherNewClass.dll
+C:\Users\PRATIK\Documents\Visual Studio 2008\Projects\OtherNewClass\bin\Debug\OtherNewClass.pdb
+C:\Users\PRATIK\Documents\Visual Studio 2008\Projects\OtherNewClass\bin\Debug\Idv.Chetana.DAL.dll
+C:\Users\PRATIK\Documents\Visual Studio 2008\Projects\OtherNewClass\bin\Debug\Idv.Chetana.Common.dll
+C:\Users\PRATIK\Documents\Visual Studio 2008\Projects\OtherNewClass\bin\Debug\Idv.Chetana.DAL.pdb
+C:\Users\PRATIK\Documents\Visual Studio 2008\Projects\OtherNewClass\bin\Debug\Idv.Chetana.Common.pdb
+C:\Users\PRATIK\Documents\Visual Studio 2008\Projects\OtherNewClass\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\PRATIK\Documents\Visual Studio 2008\Projects\OtherNewClass\obj\Debug\OtherNewClass.dll
+C:\Users\PRATIK\Documents\Visual Studio 2008\Projects\OtherNewClass\obj\Debug\OtherNewClass.pdb
+E:\Working\Chetana\OtherNewClass\bin\Debug\OtherNewClass.dll
+E:\Working\Chetana\OtherNewClass\bin\Debug\OtherNewClass.pdb
+E:\Working\Chetana\OtherNewClass\bin\Debug\Idv.Chetana.Common.dll
+E:\Working\Chetana\OtherNewClass\bin\Debug\Idv.Chetana.DAL.pdb
+E:\Working\Chetana\OtherNewClass\bin\Debug\Idv.Chetana.Common.pdb
+E:\Working\Chetana\OtherNewClass\obj\Debug\ResolveAssemblyReference.cache
+E:\Working\Chetana\OtherNewClass\obj\Debug\OtherNewClass.dll
+E:\Working\Chetana\OtherNewClass\obj\Debug\OtherNewClass.pdb
+E:\Working\Chetana\Chetana_Solution\OtherNewClass\bin\Debug\OtherNewClass.dll
+E:\Working\Chetana\Chetana_Solution\OtherNewClass\bin\Debug\OtherNewClass.pdb
+E:\Working\Chetana\Chetana_Solution\OtherNewClass\obj\Debug\ResolveAssemblyReference.cache
+E:\Working\Chetana\Chetana_Solution\OtherNewClass\obj\Debug\OtherNewClass.dll
+E:\Working\Chetana\Chetana_Solution\OtherNewClass\obj\Debug\OtherNewClass.pdb
+E:\Working\Chetana\Chetana_Solution - 03-01-16\OtherNewClass\bin\Debug\OtherNewClass.dll
+E:\Working\Chetana\Chetana_Solution - 03-01-16\OtherNewClass\bin\Debug\OtherNewClass.pdb
+E:\Working\Chetana\Chetana_Solution - 03-01-16\OtherNewClass\obj\Debug\ResolveAssemblyReference.cache
+E:\Working\Chetana\Chetana_Solution - 03-01-16\OtherNewClass\obj\Debug\OtherNewClass.dll
+E:\Working\Chetana\Chetana_Solution - 03-01-16\OtherNewClass\obj\Debug\OtherNewClass.pdb
+E:\Working\Chetana_Solution\OtherNewClass\bin\Debug\OtherNewClass.dll
+E:\Working\Chetana_Solution\OtherNewClass\bin\Debug\OtherNewClass.pdb
+E:\Working\Chetana_Solution\OtherNewClass\obj\Debug\OtherNewClass.csprojResolveAssemblyReference.cache
+E:\Working\Chetana_Solution\OtherNewClass\obj\Debug\OtherNewClass.dll
+E:\Working\Chetana_Solution\OtherNewClass\obj\Debug\OtherNewClass.pdb
+E:\Working\Chetana_Solution - Copy\OtherNewClass\bin\Debug\OtherNewClass.dll
+E:\Working\Chetana_Solution - Copy\OtherNewClass\bin\Debug\OtherNewClass.pdb
+E:\Working\Chetana_Solution - Copy\OtherNewClass\obj\Debug\OtherNewClass.dll
+E:\Working\Chetana_Solution - Copy\OtherNewClass\obj\Debug\OtherNewClass.pdb
+E:\Working\Chetana_Solution - Copy\OtherNewClass\obj\Debug\OtherNewClass.csprojResolveAssemblyReference.cache
+E:\Working\Chetana_Solution - 14-10-2016\OtherNewClass\bin\Debug\OtherNewClass.dll
+E:\Working\Chetana_Solution - 14-10-2016\OtherNewClass\bin\Debug\OtherNewClass.pdb
+E:\Working\Chetana_Solution - 14-10-2016\OtherNewClass\obj\Debug\OtherNewClass.csprojResolveAssemblyReference.cache
+E:\Working\Chetana_Solution - 14-10-2016\OtherNewClass\obj\Debug\OtherNewClass.dll
+E:\Working\Chetana_Solution - 14-10-2016\OtherNewClass\obj\Debug\OtherNewClass.pdb

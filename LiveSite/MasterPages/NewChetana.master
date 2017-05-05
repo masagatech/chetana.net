@@ -1,0 +1,323 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="NewChetana.master.cs" Inherits="MasterPages_NewChetana" %>
+
+<%@ Register Src="../UserControls/uc_New_Header.ascx" TagName="uc_New_Header" TagPrefix="uc1" %>
+<%@ Register Src="../UserControls/uc_MenuesByRoleId.ascx" TagName="uc_MenuesByRoleId"
+    TagPrefix="uc2" %>
+<%@ Register Src="../UserControls/uc_MenuMaster.ascx" TagName="uc_MenuMaster" TagPrefix="uc3" %>
+<%@ Register Src="../UserControls/myMenu/keybordmenu.ascx" TagName="keybordmenu"
+    TagPrefix="uc4" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link rel="SHORTCUT ICON" href="../Images/icon/favicon.ico" />
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <script src="../js/jquery-ui.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+
+    <script src="js/ddsmoothmenu.js" type="text/javascript"></script>
+
+    <script src="js/superfish.js" type="text/javascript"></script>
+
+    <script src="js/shortcut.js" type="text/javascript"></script>
+
+    <script src="js/Validation.js" type="text/javascript"></script>
+
+    <script src="js/menukey/c_config.js" type="text/javascript"></script>
+
+    <script src="js/menukey/c_smartmenus.js" type="text/javascript"></script>
+
+    <script src="js/menukey/c_addon_keyboard.js" type="text/javascript"></script>
+
+    <script src="js/jquery.highlight-3.js" type="text/javascript"></script>
+
+    <script src="js/other.js" type="text/javascript"></script>
+
+    <link href="../Css/IdvMenu.css" rel="stylesheet" type="text/css" />
+    <link href="../Css/_newStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../Css/_newNormalize.css" rel="stylesheet" type="text/css" />
+    <link href="../Css/popupmlz.css" rel="stylesheet" type="text/css" />
+    <link href="../Css/superfish.css" rel="stylesheet" type="text/css" />
+    <link href="../Css/controls.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="false">
+    </asp:ScriptManager>
+    <div class="loding" id="loding" style="display: none;">
+        <span id="loder">Loading...</span>
+    </div>
+    <asp:UpdateProgress ID="UpdateProgress1" runat="server">
+        <ProgressTemplate>
+            <div class="loding" id="Div1">
+                <span id="Span2">Loading...</span>
+            </div>
+        </ProgressTemplate>
+    </asp:UpdateProgress>
+    <div id='header'>
+        <div class="thm">
+            <div id='branding'>
+                <p id='name' style="margin: 0; padding: 0;">
+                    <a href="Dashboard.aspx" id='home' style="width: 195px;">
+                        <img src="Images/Logo/chetanaLogo.png" class="logo" />
+                        <sub style="font-size: 10px" class="subtitle">Book Depot </sub></a></p>
+            </div>
+            <div id="actions">
+                <uc1:uc_New_Header ID="uc_New_Header1" runat="server" />
+            </div>
+            <%-- <div class="stickmsg">
+        asdsadsad
+        
+        </div>--%>
+        </div>
+    </div>
+    <div id='sidebar'>
+        <div class="sidedivBack">
+            <div class='element'>
+                <div class="elementBody">
+                    <div class="ebCont">
+                        <uc2:uc_MenuesByRoleId ID="uc_MenuesByRoleId1" runat="server" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sidebar-bottom" style="position: absolute; bottom: 0;">
+            <img src="Images/animation/livres-22.gif" style="bottom: 0; right: 0; display: none;" />
+            <%--<div id="documentation-info">
+                Read our <a href="http://doc.jsfiddle.net" target="_doc">documentation</a><br>
+            </div>--%>
+        </div>
+    </div>
+    <div id="content">
+        <div id="innerCt">
+        </div>
+        <div id="innerMain">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <%--<uc4:keybordmenu ID="keybordmenu1" runat="server" />--%>
+    </div>
+    <div class="statusHolder">
+        <span id="onfocus"></span>
+        <table border="0" cellpadding="0" cellspacing="0" width="90%">
+            <tr>
+                <td class="dev">
+                    <span>Develpoed by</span><b><a target="_blank" href="http://www.idivergence.in">iDivergence</a></b>
+                </td>
+                <td width="80%">
+                    <marquee scrollamount="40" behavior="slide"><span id="status" class="status"></span></marquee>
+                    <span id="Span1" class="status"></span>
+                </td>
+                <td>
+                    <div id="toTop">
+                        ^ Back to Top</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+//$(".panelDetails").css("display", "none");
+shortcut.add("Ctrl+Shift+O",function() {
+    document.getElementById('content').style.marginLeft = '215px';
+    document.getElementById('sidebar').style.display = 'block';
+    $('#dash a').focus(); 
+    document.cookie =  "slide = 0"  
+
+});
+shortcut.add("Ctrl+Shift+C",function() {
+
+    document.getElementById('content').style.marginLeft = '10px';
+    document.getElementById('sidebar').style.display = 'none';
+    document.cookie =  "slide = 1"  
+    
+    
+});
+
+
+shortcut.add("Ctrl+Shift+M",function() {
+$('#slide').click();
+});
+
+$(function() {
+	$(window).scroll(function() {
+		if($(this).scrollTop() != 0) {
+			$('#toTop').fadeIn();	
+		} else {
+			$('#toTop').fadeOut();
+		}
+	});
+ 
+	$('#toTop').click(function() {
+		$('body,html').animate({scrollTop:0},800);
+	});	
+});
+
+$(document).ready(function() {
+   // put all your jQuery goodness in here.
+    sidebarclose();
+ });
+
+          function sidebarclose()
+          {
+          if(getCookie('slide') == '1')
+            {
+                document.getElementById('content').style.marginLeft = '10px';
+                document.getElementById('sidebar').style.display = 'none';
+            }
+          else
+            {
+                document.getElementById('content').style.marginLeft = '215px';
+                document.getElementById('sidebar').style.display = 'block';
+            }
+            
+            $('.section-header').slideDown('slow');
+          }
+
+            function getCookie(c_name)
+            {
+            var i,x,y,ARRcookies=document.cookie.split(";");
+            for (i=0;i<ARRcookies.length;i++)
+            {
+              x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+              y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+              x=x.replace(/^\s+|\s+$/g,"");
+              if (x==c_name)
+                {
+                return unescape(y);
+                }
+              }
+            }
+shortcut.add("Ctrl+M",function() {
+  $('#dash a').focus();     
+});
+//setTimeout('animate()',200);
+
+
+//function animate () {
+////$("input").css({cursor:"wait" });
+//$(".panelDetails").slideDown(500);
+//};
+window.onbeforeunload = function()
+{
+     //here you make your call to the aspx page to log out the user
+     //make sure you don't return anything or else the user will be prompted to make a decision as to whether or not they want to actually leave the page....
+}
+    </script>
+
+    <script type="text/javascript">
+
+var nVer = navigator.appVersion;
+var nAgt = navigator.userAgent;
+var browserName  = navigator.appName;
+var fullVersion  = ''+parseFloat(navigator.appVersion); 
+var majorVersion = parseInt(navigator.appVersion,10);
+var nameOffset,verOffset,ix;
+
+// In Opera, the true version is after "Opera" or after "Version"
+//if ((verOffset=nAgt.indexOf("Opera"))!=-1) {
+// browserName = "Opera";
+// fullVersion = nAgt.substring(verOffset+6);
+// if ((verOffset=nAgt.indexOf("Version"))!=-1) 
+//   fullVersion = nAgt.substring(verOffset+8);
+//}
+//// In MSIE, the true version is after "MSIE" in userAgent
+//else if ((verOffset=nAgt.indexOf("MSIE"))!=-1) {
+// browserName = "Microsoft Internet Explorer";
+// fullVersion = nAgt.substring(verOffset+5);
+//}
+//// In Chrome, the true version is after "Chrome" 
+//else 
+if ((verOffset=nAgt.indexOf("Chrome"))!=-1) {
+ browserName = "Google Chrome";
+ fullVersion = nAgt.substring(verOffset+7);
+}
+else
+{
+   // window.location= "BowserCompatibility.aspx";
+}
+// In Safari, the true version is after "Safari" or after "Version" 
+//else if ((verOffset=nAgt.indexOf("Safari"))!=-1) {
+// browserName = "Safari";
+// fullVersion = nAgt.substring(verOffset+7);
+// if ((verOffset=nAgt.indexOf("Version"))!=-1) 
+//   fullVersion = nAgt.substring(verOffset+8);
+//}
+//// In Firefox, the true version is after "Firefox" 
+//else if ((verOffset=nAgt.indexOf("Firefox"))!=-1) {
+// browserName = "Firefox";
+// fullVersion = nAgt.substring(verOffset+8);
+//}
+//// In most other browsers, "name/version" is at the end of userAgent 
+//else if ( (nameOffset=nAgt.lastIndexOf(' ')+1) < (verOffset=nAgt.lastIndexOf('/')) ) 
+//{
+// browserName = nAgt.substring(nameOffset,verOffset);
+// fullVersion = nAgt.substring(verOffset+1);
+// if (browserName.toLowerCase()==browserName.toUpperCase()) {
+//  browserName = navigator.appName;
+// }
+//}
+// trim the fullVersion string at semicolon/space if present
+if ((ix=fullVersion.indexOf(";"))!=-1) fullVersion=fullVersion.substring(0,ix);
+if ((ix=fullVersion.indexOf(" "))!=-1) fullVersion=fullVersion.substring(0,ix);
+
+majorVersion = parseInt(''+fullVersion,10);
+if (isNaN(majorVersion)) {
+ fullVersion  = ''+parseFloat(navigator.appVersion); 
+ majorVersion = parseInt(navigator.appVersion,10);
+}
+
+//document.getElementById('Span1').innerHTML = browserName;
+
+//document.write('Full version  = '+fullVersion+'<br>');
+//document.write('Major version = '+majorVersion+'<br>');
+//document.write('navigator.appName = '+navigator.appName+'<br>');
+//document.write('navigator.userAgent = '+navigator.userAgent+'<br>');
+
+
+    </script>
+
+    <%--<script language="javascript">
+<!--
+
+//Disable right mouse click Script
+//By Maximus (maximus@nsimail.com) w/ mods by DynamicDrive
+//For full source code, visit http://www.dynamicdrive.com
+
+var message="Function Disabled!";
+
+///////////////////////////////////
+function clickIE4(){
+if (event.button==2){
+alert(message);
+return false;
+}
+}
+
+function clickNS4(e){
+if (document.layers||document.getElementById&&!document.all){
+if (e.which==2||e.which==3){
+alert(message);
+return false;
+}
+}
+}
+
+if (document.layers){
+document.captureEvents(Event.MOUSEDOWN);
+document.onmousedown=clickNS4;
+}
+else if (document.all&&!document.getElementById){
+document.onmousedown=clickIE4;
+}
+
+document.oncontextmenu=new Function("alert(message);return false")
+
+// --> 
+    </script>--%>
+    </form>
+</body>
+</html>

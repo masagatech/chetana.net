@@ -1,0 +1,9 @@
+G:\CNF\Chetana\Other\bin\Debug\Other.dll
+G:\CNF\Chetana\Other\bin\Debug\Other.pdb
+G:\CNF\Chetana\Other\bin\Debug\Idv.Chetana.Common.dll
+G:\CNF\Chetana\Other\bin\Debug\Idv.Chetana.DAL.dll
+G:\CNF\Chetana\Other\bin\Debug\Idv.Chetana.Common.pdb
+G:\CNF\Chetana\Other\bin\Debug\Idv.Chetana.DAL.pdb
+G:\CNF\Chetana\Other\obj\Debug\ResolveAssemblyReference.cache
+G:\CNF\Chetana\Other\obj\Debug\Other.dll
+G:\CNF\Chetana\Other\obj\Debug\Other.pdb

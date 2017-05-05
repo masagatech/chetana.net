@@ -1,0 +1,140 @@
+﻿.LeftMenu
+{
+width:100%;	
+	}
+
+.LeftMenu h2
+{
+	background-image: url(../images/left-nav-bg-image.jpg);
+	background-repeat: repeat-x;
+	border-bottom: 1px solid #dcdfe0;
+	color: #fff;
+	display: block;
+	font-family: Arial;
+	font-size: 11pt;
+	font-weight: bold;
+	line-height: 29px;
+	margin: 0px;
+	padding-left: 10px;
+	text-decoration: none;
+	
+}
+
+
+.LeftMenu tr
+{
+	border-bottom: 1px solid #8E8E8E;
+	width: 170px;
+}
+
+.LeftMenu tr a
+{
+	display:block;
+	
+	font-family: Arial;
+	font-size: 9pt;	
+	line-height: 24px;
+	margin: 0px;
+	padding-left: 15px;
+	
+	text-decoration: none;
+	
+	
+}
+.sidedivBack
+{
+	height:100%;
+	background: url(../images/menubacka.png)
+	}
+.LeftMenu trsub
+{
+	border-bottom: 1px solid #dcdfe0;
+	width: 170px;
+	padding-left: 12px;
+	font-size: 7pt;
+}
+
+.LeftMenu trsub a
+{
+	color: #aeb0b1;
+	display: block;
+	font-family: Arial;
+	font-size: 7pt;
+	font-weight: bold;
+	line-height: 29px;
+	margin: 0px;
+	padding-left: 15px;
+	text-decoration: none;
+	
+}
+
+
+
+.LeftMenu h5
+{
+	display: block;
+	margin-bottom: 5px;
+	margin-left: 10px;
+	margin: 0px 0px 5px 10px;
+	padding: 0px;
+}
+
+.log-warehousing
+{
+	background-color: #64C135;
+	border-bottom: 1px solid #dcdfe0;
+	width: 170px;
+}
+.log-warehousing a
+{
+	background: url(../images/activeMenu.gif) no-repeat 0% 0%;
+	background-position: left center;
+	background-repeat: no-repeat;
+	color: #fff;
+	display: block;
+	font-family: Arial;
+	font-size: 9pt;
+	font-weight: bold;
+	line-height: 29px;
+	margin: 0px;
+	padding-left: 15px;
+	text-decoration: none;
+}
+
+.LeftMenu tr:hover
+{
+	background: url(../images/menubacka.png);
+	text-decoration:none;
+	
+	
+}
+
+.act 
+{
+
+ text-decoration:none;
+
+ font-weight:bold;
+background: url(../images/menubacka.png);
+  
+	
+}
+.act a
+{
+
+color:#ffffff;
+  
+	
+}
+ 
+
+.LeftMenu tr a:hover
+{
+	
+	
+
+	
+	
+
+}
+

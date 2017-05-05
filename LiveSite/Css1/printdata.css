@@ -1,0 +1,72 @@
+﻿
+body
+{
+	font-family:Arial;
+	}
+
+
+.product-table {
+margin-bottom: 20px;
+border: 1px solid black;
+width: 100%;
+background: #989797;
+background: -moz-linear-gradient(top, #C6C6C6, #989797);
+background: -webkit-gradient(linear,
+ left top, left bottom, from(#C6C6C6), to(#989797));
+filter: progid:DXImageTransform.Microsoft.Gradient(
+ StartColorStr='#C6C6C6', EndColorStr='#989797', GradientType=0);
+}
+
+.product-table th {
+height: 26px;
+text-align: center;
+color: black;
+background: -moz-linear-gradient(top, #EFEFEF, #F7F7F7);
+background: -webkit-gradient(linear, left top, left bottom, from(#EFEFEF), to(#F7F7F7));
+filter: progid:DXImageTransform.Microsoft.Gradient( StartColorStr= '#EFEFEF' , EndColorStr= '#F7F7F7' , GradientType=0);
+font-size: 12px;
+padding: 2px;
+font-weight: bold;
+padding: 0px 2px 0 2px;
+border: 1px solid #D2D2D2;
+}
+.product-table tr {
+padding: 3px 3px 3px 5px;
+white-space: nowrap;
+background-color: white;
+}
+
+.product-table td {
+border: 1px solid #D2D2D2;
+padding: 2px 2px 2px 2px;
+height: 14px;
+overflow: hidden;
+font-size: 14px;
+font-family: Times New Roman;
+}
+
+.product-table td span {
+height: 14px;
+overflow: hidden;
+
+}
+.header {  
+
+ position: fixed;  
+
+ top: 0;  
+
+}  
+
+@page {  
+
+ size: 11in 17in;  
+
+ margin-left: 1in;  
+
+ margin-right: 1in;  
+
+ margin-top: 1in;  
+
+ margin-bottom: 1in;  
+}
