@@ -8,6 +8,7 @@ using System.Data;
 
 namespace Other_Z
 {
+    //
     public class Book_Master : Idv.Chetana.DAL.DataServiceBase
     {
         #region Book Master Prop
