@@ -159,6 +159,7 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
             _objBooks.OIPrice = Convert.ToDecimal(txtOIprice.Text.Trim());
             _objBooks.HSNCode = txtHSNCode.Text.Trim();
             _objBooks.GST = Convert.ToDecimal(txtGST.Text);
+            _objBooks.CreatedBy= Convert.ToString(Session["UserName"]).ToString();
             _objBooks.Medium = Medium;
             if (LblOldqty.Text == "")
             {
