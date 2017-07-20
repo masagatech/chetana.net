@@ -124,7 +124,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
 
     protected void btnaddBooks_Click(object sender, EventArgs e)
     {
-        bool chklimit = true;
+	 bool chklimit = true;
         if (Convert.ToBoolean(lblchksplitdc.Text) == true)
         {
             if (grdBookDetails.Rows.Count > 0)
@@ -132,110 +132,112 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
                 chklimit = SplitDCValidate();
             }
         }
-        if (chklimit == true)
+	if (chklimit == true)
         {
-            if (srate.Value == "")
+
+        if (srate.Value == "")
+        {
+            MessageBox("Kindly select Customer");
+            txtcustomer.Focus();
+        }
+        else
+        {
+            if (txtDeliverydte.Text != "")
             {
-                MessageBox("Kindly select Customer");
-                txtcustomer.Focus();
-            }
-            else
-            {
-                if (txtDeliverydte.Text != "")
+                setStateGridview();
+                Qty = Convert.ToString(txtbookqty.Text.Trim());
+                string date = DateTime.Now.ToString("MM/dd/yyyy");
+                date = txtDeliverydte.Text.Split('/')[1] + "/" + txtDeliverydte.Text.Split('/')[0] + "/" + txtDeliverydte.Text.Split('/')[2];
+
+                Delidate = Convert.ToDateTime(date);
+
+                if (Qty == "" || Qty == "0")
                 {
-                    setStateGridview();
-                    Qty = Convert.ToString(txtbookqty.Text.Trim());
-                    string date = DateTime.Now.ToString("MM/dd/yyyy");
-                    date = txtDeliverydte.Text.Split('/')[1] + "/" + txtDeliverydte.Text.Split('/')[0] + "/" + txtDeliverydte.Text.Split('/')[2];
+                    Qty = "1";
+                    rqty = "1";
+                }
+                if (txtbookqty.Text != "")
+                {
+                    rqty = Convert.ToString(txtbookqty.Text);
+                    Qty = Convert.ToString(txtbookqty.Text);
+                }
+                if (txtdoc.Text != "")
+                {
+                    grdBookDetails.Columns[5].Visible = true;
+                    grdBookDetails.Columns[4].Visible = true;
+                }
+                else
+                {
+                    grdBookDetails.Columns[5].Visible = false;
+                    grdBookDetails.Columns[4].Visible = false;
+                }
+                try
+                {
 
-                    Delidate = Convert.ToDateTime(date);
 
-                    if (Qty == "" || Qty == "0")
+                    string bookcode = txtbkcod.Text.Split(':')[0].Trim();
+                    if (txtbkcod.Text.Contains(":"))
                     {
-                        Qty = "1";
-                        rqty = "1";
-                    }
-                    if (txtbookqty.Text != "")
-                    {
-                        rqty = Convert.ToString(txtbookqty.Text);
-                        Qty = Convert.ToString(txtbookqty.Text);
-                    }
-                    if (txtdoc.Text != "")
-                    {
-                        grdBookDetails.Columns[5].Visible = true;
-                        grdBookDetails.Columns[4].Visible = true;
+                        bookname = txtbkcod.Text.Split(':')[2].Trim();
                     }
                     else
                     {
-                        grdBookDetails.Columns[5].Visible = false;
-                        grdBookDetails.Columns[4].Visible = false;
+                        bookname = bookcode;
                     }
-                    try
+
+
+                    DataTable dt1 = new DataTable();
+                    if (Session["tempDCData"] != null)
                     {
-
-
-                        string bookcode = txtbkcod.Text.Split(':')[0].Trim();
-                        if (txtbkcod.Text.Contains(":"))
+                        dt1 = (DataTable)Session["tempDCData"];
+                        DataView dv = new DataView(dt1);
+                        dv.RowFilter = "BookCode = '" + bookcode.Trim() + "'";
+                        int i = 0;
+                        foreach (DataRowView row in dv)
                         {
-                            bookname = txtbkcod.Text.Split(':')[2].Trim();
+                            i++;
                         }
-                        else
+                        if (i == 0)
                         {
-                            bookname = bookcode;
-                        }
+                            //MessageBox(bookcode.Trim());
+                            //   txtcustomer.Focus();
 
-
-                        DataTable dt1 = new DataTable();
-                        if (Session["tempDCData"] != null)
-                        {
-                            dt1 = (DataTable)Session["tempDCData"];
-                            DataView dv = new DataView(dt1);
-                            dv.RowFilter = "BookCode = '" + bookcode.Trim() + "'";
-                            int i = 0;
-                            foreach (DataRowView row in dv)
-                            {
-                                i++;
-                            }
-                            if (i == 0)
-                            {
-                                //MessageBox(bookcode.Trim());
-                                //   txtcustomer.Focus();
-
-                                Session["tempDCData"] = fillTempBookData(bookcode.Trim(), "");
-                                dt1 = (DataTable)Session["tempDCData"];
-                                loder(bookname + " added successfully", "3000");
-                            }
-                            else
-                            {
-                                loder(bookname + " already added!", "3000");
-
-                            }
-                        }
-                        else
-                        {
                             Session["tempDCData"] = fillTempBookData(bookcode.Trim(), "");
                             dt1 = (DataTable)Session["tempDCData"];
                             loder(bookname + " added successfully", "3000");
                         }
-                        grdBookDetails.DataSource = dt1;
-                        grdBookDetails.DataBind();
-                        string jv = "clearAddbook()";
-                        ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "as", jv, true);
-                        txtbkcod.Focus();
+                        else
+                        {
+                            loder(bookname + " already added!", "3000");
+
+                        }
                     }
-                    catch
+                    else
                     {
-
-
+                        Session["tempDCData"] = fillTempBookData(bookcode.Trim(), "");
+                        dt1 = (DataTable)Session["tempDCData"];
+                        loder(bookname + " added successfully", "3000");
                     }
+                    grdBookDetails.DataSource = dt1;
+                    grdBookDetails.DataBind();
+                    string jv = "clearAddbook()";
+                    ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "as", jv, true);
+                    txtbkcod.Focus();
                 }
-                else
+                catch
                 {
-                    MessageBox("Select delivery date");
-                    txtDeliverydte.Focus();
+
+
                 }
             }
+            else
+            {
+                MessageBox("Select delivery date");
+                txtDeliverydte.Focus();
+            }
         }
+
+	}
 
     }
 
@@ -258,9 +260,9 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
             string OrderDate = DateTime.Now.ToString("MM/dd/yyyy");
 
 
-            //DocumentDate = txtdocDate.Text.Split('/')[1] + "/" + txtdocDate.Text.Split('/')[0] + "/" + txtdocDate.Text.Split('/')[2];
-            //ChallanDate = txtChalDate.Text.Split('/')[1] + "/" + txtChalDate.Text.Split('/')[0] + "/" + txtChalDate.Text.Split('/')[2];
-            //OrderDate = txtOrdDate.Text.Split('/')[1] + "/" + txtOrdDate.Text.Split('/')[0] + "/" + txtOrdDate.Text.Split('/')[2];
+            DocumentDate = txtdocDate.Text.Split('/')[1] + "/" + txtdocDate.Text.Split('/')[0] + "/" + txtdocDate.Text.Split('/')[2];
+           // ChallanDate = txtChalDate.Text.Split('/')[1] + "/" + txtChalDate.Text.Split('/')[0] + "/" + txtChalDate.Text.Split('/')[2];
+            OrderDate = txtOrdDate.Text.Split('/')[1] + "/" + txtOrdDate.Text.Split('/')[0] + "/" + txtOrdDate.Text.Split('/')[2];
 
             if (txtdoc.Text != "")
             {
@@ -298,7 +300,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
             //we are using following field to pass Financial Year AutoId while saving
             _objDC._FinancialYearFrom = Convert.ToInt32(strFY);
             //Xml String
-            _objDC.Xmldata = SaveDcDetail();
+            _objDC.Xmldata=SaveDcDetail();
 
             //_objDC.Save(out DocNo);
 
@@ -332,7 +334,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
                 }
                 else
                 {
-                    MessageBox("Can not create dc more than " + lblsplitval.Text + " amount.");
+                   MessageBox("Can not create dc more than " + lblsplitval.Text + " amount.");
                     return;
                 }
 
@@ -828,8 +830,10 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
         {
             //CREATE NEW DATATABLE
             //ADD COLUMNS IN DATATABLE
-
+           
             dt.Columns.Add("DCDetailID");
+            dt.Columns.Add("HSNCode");
+            dt.Columns.Add("GST");
             dt.Columns.Add("BookId");
             dt.Columns.Add("BookCode");
             dt.Columns.Add("BookName");
@@ -931,7 +935,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
 
                     }
 
-                    dt.Rows.Add(dcid, row["Bookid"].ToString(), row["BookCode"].ToString(), row["BookName"].ToString(), row["Standard"].ToString(), row["Medium"].ToString(), Qty, gqty, Qty, Delidate.ToString("dd/MM/yyyy"), String.Format("{0:0.00}", Convert.ToDecimal(row["SellingPrice"].ToString())), String.Format("{0:0.00}", Convert.ToDecimal(amt)), String.Format("{0:0.00}", Convert.ToDecimal(discount)), String.Format("{0:0.00}", Convert.ToDecimal(Adddiscount)));
+                    dt.Rows.Add(dcid, row["HSNCode"].ToString(), row["GST"].ToString(), row["Bookid"].ToString(), row["BookCode"].ToString(), row["BookName"].ToString(), row["Standard"].ToString(), row["Medium"].ToString(), Qty, gqty, Qty, Delidate.ToString("dd/MM/yyyy"), String.Format("{0:0.00}", Convert.ToDecimal(row["SellingPrice"].ToString())), String.Format("{0:0.00}", Convert.ToDecimal(amt)), String.Format("{0:0.00}", Convert.ToDecimal(discount)), String.Format("{0:0.00}", Convert.ToDecimal(Adddiscount)));
 
                 }
             }
@@ -960,7 +964,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
                     amt = Convert.ToDecimal(row["Amount"].ToString());
 
                 }
-                dt.Rows.Add(dcid, row["Bookid"].ToString(), row["BookCode"].ToString(), row["BookName"].ToString(), row["Standard"].ToString(), row["Medium"].ToString(), Qty, gqty, Qty, Delidate.ToString("dd/MM/yyyy"), String.Format("{0:0.00}", Convert.ToDecimal(row["SellingPrice"].ToString())), String.Format("{0:0.00}", Convert.ToDecimal(amt)), String.Format("{0:0.00}", Convert.ToDecimal(discount)), String.Format("{0:0.00}", Convert.ToDecimal(Adddiscount)));
+                dt.Rows.Add(dcid, row["HSNCode"].ToString(), row["GST"].ToString(), row["Bookid"].ToString(), row["BookCode"].ToString(), row["BookName"].ToString(), row["Standard"].ToString(), row["Medium"].ToString(), Qty, gqty, Qty, Delidate.ToString("dd/MM/yyyy"), String.Format("{0:0.00}", Convert.ToDecimal(row["SellingPrice"].ToString())), String.Format("{0:0.00}", Convert.ToDecimal(amt)), String.Format("{0:0.00}", Convert.ToDecimal(discount)), String.Format("{0:0.00}", Convert.ToDecimal(Adddiscount)));
             }
         }
         return dt;
@@ -1009,6 +1013,8 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
         colTax.ColumnName = "Rate";
         DataTable _d = new DataTable();
         _d.Columns.Add("DCDetailID");
+        _d.Columns.Add("HSNCode");
+        _d.Columns.Add("GST");
         _d.Columns.Add("Bookid");
         _d.Columns.Add("BookCode");
         _d.Columns.Add("BookName");
@@ -1023,7 +1029,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
         _d.Columns.Add("Amount");
         _d.Columns.Add("Discount");
         _d.Columns.Add("AdditionalDiscount");
-
+  
 
         foreach (GridViewRow row in grdBookDetails.Rows)
         {
@@ -1054,7 +1060,9 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
             }
 
             _d.Rows.Add(Convert.ToInt32(((Label)row.FindControl("lblDCDetailID")).Text),
-                 ((Label)row.FindControl("lblBookid")).Text,
+            ((Label)row.FindControl("lblHNSCode")).Text,
+            ((Label)row.FindControl("lblGstPer")).Text,
+            ((Label)row.FindControl("lblBookid")).Text,
             ((Label)row.FindControl("lblBookCode")).Text,
             ((Label)row.FindControl("lblBookName")).Text,
             ((Label)row.FindControl("lblStandard")).Text,
@@ -1067,7 +1075,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
              String.Format("{0:0.00}", amt1),
             ((TextBox)row.FindControl("txtDiscount")).Text,
             ((Label)row.FindControl("txtAddDiscount")).Text
-
+           
             );
         }
         Session["tempDCData"] = null;
@@ -1080,31 +1088,30 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
     private bool SplitDCValidate()
     {
         bool chkSplitdc = false;
-        decimal total = 0;
-        if (Convert.ToBoolean(lblchksplitdc.Text) == true)
+	 decimal total = 0;
+        foreach (GridViewRow row in grdBookDetails.Rows)
         {
-            foreach (GridViewRow row in grdBookDetails.Rows)
-            {
-                Reqty = Convert.ToInt32(((TextBox)row.FindControl("txtquty")).Text);
-                discount = Convert.ToDecimal(((TextBox)row.FindControl("txtDiscount")).Text);
-                amt = Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text) * Reqty;
-                Tdiscount = amt * (discount / 100);
-                total += amt - Tdiscount;
-            }
+            Reqty = Convert.ToInt32(((TextBox)row.FindControl("txtquty")).Text);
+            discount = Convert.ToDecimal(((TextBox)row.FindControl("txtDiscount")).Text);
+            amt = Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text) * Reqty;
+            Tdiscount = amt * (discount / 100);
+            //amt = amt - Tdiscount;
+	    total += amt - Tdiscount;
         }
-        // MessageBox("amt" + lblsplitval.Text );
-        // MessageBox("DC amount" + amt);
 
+       // MessageBox("amt" + lblsplitval.Text );
+       // MessageBox("DC amount" + amt);
+        
         if (Convert.ToBoolean(lblchksplitdc.Text) == false)
         {
-            return true;
+           return true;
         }
-        else if (Convert.ToBoolean(lblchksplitdc.Text) == true && total >= Convert.ToDecimal(lblsplitval.Text))
+       else if (Convert.ToBoolean(lblchksplitdc.Text) == true && total >= Convert.ToDecimal(lblsplitval.Text))
         {
             MessageBox("Can not create dc more than " + lblsplitval.Text + " amount.");
-            chkSplitdc = false;
+	    chkSplitdc = false;
         }
-        else
+	 else
         {
             return true;
         }
@@ -1113,6 +1120,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
     }
 
     #endregion
+
 
     #region Validation UpperCase And Lower Case Validation
     private bool ValidationUpperCaseLowerCase()
@@ -1280,6 +1288,15 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
 
             inode = doc.CreateElement("bokid");
             inode.InnerText = ((Label)row.FindControl("lblBookid")).Text.ToString();
+            element.AppendChild(inode);
+
+            inode = doc.CreateElement("hsn");
+            inode.InnerText = ((Label)row.FindControl("lblHNSCode")).Text.ToString();
+            element.AppendChild(inode);
+
+
+            inode = doc.CreateElement("gst");
+            inode.InnerText = ((Label)row.FindControl("lblGstPer")).Text.ToString();
             element.AppendChild(inode);
 
             //givqty = Convert.ToInt32(((Label)row.FindControl("lblgivedqty")).Text);

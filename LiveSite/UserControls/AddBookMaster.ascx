@@ -237,6 +237,22 @@
             </tr>
             <tr>
                 <td>
+                    <asp:Label ID="Label19" CssClass="lbl-form" runat="server" Text="GST(%)"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtGST" CssClass="inp-form" TabIndex="13" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="Label18" CssClass="lbl-form" runat="server" Text="HSN Code"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtHSNCode" CssClass="inp-form" TabIndex="14" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
                 </td>
                 <td>
                 </td>
@@ -351,6 +367,8 @@
                 <asp:TemplateField HeaderText="Quantity" ItemStyle-HorizontalAlign="right" HeaderStyle-HorizontalAlign="Center">
                     <ItemTemplate>
                         <asp:Label ID="lblQty" runat="server" Text='<%#Eval("Quantity")%>'></asp:Label>
+                        <asp:Label ID="lblGST" runat="server" Text='<%#Eval("GST")%>'></asp:Label>
+                        <asp:Label ID="lblHSnCode" runat="server" Text='<%#Eval("HSNCode")%>'></asp:Label>
                         <asp:CheckBox Style="display: none;" ID="chkUR" runat="server" Checked='<%#Eval("UpdateRate") %>'
                             Enabled="false"></asp:CheckBox>
                     </ItemTemplate>

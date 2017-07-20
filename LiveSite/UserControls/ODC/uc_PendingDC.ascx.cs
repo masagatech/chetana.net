@@ -482,7 +482,7 @@ public partial class UserControls_ODC_uc_PendingDC : System.Web.UI.UserControl
     {
         try
         {
-            ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "window", "f_open_window_max('print/PrintDCPending.aspx?d=" + txtdocno.Text.Trim() + "&sd=" + Convert.ToInt32("-1"+strFY) + "')", true);
+            ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "window", "f_open_window_max('print/PrintDCPending.aspx?d=" + txtdocno.Text.Trim() + "&sd="+ Convert.ToInt32("-"+strFY) + "')", true);
         }
         catch
         {

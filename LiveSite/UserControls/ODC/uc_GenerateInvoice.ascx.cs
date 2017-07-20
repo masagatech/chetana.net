@@ -138,19 +138,8 @@ public partial class UserControls_ODC_uc_GenerateInvoice : System.Web.UI.UserCon
                         lrdt = ((TextBox)btn.Parent.FindControl("txtdateabc")).Text;
                         bund = ((TextBox)btn.Parent.FindControl("txtbundles")).Text;
                         string EmailID = lblEmail.Text.Trim();
-                        //EmailTask_Delegate d = null;
-                        //d = new EmailTask_Delegate(SendEmail);
-
-                        //IAsyncResult R = null;
-                        //R = d.BeginInvoke(EmailID, null, null);
-                        //d.EndInvoke(R);    
-
-                        //Create Entry in Invoice Email Log Table 
+                        sendmail("Chetana Book Depot", EmailID, MailBodyDesign().ToString());
                         SaveEmailLog();
-
-                        // sendmail("Chetana Book Depot", EmailID, MailBodyDesign().ToString());
-
-
                     }
                 }
                 catch (Exception ex)
@@ -247,6 +236,14 @@ public partial class UserControls_ODC_uc_GenerateInvoice : System.Web.UI.UserCon
         ObjBal.SaveEmailLog(fnode.OuterXml, "invoice", "", "");
     }
     #endregion
+
+    #region Create GST Invoice
+    protected void btnGstInvoice_Click(object sender, EventArgs e)
+    {
+        this.btnapproval_Click(sender, e);
+    }
+    #endregion
+
 
     #region MsgBox
     public void MessageBox(string msg)
@@ -442,383 +439,237 @@ public partial class UserControls_ODC_uc_GenerateInvoice : System.Web.UI.UserCon
 
     protected void RepDetailsConfirm_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
-        if (Session["saved"] == null)
-        {
-            Session["saved"] = "s";
-        }
 
-        if (Session["saved"].ToString() != e.CommandArgument.ToString().Trim())
+        try
         {
-            //if (e.CommandName == "AddToCart")
+            if (Session["saved"] == null)
             {
-                bool Auth = DCMaster.Get_DocumentNum_Authentication(Convert.ToInt32(txtDocno.Text), Convert.ToInt32(strFY));
-                if (Auth)
+                Session["saved"] = "s";
+            }
+
+            if (Session["saved"].ToString() != e.CommandArgument.ToString().Trim())
+            {
+
+                //if (e.CommandName == "AddToCart")
                 {
-                    MessageBox("Document no is not available");
-                    txtDocno.Focus();
-
-                }
-                else
-                {
-
-                    DCConfirmQtyDetails _objDCConfirmQtyDetails = new DCConfirmQtyDetails();
-                    DCMaster _objDCMaster = new DCMaster();
-                    DCConfirmQtyDetails _objDCFT = new DCConfirmQtyDetails();
-                    ActualInvoiceDetails _objactualinvoice = new ActualInvoiceDetails();
-
-                    try
+                    bool Auth = DCMaster.Get_DocumentNum_Authentication(Convert.ToInt32(txtDocno.Text), Convert.ToInt32(strFY));
+                    if (Auth)
                     {
-                        #region ActulInvoice
-
-                        Repeater objrep = (Repeater)this.FindControl("RepDetailsConfirm");
-                        GridView objgrid = (GridView)objrep.Items[e.Item.ItemIndex].FindControl("grdapproval");
-                        string xmldata = CreateXml(objgrid, e);
-
-                        //foreach (GridViewRow row in objgrid.Rows)
-                        //{
-                        //    _objactualinvoice.DocumentNo = Convert.ToInt32(txtDocno.Text);
-                        //    _objactualinvoice.SubDocId = Convert.ToDecimal(e.CommandArgument.ToString().Trim());
-                        //    _objactualinvoice.BookCode = ((Label)row.FindControl("lblbookC")).Text;
-                        //    _objactualinvoice.BookName = ((Label)row.FindControl("lblbookN")).Text;
-                        //    _objactualinvoice.Standard = ((Label)row.FindControl("lblStandard")).Text;
-                        //    _objactualinvoice.Medium = ((Label)row.FindControl("lblMedium")).Text;
-                        //    _objactualinvoice.Rate = Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text);
-                        //    _objactualinvoice.Quantity = Convert.ToInt32(((Label)row.FindControl("lblAqty")).Text);
-                        //    _objactualinvoice.Discount = Convert.ToDecimal(((TextBox)row.FindControl("txtdiscount")).Text);
-                        //    _objactualinvoice.Amount = Convert.ToInt32(((Label)row.FindControl("lblAqty")).Text) * (Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text) - (Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text) * Convert.ToDecimal(((TextBox)row.FindControl("txtdiscount")).Text) / 100));
-                        //    _objactualinvoice.Freight = Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text);
-                        //    _objactualinvoice.Tax = Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
-                        //    _objactualinvoice.Transporter = (((TextBox)e.Item.FindControl("lbltransporter")).Text);
-                        //    _objactualinvoice.LRNo = (((TextBox)e.Item.FindControl("txtlrno")).Text);
-                        //    _objactualinvoice.TotalAmount = Convert.ToDecimal(getTotalValues(objgrid).ToString()) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
-                        //    _objactualinvoice.Bundles = (((TextBox)e.Item.FindControl("txtbundles")).Text);
-                        //    _objactualinvoice.CreatedBy = Convert.ToString(Session["UserName"]);
-                        //    _objactualinvoice.FinancialYearFrom = strFY;
-
-                        //    TextBox txtIdate1 = ((TextBox)e.Item.FindControl("txtdateabc"));
-                        //    TextBox txtLrdate1 = ((TextBox)e.Item.FindControl("txtlrdate"));
-                        //    _objactualinvoice.IsActive = true;
-                        //    _objactualinvoice.IsDeleted = false;
-                        //    string date1;
-                        //    string lrdate;
-                        //    if (txtIdate1.Text == "")
-                        //    {
-                        //        date1 = "1/1/2001";
-                        //    }
-                        //    else
-                        //    {
-                        //        date1 = txtIdate1.Text.Split('/')[2] + "/" + txtIdate1.Text.Split('/')[1] + "/" + txtIdate1.Text.Split('/')[0];
-                        //    }
-                        //    if (txtLrdate1.Text == "")
-                        //    {
-                        //        lrdate = "1/1/2001";
-                        //    }
-                        //    else
-                        //    {
-                        //        lrdate = txtLrdate1.Text.Split('/')[2] + "/" + txtLrdate1.Text.Split('/')[1] + "/" + txtLrdate1.Text.Split('/')[0];
-                        //    }
-                        //    _objactualinvoice.InvoiceDate = Convert.ToDateTime(date1);
-
-                        //    _objactualinvoice.LRDate = Convert.ToDateTime(lrdate);
-                        //    _objactualinvoice.Remark1 = "";
-                        //    _objactualinvoice.Remark2 = "";
-                        //    _objactualinvoice.Remark3 = "";
-                        //    _objactualinvoice.SaveActual_InvoiceDetails(1);
-                        //    // (TextBox)e.Item.FindControl("txtfrieght");
-                        //}
-                        #endregion
-
-                        #region InvoiceCreate
-                        decimal subconfirmdoc = Convert.ToDecimal(e.CommandArgument.ToString().Trim());
-                        _objDCConfirmQtyDetails.IsCreateInvoice = true;
-                        _objDCConfirmQtyDetails.CreatedInvoiceBy = Convert.ToString(Session["UserName"]);
-                        _objDCConfirmQtyDetails.SubDocNo = subconfirmdoc;
-                        // For financial year
-                        _objDCConfirmQtyDetails.AvailableQty = Convert.ToInt32(strFY);
-                        _objDCMaster.DocNo = Convert.ToInt32(txtDocno.Text);
-
-                        // Save Freight and tax Details   
-                        frieght = Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text);
-                        tax = Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
-                        temp = Convert.ToDecimal(tamount.Text) + frieght + tax;
-                        totalamount = Convert.ToDecimal(tamount.Text);
-
-                        _objDCFT.DocumentNo = Convert.ToInt32(txtDocno.Text);
-                        _objDCFT.SubDocNo = subconfirmdoc;
-                        _objDCFT.Freight = Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text);
-                        _objDCFT.Tax = Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
-                        decimal TotalAmt = Convert.ToDecimal(getTotalValues(objgrid).ToString()) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
-                        _objDCFT.TotalAmount = Convert.ToDecimal(getTotalValues(objgrid).ToString()) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
-                        _objDCFT.LRNo = (((TextBox)e.Item.FindControl("txtlrno")).Text);
-                        TextBox txtIdate = ((TextBox)e.Item.FindControl("txtdateabc"));
-                        string date;
-                        if (txtIdate.Text == "")
-                        {
-                            date = "1/1/2001";
-                        }
-                        else
-                        {
-                            date = txtIdate.Text.Split('/')[2] + "/" + txtIdate.Text.Split('/')[1] + "/" + txtIdate.Text.Split('/')[0];
-                        }
-                        _objDCFT.InvoiceDate = Convert.ToDateTime(date);
-                        _objDCFT.AvailableQty = Convert.ToInt32(strFY);
-                        _objDCFT.Save_FrightTax_Details(1);
-
-
-                        _objDCConfirmQtyDetails.SaveConfirmDetails(1);
-
-                        stDS = new DataSet();
-                        docno.InnerHtml = txtDocno.Text.Trim();
-                        // stDS = DCDetails.Get_SubDocId_And_ItsRecords_By_DocNo(Convert.ToInt32(txtDocno.Text), "confirmed", Convert.ToInt32(strFY));
-
-                        //if (ViewState["staticDS"] != null)
-                        //{
-                        //    stDS = (DataSet)ViewState["staticDS"];
-                        //}
-                        //else
-                        //{
-                        stDS = DCDetails.Get_SubDocId_And_ItsRecords_By_DocNo(Convert.ToInt32(txtDocno.Text), "confirmed", Convert.ToInt32(strFY));
-
-                        //}
-
-
-                        RepDetailsConfirm.DataSource = stDS.Tables[0];
-                        RepDetailsConfirm.DataBind();
-                        #endregion
-
-                        MessageBox("Invoice created successfully " + subconfirmdoc);
-
-                        lblmessage.InnerHtml = "Last confirm doc no. : " + subconfirmdoc;
-
-                        if (e.CommandName == "PrintInvoice")
-                        {
-                            ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "window", "f_open_window_max('print/ReportInvoicePrint.aspx?d=" + txtOrgDocNo.Text + "&sd=" + subconfirmdoc + "&type=with" + "')", true);
-                        }
-
-
-                        if (Rptrpending.Items.Count == 1)
-                        {
-                            Rptrpending.DataSource = DCMaster.Get_ApprovedDocNo(Convert.ToInt32(strFY));
-                            Rptrpending.DataBind();
-                            //updateapprove.Update();
-                        }
-                        if (RepDetailsConfirm.Items.Count == 0)
-                        {
-                            Rptrpending.DataSource = DCMaster.Get_ApprovedDocNo(Convert.ToInt32(strFY));
-                            Rptrpending.DataBind();
-                            upDocNo.Update();
-                            docno.InnerHtml = "";
-                            lblcustname.InnerHtml = "";
-                            lblempname1.InnerHtml = "";
-                            //updateapprove.Update();
-                        }
-                        if (SMSSend.Text.ToUpper() == "YES")
-                        {
-                            sendMsg(lblMobNo.Text.Trim(), subconfirmdoc.ToString(), string.Format("{0:0.00}", TotalAmt).ToString(),
-                                (((TextBox)e.Item.FindControl("lbltransporter")).Text),
-                                (((TextBox)e.Item.FindControl("txtlrno")).Text),
-                                (((TextBox)e.Item.FindControl("txtbundles")).Text),
-                                txtIdate.Text.Trim());
-
-
-                            //sendZoalMsg(((Label)e.Item.FindControl("lblCustId1")).Text, lblcustname.InnerHtml.Trim(), lblMobNo.Text.Trim(), subconfirmdoc.ToString(), string.Format("{0:0.00}", TotalAmt).ToString(),
-                            //    (((TextBox)e.Item.FindControl("lbltransporter")).Text),
-                            //    (((TextBox)e.Item.FindControl("txtlrno")).Text),
-                            //    (((TextBox)e.Item.FindControl("txtbundles")).Text),
-                            //    txtIdate.Text.Trim());
-
-                        }
-                        //lblempname1.InnerHtml = "";
-                        //lblcustname.InnerHtml = "";
-                        // docno.InnerHtml = "" ;
-
+                        MessageBox("Document no is not available");
+                        txtDocno.Focus();
 
                     }
-                    catch (SqlException ex)
+                    else
                     {
-                        Response.Write(ex.Message.ToString());
-                    }
-                    catch (Exception ex1)
-                    {
-                        Response.Write(ex1.Message.ToString());
-                    }
 
+                        DCConfirmQtyDetails _objDCConfirmQtyDetails = new DCConfirmQtyDetails();
+                        DCMaster _objDCMaster = new DCMaster();
+                        DCConfirmQtyDetails _objDCFT = new DCConfirmQtyDetails();
+                        //ActualInvoiceDetails _objactualinvoice = new ActualInvoiceDetails();
+                        Other_Z.ActualInvoice_Details.ActualInvoice_DetailsProp _objactualinvoice = new Other_Z.ActualInvoice_Details.ActualInvoice_DetailsProp();
+                        Other_Z.ActualInvoice_Details ObjBal = new Other_Z.ActualInvoice_Details();
+
+                        try
+                        {
+                            #region ActulInvoice
+                            Repeater objrep = (Repeater)this.FindControl("RepDetailsConfirm");
+                            GridView objgrid = (GridView)objrep.Items[e.Item.ItemIndex].FindControl("grdapproval");
+
+
+
+                            foreach (GridViewRow row in objgrid.Rows)
+                            {
+                                _objactualinvoice.DocumentNo = Convert.ToInt32(txtDocno.Text);
+                                _objactualinvoice.SubDocId = Convert.ToDecimal(e.CommandArgument.ToString().Trim());
+                                _objactualinvoice.BookCode = ((Label)row.FindControl("lblbookC")).Text;
+                                _objactualinvoice.BookName = ((Label)row.FindControl("lblbookN")).Text;
+                                _objactualinvoice.Standard = ((Label)row.FindControl("lblStandard")).Text;
+                                _objactualinvoice.Medium = ((Label)row.FindControl("lblMedium")).Text;
+                                _objactualinvoice.Rate = Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text);
+                                _objactualinvoice.Quantity = Convert.ToInt32(((Label)row.FindControl("lblAqty")).Text);
+                                _objactualinvoice.Discount = Convert.ToDecimal(((TextBox)row.FindControl("txtdiscount")).Text);
+                                _objactualinvoice.Amount = Convert.ToInt32(((Label)row.FindControl("lblAqty")).Text) * (Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text) - (Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text) * Convert.ToDecimal(((TextBox)row.FindControl("txtdiscount")).Text) / 100));
+                                _objactualinvoice.Freight = Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text);
+                                _objactualinvoice.Tax = Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
+                                _objactualinvoice.Transporter = (((TextBox)e.Item.FindControl("lbltransporter")).Text);
+                                _objactualinvoice.LRNo = (((TextBox)e.Item.FindControl("txtlrno")).Text);
+                                _objactualinvoice.TotalAmount = Convert.ToDecimal(getTotalValues(objgrid).ToString()) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
+                                _objactualinvoice.Bundles = (((TextBox)e.Item.FindControl("txtbundles")).Text);
+                                _objactualinvoice.CreatedBy = Convert.ToString(Session["UserName"]);
+                                _objactualinvoice.FinancialYearFrom = strFY;
+
+                                _objactualinvoice.HSNCode = ((Label)row.FindControl("lblHsnCode")).Text;
+                                _objactualinvoice.GSTPer = Convert.ToDecimal(((Label)row.FindControl("lblGstPer")).Text);
+                                _objactualinvoice.Typ = e.CommandName == "GSTInvoice" ? "G" : "N";
+                                _objactualinvoice.GSTAmt = Convert.ToDecimal(_objactualinvoice.Amount * _objactualinvoice.GSTPer / 100);
+                                //_objactualinvoice.GSTPer=
+
+                                TextBox txtIdate1 = ((TextBox)e.Item.FindControl("txtdateabc"));
+                                TextBox txtLrdate1 = ((TextBox)e.Item.FindControl("txtlrdate"));
+                                _objactualinvoice.IsActive = true;
+                                _objactualinvoice.IsDeleted = false;
+                                string date1;
+                                string lrdate;
+                                if (txtIdate1.Text == "")
+                                {
+                                    date1 = "1/1/2001";
+                                }
+                                else
+                                {
+                                    date1 = txtIdate1.Text.Split('/')[2] + "/" + txtIdate1.Text.Split('/')[1] + "/" + txtIdate1.Text.Split('/')[0];
+                                }
+                                if (txtLrdate1.Text == "")
+                                {
+                                    lrdate = "1/1/2001";
+                                }
+                                else
+                                {
+                                    lrdate = txtLrdate1.Text.Split('/')[2] + "/" + txtLrdate1.Text.Split('/')[1] + "/" + txtLrdate1.Text.Split('/')[0];
+                                }
+                                _objactualinvoice.InvoiceDate = Convert.ToDateTime(date1);
+
+                                _objactualinvoice.LRDate = Convert.ToDateTime(lrdate);
+                                _objactualinvoice.Remark1 = "";
+                                _objactualinvoice.Remark2 = "";
+                                _objactualinvoice.Remark3 = "";
+                                ObjBal.SaveActualInvoiceDetails(_objactualinvoice);
+                                // (TextBox)e.Item.FindControl("txtfrieght");
+                            }
+
+                            #endregion
+
+                            #region InvoiceCreate
+                            decimal subconfirmdoc = Convert.ToDecimal(e.CommandArgument.ToString().Trim());
+                            _objDCConfirmQtyDetails.IsCreateInvoice = true;
+                            _objDCConfirmQtyDetails.CreatedInvoiceBy = Convert.ToString(Session["UserName"]);
+                            _objDCConfirmQtyDetails.SubDocNo = subconfirmdoc;
+                            // For financial year
+                            _objDCConfirmQtyDetails.AvailableQty = Convert.ToInt32(strFY);
+                            _objDCMaster.DocNo = Convert.ToInt32(txtDocno.Text);
+
+                            // Save Freight and tax Details   
+                            frieght = Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text);
+                            tax = Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
+                            temp = Convert.ToDecimal(tamount.Text) + frieght + tax;
+                            totalamount = Convert.ToDecimal(tamount.Text);
+
+                            _objDCFT.DocumentNo = Convert.ToInt32(txtDocno.Text);
+                            _objDCFT.SubDocNo = subconfirmdoc;
+                            _objDCFT.Freight = Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text);
+                            _objDCFT.Tax = Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
+                            decimal TotalAmt = Convert.ToDecimal(getTotalValues(objgrid).ToString()) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
+                            _objDCFT.TotalAmount = Convert.ToDecimal(getTotalValues(objgrid).ToString()) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
+                            _objDCFT.LRNo = (((TextBox)e.Item.FindControl("txtlrno")).Text);
+                            TextBox txtIdate = ((TextBox)e.Item.FindControl("txtdateabc"));
+                            string date;
+                            if (txtIdate.Text == "")
+                            {
+                                date = "1/1/2001";
+                            }
+                            else
+                            {
+                                date = txtIdate.Text.Split('/')[2] + "/" + txtIdate.Text.Split('/')[1] + "/" + txtIdate.Text.Split('/')[0];
+                            }
+                            _objDCFT.InvoiceDate = Convert.ToDateTime(date);
+                            _objDCFT.AvailableQty = Convert.ToInt32(strFY);
+                            _objDCFT.Save_FrightTax_Details(1);
+
+
+                            _objDCConfirmQtyDetails.SaveConfirmDetails(1);
+
+                            stDS = new DataSet();
+                            docno.InnerHtml = txtDocno.Text.Trim();
+                            // stDS = DCDetails.Get_SubDocId_And_ItsRecords_By_DocNo(Convert.ToInt32(txtDocno.Text), "confirmed", Convert.ToInt32(strFY));
+
+                            //if (ViewState["staticDS"] != null)
+                            //{
+                            //    stDS = (DataSet)ViewState["staticDS"];
+                            //}
+                            //else
+                            //{
+                            stDS = DCDetails.Get_SubDocId_And_ItsRecords_By_DocNo(Convert.ToInt32(txtDocno.Text), "confirmed", Convert.ToInt32(strFY));
+
+                            //}
+
+
+                            RepDetailsConfirm.DataSource = stDS.Tables[0];
+                            RepDetailsConfirm.DataBind();
+                            #endregion
+
+                            MessageBox("Invoice created successfully " + subconfirmdoc);
+
+                            lblmessage.InnerHtml = "Last confirm doc no. : " + subconfirmdoc;
+
+                            if (e.CommandName == "PrintInvoice")
+                            {
+                                ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "window", "f_open_window_max('print/ReportInvoicePrint.aspx?d=" + txtOrgDocNo.Text + "&sd=" + subconfirmdoc + "&type=with" + "')", true);
+                            }
+
+
+                            if (Rptrpending.Items.Count == 1)
+                            {
+                                Rptrpending.DataSource = DCMaster.Get_ApprovedDocNo(Convert.ToInt32(strFY));
+                                Rptrpending.DataBind();
+                                //updateapprove.Update();
+                            }
+                            if (RepDetailsConfirm.Items.Count == 0)
+                            {
+                                Rptrpending.DataSource = DCMaster.Get_ApprovedDocNo(Convert.ToInt32(strFY));
+                                Rptrpending.DataBind();
+                                upDocNo.Update();
+                                docno.InnerHtml = "";
+                                lblcustname.InnerHtml = "";
+                                lblempname1.InnerHtml = "";
+                                //updateapprove.Update();
+                            }
+                            if (SMSSend.Text.ToUpper() == "YES")
+                            {
+                                sendMsg(lblMobNo.Text.Trim(), subconfirmdoc.ToString(), string.Format("{0:0.00}", TotalAmt).ToString(),
+                                    (((TextBox)e.Item.FindControl("lbltransporter")).Text),
+                                    (((TextBox)e.Item.FindControl("txtlrno")).Text),
+                                    (((TextBox)e.Item.FindControl("txtbundles")).Text),
+                                    txtIdate.Text.Trim());
+
+
+                                //sendZoalMsg(((Label)e.Item.FindControl("lblCustId1")).Text, lblcustname.InnerHtml.Trim(), lblMobNo.Text.Trim(), subconfirmdoc.ToString(), string.Format("{0:0.00}", TotalAmt).ToString(),
+                                //    (((TextBox)e.Item.FindControl("lbltransporter")).Text),
+                                //    (((TextBox)e.Item.FindControl("txtlrno")).Text),
+                                //    (((TextBox)e.Item.FindControl("txtbundles")).Text),
+                                //    txtIdate.Text.Trim());
+
+                            }
+                            //lblempname1.InnerHtml = "";
+                            //lblcustname.InnerHtml = "";
+                            // docno.InnerHtml = "" ;
+
+
+                        }
+                        catch (SqlException ex)
+                        {
+                            Response.Write(ex.Message.ToString());
+                        }
+                        catch (Exception ex1)
+                        {
+                            Response.Write(ex1.Message.ToString());
+                        }
+
+                    }
                 }
             }
+
+            ViewState["staticDS"] = null;
+            Session["saved"] = e.CommandArgument.ToString().Trim();
+            updategenerate.Update();
+        }
+        catch (Exception ex)
+        {
+
+            throw;
         }
 
-        ViewState["staticDS"] = null;
-        Session["saved"] = e.CommandArgument.ToString().Trim();
-        updategenerate.Update();
+       
     }
 
-    #endregion
-
-    #region Create Xml Invoice Title
-    private string CreateXml(GridView objgrid, RepeaterCommandEventArgs e)
-    {
-        XmlDocument doc = new XmlDocument();
-        XmlNode inode = doc.CreateElement("f");
-        XmlNode fnode = doc.CreateElement("r");
-        XmlNode element = doc.CreateElement("i");
-
-        foreach (GridViewRow row in objgrid.Rows)
-        {
-            //_objactualinvoice.DocumentNo = Convert.ToInt32(txtDocno.Text);
-            inode = doc.CreateElement("dcn");
-            inode.InnerText = Convert.ToInt32(txtDocno.Text).ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.SubDocId = Convert.ToDecimal(e.CommandArgument.ToString().Trim());
-            inode = doc.CreateElement("sd");
-            inode.InnerText = Convert.ToDecimal(e.CommandArgument.ToString().Trim()).ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.BookCode = ((Label)row.FindControl("lblbookC")).Text;
-            inode = doc.CreateElement("bc");
-            inode.InnerText = ((Label)row.FindControl("lblbookC")).Text.ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.BookName = ((Label)row.FindControl("lblbookN")).Text;
-            inode = doc.CreateElement("bk");
-            inode.InnerText = ((Label)row.FindControl("lblbookN")).Text.ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.Standard = ((Label)row.FindControl("lblStandard")).Text;
-            inode = doc.CreateElement("s");
-            inode.InnerText = ((Label)row.FindControl("lblStandard")).Text.ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.Medium = ((Label)row.FindControl("lblMedium")).Text;
-            inode = doc.CreateElement("m");
-            inode.InnerText = ((Label)row.FindControl("lblMedium")).Text.ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.Rate = Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text);
-            inode = doc.CreateElement("rt");
-            inode.InnerText = Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text).ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.Quantity = Convert.ToInt32(((Label)row.FindControl("lblAqty")).Text);
-            inode = doc.CreateElement("aqty");
-            inode.InnerText = Convert.ToInt32(((Label)row.FindControl("lblAqty")).Text).ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.Discount = Convert.ToDecimal(((TextBox)row.FindControl("txtdiscount")).Text);
-            inode = doc.CreateElement("dis");
-            inode.InnerText = Convert.ToDecimal(((TextBox)row.FindControl("txtdiscount")).Text).ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.Amount = Convert.ToInt32(((Label)row.FindControl("lblAqty")).Text) * (Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text) - (Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text) * Convert.ToDecimal(((TextBox)row.FindControl("txtdiscount")).Text) / 100));
-            inode = doc.CreateElement("amt");
-            //inode.InnerText = Convert.ToInt32(((Label)row.FindControl("lblAqty")).Text).ToString() * (Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text).ToString() - (Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text).ToString() * Convert.ToDecimal(((TextBox)row.FindControl("txtdiscount")).Text).ToString() / 100));
-            element.AppendChild(inode);
-
-            //_objactualinvoice.Freight = Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text);
-            inode = doc.CreateElement("fg");
-            inode.InnerText = Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text).ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.Tax = Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
-            inode = doc.CreateElement("tx");
-            inode.InnerText = Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text).ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.Transporter = (((TextBox)e.Item.FindControl("lbltransporter")).Text);
-            inode = doc.CreateElement("tr");
-            inode.InnerText = (((TextBox)e.Item.FindControl("lbltransporter")).Text).ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.LRNo = (((TextBox)e.Item.FindControl("txtlrno")).Text);
-            inode = doc.CreateElement("lrno");
-            inode.InnerText = (((TextBox)e.Item.FindControl("txtlrno")).Text).ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.TotalAmount = Convert.ToDecimal(getTotalValues(objgrid).ToString()) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
-            inode = doc.CreateElement("tamt");
-            inode.InnerText = Convert.ToDecimal(getTotalValues(objgrid).ToString()) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text).ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.Bundles = (((TextBox)e.Item.FindControl("txtbundles")).Text);
-            inode = doc.CreateElement("b");
-            inode.InnerText = (((TextBox)e.Item.FindControl("txtbundles")).Text).ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.CreatedBy = Convert.ToString(Session["UserName"]);
-            inode = doc.CreateElement("usn");
-            inode.InnerText = Convert.ToString(Session["UserName"]).ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.FinancialYearFrom = strFY;
-            inode = doc.CreateElement("ufy");
-            inode.InnerText = strFY.ToString();
-            element.AppendChild(inode);
-
-            TextBox txtIdate = ((TextBox)e.Item.FindControl("txtdateabc"));
-            TextBox txtLrdate1 = ((TextBox)e.Item.FindControl("txtlrdate"));
-
-            //_objactualinvoice.IsActive = true;
-            inode = doc.CreateElement("act");
-            inode.InnerText = true.ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.IsDeleted = false;
-            inode = doc.CreateElement("del");
-            inode.InnerText = false.ToString();
-            element.AppendChild(inode);
-
-            string date1;
-            string lrdate;
-
-            if (txtIdate.Text == "")
-            {
-                date1 = "1/1/2001";
-            }
-            else
-            {
-                date1 = txtIdate.Text.Split('/')[2] + "/" + txtIdate.Text.Split('/')[1] + "/" + txtIdate.Text.Split('/')[0];
-            }
-
-            if (txtLrdate1.Text == "")
-            {
-                lrdate = "1/1/2001";
-            }
-            else
-            {
-                lrdate = txtLrdate1.Text.Split('/')[2] + "/" + txtLrdate1.Text.Split('/')[1] + "/" + txtLrdate1.Text.Split('/')[0];
-            }
-
-            //_objactualinvoice.InvoiceDate = Convert.ToDateTime(date1);
-            inode = doc.CreateElement("invd");
-            inode.InnerText = Convert.ToDateTime(date1).ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.LRDate = Convert.ToDateTime(lrdate);
-            inode = doc.CreateElement("rld");
-            inode.InnerText = Convert.ToDateTime(lrdate).ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.Remark1 = "";
-            inode = doc.CreateElement("r1");
-            inode.InnerText = "".ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.Remark2 = "";
-            inode = doc.CreateElement("r2");
-            inode.InnerText = "".ToString();
-            element.AppendChild(inode);
-
-            //_objactualinvoice.Remark3 = "";
-            inode = doc.CreateElement("r3");
-            inode.InnerText = "".ToString();
-            element.AppendChild(inode);
-
-            fnode.AppendChild(element);
-            //_objactualinvoice.SaveActual_InvoiceDetails(1);
-            // (TextBox)e.Item.FindControl("txtfrieght");
-        }
-        return fnode.OuterXml.ToString();
-    }
     #endregion
 
     #region Get Total Ammount
@@ -998,7 +849,6 @@ public partial class UserControls_ODC_uc_GenerateInvoice : System.Web.UI.UserCon
     }
 
     #endregion
-
     public void sendmail(string subject, string tomail, string body)
     {
         string Smailid = ViewState["SEmailid"].ToString();

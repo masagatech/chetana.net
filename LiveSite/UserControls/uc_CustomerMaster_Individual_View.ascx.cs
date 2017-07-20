@@ -136,6 +136,7 @@ public partial class UserControls_uc_CustomerMaster_Individual_View : System.Web
             //ReadMe Comment(Zaid Ansari) Any Problem SBUCode Dropdown Bind Find This Method GetSBUCode()
             lblSBUCodeNone.Text = ((Label)grdCustDetails.Rows[0].FindControl("lblSUBCode")).Text == "" ? "0" : lblSBUCodeNone.Text = ((Label)grdCustDetails.Rows[0].FindControl("lblSUBCode")).Text;   
             txtPANNo.Text = ((Label)grdCustDetails.Rows[0].FindControl("lblPan")).Text;
+            txtGst.Text = ((Label)grdCustDetails.Rows[0].FindControl("lblGst")).Text;
             try
             {
                 //ReadMe Comment(Zaid Ansari)(Dropdown Bind) Super Zone ,State,City,Category Any Problem Find This Method fillzones()

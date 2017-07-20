@@ -456,6 +456,14 @@
             AlternatingRowStyle-CssClass="alt" OnRowDataBound="grdBookDetails_RowDataBound"
             ShowFooter="true">
             <Columns>
+                 <asp:TemplateField HeaderText="HSN Code" HeaderStyle-Width="80px" ItemStyle-HorizontalAlign="Center">
+                    <ItemTemplate>
+                        <asp:Label ID="lblHNSCode" runat="server" Text='<%#Eval("HSNCode")%>'></asp:Label>
+                        <asp:Label ID="lblGstPer" Style="display: none;" runat="server" Text='<%#Eval("GST")%>'></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle HorizontalAlign="Left" />
+                    <ItemStyle HorizontalAlign="Left" />
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Book Code" HeaderStyle-Width="80px" ItemStyle-HorizontalAlign="Center">
                     <ItemTemplate>
                         <asp:Label ID="lblDCDetailID" Style="display: none;" runat="server" Text='<%#Eval("DCDetailID")%>'></asp:Label>

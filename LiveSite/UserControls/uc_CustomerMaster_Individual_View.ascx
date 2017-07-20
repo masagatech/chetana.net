@@ -130,6 +130,8 @@
                             Text='<%#Eval("SBUCode") %>'></asp:Label>
                         <asp:Label ID="lblPan" runat="server" CssClass="lbl-form" Style="display: none;"
                             Text='<%#Eval("PAN") %>'></asp:Label>
+                         <asp:Label ID="lblGst" runat="server" CssClass="lbl-form" Style="display: none;"
+                            Text='<%#Eval("GST") %>'></asp:Label>
                         <asp:CheckBox ID="chk_isSplit" runat="server" CssClass="lbl-form" Style="display: none;"
                             Checked='<%#Eval("isSplit") %>' />
                         <asp:Label ID="LblKeyPersonName1" runat="server" Style="display: none;" Text='<%#Eval("KeyPersonName") %>'> </asp:Label>
@@ -565,10 +567,13 @@
         <table>
             <tr>
                 <td>
-                    <asp:Label ID="Label8" runat="server" CssClass="lbl-form" Text="Phone1 "></asp:Label>
+                    <asp:Label ID="Label8" runat="server" CssClass="lbl-form" Text="RMN "></asp:Label>
+		    <font color="red">*</font>
                 </td>
                 <td>
-                    <asp:TextBox ID="TxtPhone1" runat="server" CssClass="inp-form" TabIndex="21" MaxLength="12"></asp:TextBox>
+                    <asp:TextBox ID="TxtPhone1" runat="server" CssClass="inp-form" TabIndex="21" MaxLength="10"></asp:TextBox>
+			<asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ErrorMessage="Enter Customer RMN"
+                                ControlToValidate="TxtPhone1" ValidationGroup="ct">.</asp:RequiredFieldValidator>
                 </td>
                 <td>
                     <asp:Label ID="Label9" runat="server" CssClass="lbl-form" Text="Phone2"></asp:Label>
@@ -737,8 +742,12 @@
                     <ajaxCt:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" runat="server" TargetControlID="txtassociation"
                         FilterType="Custom, Numbers" />
                 </td>
-                <td width="100px"></td>
-                <td></td>
+                <td width="100px">
+                     <asp:Label ID="Label29" runat="server" Text="GST No"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtGst" runat="server" CssClass="inp-form"></asp:TextBox>
+                </td>
             </tr>
             <tr>
                 <td>

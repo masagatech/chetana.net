@@ -21,3 +21,11 @@ E:\Working\Chetana_Solution - 14-10-2016\CnF_Other_Z\bin\Debug\Idv.Chetana.DAL.p
 E:\Working\Chetana_Solution - 14-10-2016\CnF_Other_Z\obj\Debug\CnF_Other_Z.csprojResolveAssemblyReference.cache
 E:\Working\Chetana_Solution - 14-10-2016\CnF_Other_Z\obj\Debug\CnF_Other_Z.dll
 E:\Working\Chetana_Solution - 14-10-2016\CnF_Other_Z\obj\Debug\CnF_Other_Z.pdb
+D:\Working\Chetana_Solution - 14-10-2016\CnF_Other_Z\bin\Debug\CnF_Other_Z.dll
+D:\Working\Chetana_Solution - 14-10-2016\CnF_Other_Z\bin\Debug\CnF_Other_Z.pdb
+D:\Working\Chetana_Solution - 14-10-2016\CnF_Other_Z\bin\Debug\Idv.Chetana.Common.dll
+D:\Working\Chetana_Solution - 14-10-2016\CnF_Other_Z\bin\Debug\Idv.Chetana.DAL.dll
+D:\Working\Chetana_Solution - 14-10-2016\CnF_Other_Z\bin\Debug\Idv.Chetana.DAL.pdb
+D:\Working\Chetana_Solution - 14-10-2016\CnF_Other_Z\obj\Debug\CnF_Other_Z.csprojResolveAssemblyReference.cache
+D:\Working\Chetana_Solution - 14-10-2016\CnF_Other_Z\obj\Debug\CnF_Other_Z.dll
+D:\Working\Chetana_Solution - 14-10-2016\CnF_Other_Z\obj\Debug\CnF_Other_Z.pdb

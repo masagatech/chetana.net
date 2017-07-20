@@ -188,6 +188,10 @@ public partial class UserControls_uc_CustomerMaster : System.Web.UI.UserControl
                 nd.InnerText = txtPANNo.Text;
                 node1.AppendChild(nd);
 
+                nd = doc.CreateElement("G");
+                nd.InnerText = txtGstNo.Text;
+                node1.AppendChild(nd);
+
                 #region DataTable To Xml Convert
 
 
@@ -254,7 +258,7 @@ public partial class UserControls_uc_CustomerMaster : System.Web.UI.UserControl
                     TxtKeyPersonDOB1 = TxtKeyPersonDOB.Text.Split('/')[1] + "/" + TxtKeyPersonDOB.Text.Split('/')[0] + "/" + TxtKeyPersonDOB.Text.Split('/')[2];
 
                 }
-                catch
+                catch(Exception ex)
                 {
 
 
@@ -557,8 +561,8 @@ public partial class UserControls_uc_CustomerMaster : System.Web.UI.UserControl
         TxtMedium.Text = ((Label)grdCustDetails.Rows[e.NewSelectedIndex].FindControl("LblMedium")).Text;
         //TxtBookTypeDetaildis.Text = ((Label)grdCustDetails.Rows[e.NewSelectedIndex].FindControl("LblBookTypeDetaildis")).Text;
         ChkIsActive.Checked = ((CheckBox)grdCustDetails.Rows[e.NewSelectedIndex].FindControl("chkisActive")).Checked;
+
         ChkBlacklist.Checked = ((CheckBox)grdCustDetails.Rows[e.NewSelectedIndex].FindControl("ChKBList")).Checked;
-        chk_splitdc.Checked = ((CheckBox)grdCustDetails.Rows[e.NewSelectedIndex].FindControl("chksplit")).Checked;
     }
     protected void grdCustDetails_RowEditing(object sender, GridViewEditEventArgs e)
     {
@@ -607,8 +611,6 @@ public partial class UserControls_uc_CustomerMaster : System.Web.UI.UserControl
             TxtCustomerType.Text = ((Label)grdCustDetails.Rows[e.NewEditIndex].FindControl("lblctype")).Text;
             txtcreditdays.Text = ((Label)grdCustDetails.Rows[e.NewEditIndex].FindControl("lblcreditdays")).Text;
             lblrating.Text = ((Label)grdCustDetails.Rows[e.NewEditIndex].FindControl("lblcustrating")).Text;
-            chk_splitdc.Checked = ((CheckBox)grdCustDetails.Rows[e.NewEditIndex].FindControl("chksplit")).Checked;
-
             try
             {
                 DDLsuperzone.SelectedValue = LblSuperzone.Text.Trim();

@@ -73,6 +73,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActualInvoice_Details.cs" />
+    <Compile Include="Book_Master.cs" />
     <Compile Include="Customer_cs.cs" />
     <Compile Include="DCMaster_cs.cs" />
     <Compile Include="InquiryBal.cs" />

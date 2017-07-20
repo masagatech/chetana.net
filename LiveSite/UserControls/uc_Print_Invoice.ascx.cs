@@ -85,46 +85,6 @@ public partial class UserControls_ODC_uc_Print_Invoice : System.Web.UI.UserContr
 
     }
 
-    #region Print With GST
-    protected void btnGstPrint_Click(object sender, EventArgs e)
-    {
-        loder1("wait..", "4000");
-
-        ((Button)(sender)).Enabled = false;
-        DCConfirmQtyDetails _objDCConfirmQtyDetails = new DCConfirmQtyDetails();
-        DCMaster _objDCMaster = new DCMaster();
-
-
-        try
-        {
-            _objDCConfirmQtyDetails.IsPrintInvoice = true;
-            _objDCConfirmQtyDetails.CreatedBy = Convert.ToString(Session["UserName"]);
-            _objDCConfirmQtyDetails.SubDocId = Convert.ToDecimal(((Button)(sender)).CommandArgument.Trim());
-            _objDCConfirmQtyDetails.AvailableQty = Convert.ToInt32(strFY);
-            _objDCConfirmQtyDetails.Save_DC_PrintInvoiceDetails(1);
-
-            //Rptrpending.DataSource = DCMaster.Get_ApprovedDocNo();
-            //Rptrpending.DataBind();
-            //Rptrpending.DataSource = DCDetails.Get_DC_Completed_IsApproved(Convert.ToInt32(strFY));
-            //Rptrpending.DataBind();
-
-            ((Button)(sender)).BackColor = System.Drawing.Color.Red;
-            ((Button)(sender)).ForeColor = System.Drawing.Color.White;
-            ((Button)(sender)).Enabled = true;
-            ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "window", "f_open_window_max('print/ReportInvoicePrint.aspx?d=" + docnewno + "&sd=" + ((Button)(sender)).CommandArgument.Trim() + "&type=GST" + "')", true);
-            // ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "window", "f_open_window_max('print/ReportInvoicePrint.aspx?d=" + docnewno + "&sd=" + //((Button)(sender)).CommandArgument.Trim() + "')", true);
-        }
-
-
-        catch (Exception ex)
-        {
-            MessageBox(ex.Message.ToString());
-            ((Button)(sender)).Enabled = true;
-        }
-        //}
-    }
-    #endregion
-
     protected void btnPrint_Click(object sender, EventArgs e)
     {
 

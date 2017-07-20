@@ -322,6 +322,12 @@
                         <asp:GridView ID="grdconfirm" AlternatingRowStyle-CssClass="alt" CssClass="product-table"
                             AutoGenerateColumns="false" runat="server">
                             <Columns>
+                                <asp:TemplateField HeaderText="HSN Code" HeaderStyle-Width="80px">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblHsnCode" runat="server" Text='<%#Eval("HSNCode")%>'></asp:Label>
+                                        <asp:Label ID="lblGst" Style="display: none;" runat="server" Text='<%#Eval("GST")%>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Book Code" HeaderStyle-Width="80px">
                                     <ItemTemplate>
                                         <asp:Label ID="lblbook" runat="server" Text='<%#Eval("BookCode")%>'></asp:Label>

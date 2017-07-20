@@ -120,8 +120,6 @@
                         Text='<%#Eval("CUSTOMERTYPE") %>'></asp:Label>
                     <asp:Label ID="lblcreditdays" runat="server" CssClass="lbl-form" Style="display: none;"
                         Text='<%#Eval("CreditDays") %>'></asp:Label>
-                    <asp:CheckBox ID="chksplit" runat="server" CssClass="lbl-form" Style="display: none;"
-                        Text='<%#Eval("isSplit") %>' />
                     <asp:Label ID="LblKeyPersonName1" runat="server" Style="display: none;" Text='<%#Eval("KeyPersonName") %>'> </asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
@@ -722,8 +720,10 @@
                         FilterType="Custom, Numbers" />
                 </td>
                 <td width="100px">
+                     <asp:Label ID="Label36" runat="server" Text="GST NO "></asp:Label>
                 </td>
                 <td>
+                    <asp:TextBox ID="txtGstNo" runat="server" CssClass="inp-form" TabIndex="43"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -731,13 +731,13 @@
                     <asp:Label ID="Lable" runat="server" Text="Upper Limit"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtUpperlimit" runat="server" CssClass="inp-form" TabIndex="43"></asp:TextBox>
+                    <asp:TextBox ID="txtUpperlimit" runat="server" CssClass="inp-form" TabIndex="44"></asp:TextBox>
                 </td>
                 <td>
                     <asp:Label ID="Label26" runat="server" Text="Lower Limit"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtLowerlimit" runat="server" CssClass="inp-form" TabIndex="44"></asp:TextBox>
+                    <asp:TextBox ID="txtLowerlimit" runat="server" CssClass="inp-form" TabIndex="45"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -746,15 +746,15 @@
                 </td>
                 <td>
                     <%--<asp:TextBox ID="txtSbuCode" runat="server" CssClass="inp-form" TabIndex="45"></asp:TextBox>--%>
-                    <asp:DropDownList ID="ddlSbucode" TabIndex="45" CssClass="ddl-form" DataValueField="AutoId"
+                    <asp:DropDownList ID="ddlSbucode" TabIndex="46" CssClass="ddl-form" DataValueField="AutoId"
                         DataTextField="Value" Width="100px" runat="server">
                     </asp:DropDownList>
                 </td>
-		 <td>
+		        <td>
                     <asp:Label ID="Label34" runat="server" Text="PAN No"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtPANNo" runat="server" TabIndex="46" CssClass="inp-form"></asp:TextBox>
+                    <asp:TextBox ID="txtPANNo" runat="server" TabIndex="47" CssClass="inp-form"></asp:TextBox>
                 </td>
             </tr>
         </table>

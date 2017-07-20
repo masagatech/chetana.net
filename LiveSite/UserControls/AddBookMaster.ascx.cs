@@ -29,11 +29,12 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
     string strChetanaCompanyName = "cppl";
     string strFY;
     #endregion
+
     #region Page_Load
-   
+
     protected void Page_Load(object sender, EventArgs e)
     {
-      
+
         if (Session["ChetanaCompanyName"] != "" || Session["ChetanaCompanyName"] != null)
         {
             if (Session["FY"] != null)
@@ -46,9 +47,9 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
         if (!Page.IsPostBack)
         {
             Session["data"] = null;
-           
 
-             //DataView dv = new DataView(BindGvBookDetail().Table);
+
+            //DataView dv = new DataView(BindGvBookDetail().Table);
             DataView dv = new DataView(BindGvBookDetail(strChetanaCompanyName).Table);
             Session["data"] = dv;
 
@@ -107,19 +108,19 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
             }
             else
                 if (Request.QueryString["a"] == "v")
-           {
-                 pageName.InnerHtml = "View / Edit Book";
-                 filter.Focus();
-                 pnlBookDetails.Visible = true;
-                 Panel1.Visible = false;
-                 btn_Save.Visible = false;
-                 Label13.Visible = true;
-                 Label14.Visible = true;
-                 LblOldqty.Visible = true;
-                 filter.Visible = true;
-                 btnprint.Visible = true;
-                 btnExport.Visible = true;
-           }
+            {
+                pageName.InnerHtml = "View / Edit Book";
+                filter.Focus();
+                pnlBookDetails.Visible = true;
+                Panel1.Visible = false;
+                btn_Save.Visible = false;
+                Label13.Visible = true;
+                Label14.Visible = true;
+                LblOldqty.Visible = true;
+                filter.Visible = true;
+                btnprint.Visible = true;
+                btnExport.Visible = true;
+            }
         }
     }
     #endregion
@@ -145,8 +146,8 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
             string Medium = txtmedm.Text.Split(':')[0].Trim();
 
 
-            Books _objBooks = new Books();
-            _objBooks.BookID = Convert.ToInt32(lblID.Text);
+            Other_Z.Book_Master.BookMasterProp _objBooks = new Other_Z.Book_Master.BookMasterProp();
+            _objBooks.bookID = Convert.ToInt32(lblID.Text);
             _objBooks.BookCode = txtcode.Text.Trim();
             _objBooks.BookName = txtbknam.Text.Trim();
             _objBooks.BookType = BookType;
@@ -156,6 +157,8 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
             _objBooks.SellingPrice = Convert.ToDecimal(txtsel.Text.Trim());
             _objBooks.OMPrice = Convert.ToDecimal(txtompce.Text.Trim());
             _objBooks.OIPrice = Convert.ToDecimal(txtOIprice.Text.Trim());
+            _objBooks.HSNCode = txtHSNCode.Text.Trim();
+            _objBooks.GST = Convert.ToDecimal(txtGST.Text);
             _objBooks.Medium = Medium;
             if (LblOldqty.Text == "")
             {
@@ -167,7 +170,7 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
             }
             else
             {
-                _objBooks.Quantity = 0;            
+                _objBooks.Quantity = 0;
             }
             _objBooks.IsActive = true;
 
@@ -200,7 +203,7 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
                 _objBooks.PhysicalStock = 0;
             }
             _objBooks.IsBlock = chekIsactive.Checked;
-            _objBooks.Save(1);
+            Other_Z.Book_Master.Save_BookMaster(_objBooks);
             MessageBox("Record saved successfully");
             grdBookDetails.DataSource = BindGvBookDetail();
             grdBookDetails.DataBind();
@@ -222,6 +225,8 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
             txtsel.Text = "";
             txtompce.Text = "";
             txtOIprice.Text = "";
+            txtHSNCode.Text = "";
+            txtGST.Text = "";
         }
         catch
         {
@@ -246,7 +251,8 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
         txtsel.Text = "";
         txtompce.Text = "";
         txtOIprice.Text = "";
-
+        txtHSNCode.Text = "";
+        txtGST.Text = "";
         lblID.Text = "0";
         Panel1.Visible = true;
         pnlBookDetails.Visible = true;
@@ -263,7 +269,7 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
     }
     #endregion
 
-  
+
 
     #region BookCode Events
 
@@ -282,13 +288,13 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
     }
     #endregion
 
-    
+
     #region Gridview Events
-   
+
     protected void grdBookDetails_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
-        Books _objBK = new Books();
-        _objBK.BookID = Convert.ToInt32(((Label)grdBookDetails.Rows[e.RowIndex].FindControl("lblBkID")).Text);
+        Other_Z.Book_Master.BookMasterProp _objBK = new Other_Z.Book_Master.BookMasterProp();
+        _objBK.bookID = Convert.ToInt32(((Label)grdBookDetails.Rows[e.RowIndex].FindControl("lblBkID")).Text);
         _objBK.BookCode = ((Label)grdBookDetails.Rows[e.RowIndex].FindControl("lblBkCode")).Text;
         _objBK.BookName = ((Label)grdBookDetails.Rows[e.RowIndex].FindControl("lblBkName")).Text;
         _objBK.Standard = ((Label)grdBookDetails.Rows[e.RowIndex].FindControl("lblStd")).Text;
@@ -297,13 +303,15 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
         _objBK.PurchasePrice = Convert.ToDecimal(((Label)grdBookDetails.Rows[e.RowIndex].FindControl("lblPP")).Text);
         _objBK.SellingPrice = Convert.ToDecimal(((Label)grdBookDetails.Rows[e.RowIndex].FindControl("lblSP")).Text);
         _objBK.OMPrice = Convert.ToDecimal(((Label)grdBookDetails.Rows[e.RowIndex].FindControl("lblOMP")).Text);
-        _objBK.OIPrice=Convert.ToDecimal(((Label)grdBookDetails.Rows[e.RowIndex].FindControl("lblOIP")).Text);
+        _objBK.OIPrice = Convert.ToDecimal(((Label)grdBookDetails.Rows[e.RowIndex].FindControl("lblOIP")).Text);
+        _objBK.HSNCode = ((Label)grdBookDetails.Rows[e.RowIndex].FindControl("lblHSNCode")).Text;
+        _objBK.GST = Convert.ToDecimal(((Label)grdBookDetails.Rows[e.RowIndex].FindControl("lblGST")).Text);
         _objBK.UpdateRate = Convert.ToBoolean(false);
         _objBK.IsActive = Convert.ToBoolean(false);
         _objBK.IsDeleted = Convert.ToBoolean(true);
         try
         {
-            _objBK.Save();
+            Other_Z.Book_Master.Save_BookMaster(_objBK);
             grdBookDetails.DataSource = BindGvBookDetail();
             grdBookDetails.DataBind();
             pnlBookDetails.Visible = true;
@@ -334,7 +342,8 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
         txtompce.Text = ((Label)grdBookDetails.Rows[e.NewEditIndex].FindControl("lblOMP")).Text;
         txtOIprice.Text = ((Label)grdBookDetails.Rows[e.NewEditIndex].FindControl("lblOIP")).Text;
         chekIsactive.Checked = ((CheckBox)grdBookDetails.Rows[e.NewEditIndex].FindControl("chkIsBlock")).Checked;
-
+        txtHSNCode.Text = ((Label)grdBookDetails.Rows[e.NewEditIndex].FindControl("lblHSnCode")).Text;
+        txtGST.Text = ((Label)grdBookDetails.Rows[e.NewEditIndex].FindControl("lblGST")).Text;
         txtphystock.Text = ((Label)grdBookDetails.Rows[e.NewEditIndex].FindControl("lblphystk")).Text;
         txtvirtualStock.Text = ((Label)grdBookDetails.Rows[e.NewEditIndex].FindControl("lblvirtstk")).Text;
 
@@ -346,7 +355,7 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
         }
         else
         {
-           // ddlupderte.Enabled = true;
+            // ddlupderte.Enabled = true;
             ddlupderte.SelectedValue = "Yes";
         }
 
@@ -395,7 +404,7 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
 
     #region TextChanged Events
 
-    
+
     protected void txtbktpe_TextChanged(object sender, EventArgs e)
     {
         try
@@ -487,7 +496,7 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
         }
     }
     #endregion
-  
+
     protected void lnkalfabet_click(object sender, EventArgs e)
     {
 
@@ -499,7 +508,7 @@ public partial class UserControls_AddBookMaster : System.Web.UI.UserControl
         if (Session["data"] != null)
         {
             dv = (DataView)Session["data"];
-             val = ((LinkButton)(sender)).Text;
+            val = ((LinkButton)(sender)).Text;
             dv.RowFilter = "BookName like '" + val + "%'";
             grdBookDetails.DataSource = dv;
             grdBookDetails.DataBind();

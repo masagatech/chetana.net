@@ -15,8 +15,6 @@ using Idv.Chetana.BAL;
 using System.Data.SqlClient;
 using System.Text;
 using System.Xml;
-using System.IO;
-using System.Data.OleDb;
 
 #endregion
 
@@ -95,66 +93,6 @@ public partial class UserControls_uc_CustomerMaster_Individual : System.Web.UI.U
     }
     #endregion
 
-    #region Excel Upload
-
-    //private DataTable ConvertExcelToDataTable()
-    //{
-    //    try
-    //    {
-
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        MessageBox(ex.ToString());
-    //    }
-    //}
-
-    protected void btnUpload_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            if (FileUpload1.HasFile)
-            {
-               
-                string connString = "";
-                string fileName = System.IO.Path.GetFileName(FileUpload1.PostedFile.FileName);
-                FileUpload1.PostedFile.SaveAs(Server.MapPath("~/Uploads/" + fileName));
-                string strFileType = Path.GetExtension(FileUpload1.FileName).ToLower();
-                string path = Server.MapPath("~/Uploads/" + fileName);
-                if (strFileType.Trim() == ".xls")
-                {
-                    connString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";ReadOnly=1;Extended Properties=\"Excel 8.0;HDR=NO;IMEX=2\"";
-                }
-                else if (strFileType.Trim() == ".xlsx")
-                {
-                    // connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";ReadOnly=1;Extended Properties=\"Excel 12.0;HDR=NO;IMEX=2\"";
-                    connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source='" + path + "';Extended Properties=\"Excel 12.0 Xml;HDR=NO;IMEX=1;\"";
-                }
-                System.Data.OleDb.OleDbConnection MyConnection;
-                System.Data.DataSet DtSet;
-                System.Data.OleDb.OleDbDataAdapter MyCommand;
-                //MyConnection = new System.Data.OleDb.OleDbConnection("provider=Microsoft.Jet.OLEDB.4.0;Data Source='" + path + "';ReadOnly=0;Extended Properties=Excel 8.0;");
-                MyConnection = new System.Data.OleDb.OleDbConnection(connString);
-                MyCommand = new System.Data.OleDb.OleDbDataAdapter("select * from [Sheet1$]", MyConnection);
-               // MyCommand.TableMappings.Add("Table", "TestTable");
-                DtSet = new System.Data.DataSet();
-                MyCommand.Fill(DtSet);
-                MyConnection.Close();
-            }
-        }
-        catch (IOException ex)
-        {
-            throw;
-        }
-        catch (Exception ex)
-        {
-            throw;
-        }
-
-    }
-
-    #endregion
-
     private void AddOtherFields(string fieldname, string value, StringBuilder strbldr)
     {
 
@@ -228,6 +166,10 @@ public partial class UserControls_uc_CustomerMaster_Individual : System.Web.UI.U
 
             nd = doc.CreateElement("P");
             nd.InnerText = txtPAN.Text;
+            node1.AppendChild(nd);
+
+            nd = doc.CreateElement("G");
+            nd.InnerText = txtGstNo.Text;
             node1.AppendChild(nd);
 
             XmlNode node = doc.CreateElement("r1");
@@ -712,6 +654,7 @@ public partial class UserControls_uc_CustomerMaster_Individual : System.Web.UI.U
             txtLowerlimit.Text = ((Label)grdCustDetails.Rows[0].FindControl("lblCLL")).Text;
             lblSBUCodeNone.Text = ((Label)grdCustDetails.Rows[0].FindControl("lblSUBCode")).Text;
             txtPAN.Text = ((Label)grdCustDetails.Rows[0].FindControl("lblPANNO")).Text;
+            txtGstNo.Text = ((Label)grdCustDetails.Rows[0].FindControl("lblGst")).Text;
             chk_splitdc.Checked = ((CheckBox)grdCustDetails.Rows[0].FindControl("chk_isSplit")).Checked;
             try
             {
