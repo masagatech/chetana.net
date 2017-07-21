@@ -525,6 +525,14 @@
                     </asp:DropDownList>
                 </td>
                 <td width="100px">
+                    <asp:Label ID="Label37" runat="server" CssClass="lbl-form" Text="State Code"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtStateCode" runat="server" CssClass="inp-form" TabIndex="27"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                 <td>
                     <asp:Label ID="Label14" runat="server" CssClass="lbl-form" Text="City"></asp:Label>
                 </td>
                 <td>
@@ -539,17 +547,11 @@
                         </Triggers>
                     </asp:UpdatePanel>
                 </td>
-            </tr>
-            <tr>
                 <td>
                     <asp:Label ID="Label7" runat="server" CssClass="lbl-form" Text="Zip"></asp:Label>
                 </td>
                 <td>
                     <asp:TextBox ID="TxtZip" runat="server" CssClass="inp-form" TabIndex="27"></asp:TextBox>
-                </td>
-                <td>
-                </td>
-                <td>
                 </td>
             </tr>
         </table>

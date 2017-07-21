@@ -132,6 +132,8 @@
                             Text='<%#Eval("PAN") %>'></asp:Label>
                          <asp:Label ID="lblGst" runat="server" CssClass="lbl-form" Style="display: none;"
                             Text='<%#Eval("GST") %>'></asp:Label>
+                        <asp:Label ID="lblStateCode" runat="server" CssClass="lbl-form" Style="display: none;"
+                            Text='<%#Eval("StateCode") %>'></asp:Label>
                         <asp:CheckBox ID="chk_isSplit" runat="server" CssClass="lbl-form" Style="display: none;"
                             Checked='<%#Eval("isSplit") %>' />
                         <asp:Label ID="LblKeyPersonName1" runat="server" Style="display: none;" Text='<%#Eval("KeyPersonName") %>'> </asp:Label>
@@ -535,10 +537,24 @@
                     </asp:DropDownList>
                 </td>
                 <td width="100px">
-                    <asp:Label ID="Label14" runat="server" CssClass="lbl-form" Text="City"></asp:Label>
+                   <asp:Label ID="Label30" runat="server" CssClass="lbl-form" Text="State Code"></asp:Label>
                 </td>
                 <td>
-                    <asp:UpdatePanel ID="UpdatePanel4" UpdateMode="Conditional" runat="server">
+                   <asp:TextBox ID="txtStateCode" runat="server" MaxLength="2" CssClass="inp-form" TabIndex="20"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="Label7" runat="server" CssClass="lbl-form" Text="Zip"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="TxtZip" runat="server" CssClass="inp-form" TabIndex="20"></asp:TextBox>
+                </td>
+                <td>
+                     <asp:Label ID="Label14" runat="server" CssClass="lbl-form" Text="City"></asp:Label>
+                </td>
+                <td>
+                     <asp:UpdatePanel ID="UpdatePanel4" UpdateMode="Conditional" runat="server">
                         <ContentTemplate>
                             <asp:DropDownList CssClass="ddl-form" TabIndex="19" ID="ddlCity" runat="server" Width="200px"
                                 DataValueField="DMID" DataTextField="Name" Enabled="False">
@@ -549,16 +565,6 @@
                         </Triggers>
                     </asp:UpdatePanel>
                 </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="Label7" runat="server" CssClass="lbl-form" Text="Zip"></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="TxtZip" runat="server" CssClass="inp-form" TabIndex="20"></asp:TextBox>
-                </td>
-                <td></td>
-                <td></td>
             </tr>
         </table>
     </asp:Panel>

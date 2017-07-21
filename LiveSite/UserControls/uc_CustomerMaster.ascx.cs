@@ -192,6 +192,10 @@ public partial class UserControls_uc_CustomerMaster : System.Web.UI.UserControl
                 nd.InnerText = txtGstNo.Text;
                 node1.AppendChild(nd);
 
+                nd = doc.CreateElement("S");
+                nd.InnerText = txtStateCode.Text.Trim();
+                node1.AppendChild(nd);
+
                 #region DataTable To Xml Convert
 
 
@@ -433,6 +437,7 @@ public partial class UserControls_uc_CustomerMaster : System.Web.UI.UserControl
                 DDLCC.SelectedValue = "0";
                 DDLCSC.SelectedValue = "0";
                 ddlCity.SelectedValue = "0";
+                txtStateCode.Text = "";
             }
             catch (SqlException ex)
             {

@@ -169,7 +169,11 @@ public partial class UserControls_uc_CustomerMaster_Individual : System.Web.UI.U
             node1.AppendChild(nd);
 
             nd = doc.CreateElement("G");
-            nd.InnerText = txtGstNo.Text;
+            nd.InnerText = txtGstNo.Text.Trim();
+            node1.AppendChild(nd);
+
+            nd = doc.CreateElement("S");
+            nd.InnerText = txtStateCode.Text.Trim();
             node1.AppendChild(nd);
 
             XmlNode node = doc.CreateElement("r1");
@@ -407,7 +411,8 @@ public partial class UserControls_uc_CustomerMaster_Individual : System.Web.UI.U
             ddLStates.SelectedValue = "0";
             DDLsuperzone.SelectedValue = "0";
             DdlCustRating.SelectedValue = "0";
-
+            txtGstNo.Text = "";
+            txtStateCode.Text=";"
             txtFromQty.Text = "";
             txtDiscount.Text = "";
             txtToQty.Text = "";
@@ -655,6 +660,7 @@ public partial class UserControls_uc_CustomerMaster_Individual : System.Web.UI.U
             lblSBUCodeNone.Text = ((Label)grdCustDetails.Rows[0].FindControl("lblSUBCode")).Text;
             txtPAN.Text = ((Label)grdCustDetails.Rows[0].FindControl("lblPANNO")).Text;
             txtGstNo.Text = ((Label)grdCustDetails.Rows[0].FindControl("lblGst")).Text;
+            txtStateCode.Text = ((Label)grdCustDetails.Rows[0].FindControl("lblStateCode")).Text;
             chk_splitdc.Checked = ((CheckBox)grdCustDetails.Rows[0].FindControl("chk_isSplit")).Checked;
             try
             {
