@@ -152,6 +152,12 @@
                                 ShowFooter="true" AutoGenerateColumns="false" OnRowDataBound="grdapproval_RowDataBound"
                                 OnRowDeleting="grdapproval_RowDeleting" runat="server">
                                 <Columns>
+                                     <asp:TemplateField HeaderText="HSN Code" HeaderStyle-Width="80px">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblHsnCode" runat="server" Text='<%#Eval("HSNCode")%>'></asp:Label>
+                                            <asp:Label ID="lblGstPer" Style="display:none;" runat="server" Text='<%#Eval("GSTPer")%>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Book Code" HeaderStyle-Width="80px">
                                         <ItemTemplate>
                                             <asp:Label ID="lblbookC" runat="server" Text='<%#Eval("BookCode")%>'></asp:Label>
