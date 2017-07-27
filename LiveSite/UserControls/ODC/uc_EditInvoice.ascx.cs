@@ -13,7 +13,6 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.Web.Services;
 using Idv.Chetana.BAL;
-using System.Xml;
 
 #endregion
 
@@ -63,9 +62,9 @@ public partial class UserControls_ODC_uc_EditInvoice : System.Web.UI.UserControl
             // Rptrpending.DataSource = DCDetails.Get_DC_Completed_IsApproved();
             // Rptrpending.DataBind();
             // Panel1.Visible = false;
-            // DDLCustomer.DataSource = DCMaster.Get_Customer_PendingDocNo("Editinvoice", Convert.ToInt32(strFY));
-            //  DDLCustomer.DataBind();
-            //  DDLCustomer.Items.Insert(0, new ListItem("-Select Customer-", "0"));
+           // DDLCustomer.DataSource = DCMaster.Get_Customer_PendingDocNo("Editinvoice", Convert.ToInt32(strFY));
+          //  DDLCustomer.DataBind();
+          //  DDLCustomer.Items.Insert(0, new ListItem("-Select Customer-", "0"));
             //  DCDetails.Get_DC_Completed_IsApproved(); DCMaster.Get_ApprovedDocNo();
         }
     }
@@ -94,6 +93,7 @@ public partial class UserControls_ODC_uc_EditInvoice : System.Web.UI.UserControl
         ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "msg", jv, true);
     }
     #endregion
+
     protected void RepDetailsConfirm_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         TextBox txtFright = null;
@@ -139,7 +139,7 @@ public partial class UserControls_ODC_uc_EditInvoice : System.Web.UI.UserControl
         txttransporter.Text = (frttax1[0].Row["Transporter"].ToString());
         frieght = Convert.ToDecimal(frttax1[0].Row["Freight"].ToString());
         tax = Convert.ToDecimal(frttax1[0].Row["Tax"].ToString());
-        txtLrdateNew.Text = (frttax1[0].Row["LRDate"].ToString());
+        txtLrdateNew.Text = (frttax1[0].Row["LRDate"].ToString()); 
         totalamount1 = frieght + tax + toamount;
         lblallTotalamt.Text = totalamount1.ToString().Trim();
         ((Label)e.Item.FindControl("LblRemark")).Text = stDS.Tables[2].Rows[0]["Remark"].ToString();
@@ -314,7 +314,7 @@ public partial class UserControls_ODC_uc_EditInvoice : System.Web.UI.UserControl
                 _objinvoice.FinancialYearFrom = strFY.ToString();
                 if (objgrid1.Rows.Count == 1)
                 {
-                    _objinvoice.flag = "DeleteInvoice" + "!" + Session["UserName"].ToString();
+                    _objinvoice.flag = "DeleteInvoice" + "!" +Session["UserName"].ToString();
                 }
                 else { _objinvoice.flag = "invoice"; }
                 _objinvoice.DeleteActual_InvoiceDetails(1);
@@ -351,7 +351,9 @@ public partial class UserControls_ODC_uc_EditInvoice : System.Web.UI.UserControl
                 //   DCConfirmQtyDetails _objDCConfirmQtyDetails = new DCConfirmQtyDetails();
                 //    DCMaster _objDCMaster = new DCMaster();
                 DCConfirmQtyDetails _objDCFT = new DCConfirmQtyDetails();
-                ActualInvoiceDetails _objactualinvoice = new ActualInvoiceDetails();
+                // ActualInvoiceDetails _objactualinvoice = new ActualInvoiceDetails();
+                Other_Z.ActualInvoice_Details.ActualInvoice_DetailsProp _objactualinvoice = new Other_Z.ActualInvoice_Details.ActualInvoice_DetailsProp();
+                Other_Z.ActualInvoice_Details ObjBal = new Other_Z.ActualInvoice_Details();
 
                 try
                 {
@@ -385,6 +387,13 @@ public partial class UserControls_ODC_uc_EditInvoice : System.Web.UI.UserControl
                         _objactualinvoice.Bundles = (((TextBox)e.Item.FindControl("txtbundles")).Text);
                         _objactualinvoice.CreatedBy = Convert.ToString(Session["UserName"]);
                         _objactualinvoice.FinancialYearFrom = strFY;
+
+                        _objactualinvoice.HSNCode = ((Label)row.FindControl("lblHsnCode")).Text;
+                        _objactualinvoice.GSTPer = Convert.ToDecimal(((Label)row.FindControl("lblGstPer")).Text);
+                        _objactualinvoice.Typ = e.CommandName == "GSTInvoice" ? "G" : "N";
+                        _objactualinvoice.GSTAmt = Convert.ToDecimal(_objactualinvoice.Amount * _objactualinvoice.GSTPer / 100);
+
+
                         TextBox txtIdate1 = ((TextBox)e.Item.FindControl("txtdateabc"));
                         TextBox txtLrdate1 = ((TextBox)e.Item.FindControl("txtlrdate"));
                         _objactualinvoice.IsActive = true;
@@ -413,7 +422,8 @@ public partial class UserControls_ODC_uc_EditInvoice : System.Web.UI.UserControl
                         _objactualinvoice.Remark1 = "";
                         _objactualinvoice.Remark2 = "";
                         _objactualinvoice.Remark3 = "";
-                        _objactualinvoice.SaveActual_InvoiceDetails(1);
+                        // _objactualinvoice.SaveActual_InvoiceDetails(1);
+                        ObjBal.SaveActualInvoiceDetails(_objactualinvoice);
                         // (TextBox)e.Item.FindControl("txtfrieght");
                     }
 
@@ -460,7 +470,6 @@ public partial class UserControls_ODC_uc_EditInvoice : System.Web.UI.UserControl
                     //  RepDetailsConfirm.DataSource = stDS.Tables[0];
                     //   RepDetailsConfirm.DataBind();
                     #endregion
-
                     MessageBox("Invoice Updated successfully " + subconfirmdoc);
 
                     lblmessage.InnerHtml = "Last updated Invoice no. : " + subconfirmdoc;
@@ -482,92 +491,6 @@ public partial class UserControls_ODC_uc_EditInvoice : System.Web.UI.UserControl
             }
         }
     }
-
-    #region Save Email Log Table
-    private void SaveEmailLog()
-    {
-        XmlDocument doc = new XmlDocument();
-        XmlNode inode = doc.CreateElement("f");
-        XmlNode fnode = doc.CreateElement("r");
-        XmlNode element = doc.CreateElement("i");
-
-        inode = doc.CreateElement("subdoc");
-        inode.InnerText = _objDCFT.SubDocNo;
-        element.AppendChild(inode);
-
-        inode = doc.CreateElement("dcdoc");
-        inode.InnerText = txtDocno.Text.ToString();
-        element.AppendChild(inode);
-
-        inode = doc.CreateElement("mud");
-        inode.InnerText = "invoice".ToString();
-        element.AppendChild(inode);
-
-        inode = doc.CreateElement("toe");
-        inode.InnerText = lblEmail.Text.ToString();
-        element.AppendChild(inode);
-
-        if (ConfigurationManager.AppSettings["invoice_cc"].ToString() != "-1")
-        {
-            inode = doc.CreateElement("cc");
-            inode.InnerText = ConfigurationManager.AppSettings["invoice_cc"].ToString();
-            element.AppendChild(inode);
-        }
-
-        if (ConfigurationManager.AppSettings["invoice_bcc"].ToString() != "-1")
-        {
-            inode = doc.CreateElement("bcc");
-            inode.InnerText = ConfigurationManager.AppSettings["invoice_bcc"].ToString();
-            element.AppendChild(inode);
-        }
-
-        inode = doc.CreateElement("sub");
-        inode.InnerText = ConfigurationManager.AppSettings["invoice_sub"].ToString() + Invno;
-        element.AppendChild(inode);
-
-        inode = doc.CreateElement("msg");
-        inode.InnerText = "";
-        element.AppendChild(inode);
-
-        inode = doc.CreateElement("sndtm");
-        inode.InnerText = null;
-        element.AppendChild(inode);
-
-        inode = doc.CreateElement("st");
-        inode.InnerText = "pending".ToString();
-        element.AppendChild(inode);
-
-        inode = doc.CreateElement("fp");
-        inode.InnerText = "null".ToString();
-        element.AppendChild(inode);
-
-        inode = doc.CreateElement("fy");
-        inode.InnerText = Convert.ToInt32(Session["FY"]).ToString();
-        element.AppendChild(inode);
-
-        inode = doc.CreateElement("ext");
-        inode.InnerText = "Username :" + ConfigurationManager.AppSettings["Username"].ToString().ToString() + "," + "FromMail :" + ConfigurationManager.AppSettings["FromMail"].ToString() + "," + "Password :" + ConfigurationManager.AppSettings["Password"].ToString();
-        element.AppendChild(inode);
-
-        inode = doc.CreateElement("rem1");
-        inode.InnerText = "Insert".ToString();
-        element.AppendChild(inode);
-
-        inode = doc.CreateElement("rem2");
-        inode.InnerText = "".ToString();
-        element.AppendChild(inode);
-
-        inode = doc.CreateElement("rem3");
-        inode.InnerText = "".ToString();
-        element.AppendChild(inode);
-
-        fnode.AppendChild(element);
-
-        Other_Z.OtherBAL ObjBal = new Other_Z.OtherBAL();
-        ObjBal.SaveEmailLog(fnode.OuterXml, "invoice", "", "");
-    }
-    #endregion
-
     protected void DDLCustomer_SelectedIndexChanged(object sender, EventArgs e)
     {
         Rptrpending.DataSource = ActualInvoiceDetails.GetCustomer_OnView(Convert.ToInt32(DDLCustomer.SelectedValue), "EditInvoice", Convert.ToInt32(strFY));
@@ -576,7 +499,7 @@ public partial class UserControls_ODC_uc_EditInvoice : System.Web.UI.UserControl
         upDocNo.Update();
         Panel1.Visible = true;
         Rptrpending.Visible = true;
-
+      
         //pnldetails.Visible = false;
         // RepDetailsConfirm.DataSource = null;
         // RepDetailsConfirm.DataBind();
@@ -608,9 +531,9 @@ public partial class UserControls_ODC_uc_EditInvoice : System.Web.UI.UserControl
             BindCustomer();
 
             Pnlcust.Visible = true;
-            //   pnlDetails.Visible = false;
+         //   pnlDetails.Visible = false;
             Rptrpending.Visible = true;
-            // Panel1.Visible = false;
+           // Panel1.Visible = false;
             upDocNo.Update();
             RepDetailsConfirm.DataBind();
             Rptrpending.DataBind();
@@ -621,8 +544,8 @@ public partial class UserControls_ODC_uc_EditInvoice : System.Web.UI.UserControl
         {
 
             Pnlcust.Visible = false;
-            // pnlDetails.Visible = false;
-            //   Panel1.Visible = true;
+           // pnlDetails.Visible = false;
+         //   Panel1.Visible = true;
             Rptrpending.Visible = true;
             Rptrpending.DataSource = DCDetails.Get_DC_Completed_IsApproved(Convert.ToInt32(strFY));
             Rptrpending.DataBind();
