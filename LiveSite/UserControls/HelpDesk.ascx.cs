@@ -655,7 +655,14 @@ public partial class UserControls_HelpDesk : System.Web.UI.UserControl
                 TO = StrEmailID.Tables[0].Rows[0]["EmailID"].ToString();
                 MailMessage mailMessage = new MailMessage();
                 mailMessage.To.Add(TO);
-                mailMessage.From = new MailAddress("wecare@chetanapublications.com");
+                
+                String MFromID = ConfigurationManager.AppSettings["FromMail"].ToString();
+                String MPwd = ConfigurationManager.AppSettings["Password"].ToString();
+                mailMessage.From = new MailAddress(ConfigurationManager.AppSettings["FromMail"].ToString());
+
+                mailMessage.Bcc.Add(new MailAddress("n.shah12@gmail.com"));
+
+                //mailMessage.From = new MailAddress("wecare@chetanapublications.com");
                 mailMessage.Subject = "Inquiry Received: " + Datetime;
                 string body = "Dear  " + Session["CustName"].ToString() + "," + "\n\n";
                 body += "Your inquiry has been successfully received." + "\n\n";
@@ -665,12 +672,13 @@ public partial class UserControls_HelpDesk : System.Web.UI.UserControl
                 body += "Chetana" + "\n";
                 mailMessage.Body = body;
                 SmtpClient smtp = new SmtpClient();
-                smtp.Host = "crm.chetanapublications.com";
-                smtp.EnableSsl = false;
 
+                smtp.Host = ConfigurationManager.AppSettings["SMTP"].ToString();
+                smtp.Port = Convert.ToInt32(ConfigurationManager.AppSettings["Port"].ToString());
                 smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new System.Net.NetworkCredential("wecare@chetanapublications.com", "cbdcppl@2015");
-                smtp.Port = 25;
+                smtp.Credentials = new System.Net.NetworkCredential(MFromID, MPwd);
+                smtp.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["Enablessl"].ToString());
+
                 try
                 {
                     smtp.Send(mailMessage);
@@ -729,7 +737,11 @@ public partial class UserControls_HelpDesk : System.Web.UI.UserControl
                  TO = StrEmailID.Tables[0].Rows[0]["EmailFrom"].ToString();
                 MailMessage mailMessage = new MailMessage();
                 mailMessage.To.Add(TO);
-                mailMessage.From = new MailAddress("wecare@chetanapublications.com");
+
+                String MFromID = ConfigurationManager.AppSettings["FromMail"].ToString();
+                String MPwd = ConfigurationManager.AppSettings["Password"].ToString();
+                mailMessage.From = new MailAddress(ConfigurationManager.AppSettings["FromMail"].ToString());
+
                 mailMessage.Subject = StrEmailID.Tables[0].Rows[0]["EmailSub"].ToString() + ": " + Datetime;
                 string body = StrEmailID.Tables[0].Rows[0]["EmailBody"].ToString() + "," + "\n\n";
                 //body += "Your inquiry has been successfully received." + "\n\n";
@@ -740,12 +752,12 @@ public partial class UserControls_HelpDesk : System.Web.UI.UserControl
 
                 mailMessage.Body = body;
                 SmtpClient smtp = new SmtpClient();
-                smtp.Host = "crm.chetanapublications.com";
-                smtp.EnableSsl = false;
-
+                smtp.Host = ConfigurationManager.AppSettings["SMTP"].ToString();
+                smtp.Port = Convert.ToInt32(ConfigurationManager.AppSettings["Port"].ToString());
                 smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new System.Net.NetworkCredential("wecare@chetanapublications.com", "cbdcppl@2015");
-                smtp.Port = 25;
+                smtp.Credentials = new System.Net.NetworkCredential(MFromID, MPwd);
+                smtp.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["Enablessl"].ToString());
+
                 smtp.Send(mailMessage);
 
                 string Messgae = string.Empty;

@@ -176,8 +176,7 @@ public partial class UserControls_ODC_uc_DispatchEmail : System.Web.UI.UserContr
              String mCourierID = WBCourierId.Text;
              System.Web.UI.WebControls.Label WBDocumentNo = (System.Web.UI.WebControls.Label)gvOL.Rows[i].Cells[1].Controls[1];
              String mDocumentNo = WBDocumentNo.Text;
-             String MFromID = ConfigurationManager.AppSettings["FromMail"].ToString();
-             String MPwd = ConfigurationManager.AppSettings["Password"].ToString();
+          
              //DataSet DsMailLog = new DataSet();
              //DsMailLog = CourierDetails.SendDispatchEmail(SCD, float.Parse(mDocumentNo), "DispatchEmail", "DispatchId", Convert.ToInt32(strFY), MFromID, MPwd, Convert.ToString(Session["UserName"]));
              
@@ -196,7 +195,12 @@ public partial class UserControls_ODC_uc_DispatchEmail : System.Web.UI.UserContr
         try
         {
              MailMessage msg = new MailMessage();
-            msg.From = new MailAddress("wecare@chetanapublications.com");
+           // msg.From = new MailAddress("wecare@chetanapublications.com");
+            
+            String MFromID = ConfigurationManager.AppSettings["FromMail"].ToString();
+             String MPwd = ConfigurationManager.AppSettings["Password"].ToString();
+
+             msg.From = new MailAddress(ConfigurationManager.AppSettings["FromMail"].ToString());
             msg.To.Add(new MailAddress("accounts1@chetanapublications.com"));
             msg.To.Add(new MailAddress(mToID));
            
@@ -204,25 +208,17 @@ public partial class UserControls_ODC_uc_DispatchEmail : System.Web.UI.UserContr
             msg.Body = MailBodyDesign(i).ToString();
             msg.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient();
-            smtp.Host = "crm.chetanapublications.com";
-            smtp.Port = 25;
+            smtp.Host = ConfigurationManager.AppSettings["SMTP"].ToString();
+            smtp.Port = Convert.ToInt32(ConfigurationManager.AppSettings["Port"].ToString()); 
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new System.Net.NetworkCredential("wecare@chetanapublications.com", "we0504260");
-            smtp.EnableSsl = false;
+            smtp.Credentials = new System.Net.NetworkCredential(MFromID, MPwd);
+            smtp.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["Enablessl"].ToString());
             try
             {
                 smtp.Send(msg);
-                //DCMaster _objDCMaster = new DCMaster();
-                //if (Convert.ToInt32(mDocumentNo) != 0)
-                //{
-                //    _objDCMaster.DocNo = Convert.ToInt32(mDocumentNo);
-                //    _objDCMaster.CreatedBy = Convert.ToString(Session["UserName"]);
-                //    _objDCMaster.IsActive = true;
-                //    _objDCMaster.Save_DC_Email();
-                //    MessageBox("Mail Sent successfully");
-                //}
-                DataSet DsMailLog = new DataSet();
-                DsMailLog = CourierDetails.SendDispatchEmail(SCD, float.Parse(mDocumentNo), "DispatchEmail", "DispatchId", Convert.ToInt32(strFY), "wecare@chetanapublications.com", "we0504260", Convert.ToString(Session["UserName"]));
+                 DataSet DsMailLog = new DataSet();
+                DsMailLog = CourierDetails.SendDispatchEmail(SCD, float.Parse(mDocumentNo), "DispatchEmail", "DispatchId", Convert.ToInt32(strFY),
+                    MFromID, MPwd, Convert.ToString(Session["UserName"]));
                 MessageBox("Mail Sent successfully");
              
             }

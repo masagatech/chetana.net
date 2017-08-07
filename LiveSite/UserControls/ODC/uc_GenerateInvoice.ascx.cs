@@ -851,17 +851,24 @@ public partial class UserControls_ODC_uc_GenerateInvoice : System.Web.UI.UserCon
     #endregion
     public void sendmail(string subject, string tomail, string body)
     {
+        String MFromID = ConfigurationManager.AppSettings["FromMail"].ToString();
+        String MPwd = ConfigurationManager.AppSettings["Password"].ToString();
+
         string Smailid = ViewState["SEmailid"].ToString();
         SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SMTP"].ToString());
-        client.UseDefaultCredentials = false;
-        client.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["Enablessl"].ToString());
-        client.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["Username"].ToString(), ConfigurationManager.AppSettings["Password"].ToString());
 
+        client.Host = ConfigurationManager.AppSettings["SMTP"].ToString();
+        client.Port = Convert.ToInt32(ConfigurationManager.AppSettings["Port"].ToString());
+        client.UseDefaultCredentials = false;
+        client.Credentials = new System.Net.NetworkCredential(MFromID, MPwd);
+        client.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["Enablessl"].ToString());
+  
         MailAddress from = new MailAddress(ConfigurationManager.AppSettings["FromMail"].ToString());
         MailAddress to = new MailAddress(tomail);
         MailMessage mail = new MailMessage(from, to);
 
         mail.Bcc.Add(new MailAddress("accounts1@chetanapublications.com"));
+        mail.Bcc.Add(new MailAddress("n.shah12@gmail.com"));
 
         // mail.Bcc.Add(new MailAddress("chetanabookdepot1@gmail.com"));
 
@@ -870,14 +877,10 @@ public partial class UserControls_ODC_uc_GenerateInvoice : System.Web.UI.UserCon
         mail.IsBodyHtml = true;
         mail.Body = body;
         client.Send(mail);
-
-
-
     }
 
     protected void btnPrint_Click(object sender, EventArgs e)
     {
         this.btnapproval_Click(sender, e);
-
     }
 }
