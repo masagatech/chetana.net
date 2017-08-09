@@ -475,9 +475,16 @@ public partial class UserControls_ODC_uc_GenerateInvoice : System.Web.UI.UserCon
                             Repeater objrep = (Repeater)this.FindControl("RepDetailsConfirm");
                             GridView objgrid = (GridView)objrep.Items[e.Item.ItemIndex].FindControl("grdapproval");
 
-
-
+                            Other_Z.ActualInvoice_Details.ActualInvoice_DetailsProp NewObj = new Other_Z.ActualInvoice_Details.ActualInvoice_DetailsProp();
+                            decimal TotalNetAmount = 0;
                             foreach (GridViewRow row in objgrid.Rows)
+                            {
+                                NewObj.Amount = Convert.ToInt32(((Label)row.FindControl("lblAqty")).Text) * (Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text) - (Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text) * Convert.ToDecimal(((TextBox)row.FindControl("txtdiscount")).Text) / 100));
+                                NewObj.GSTPer = Convert.ToDecimal(((Label)row.FindControl("lblGstPer")).Text);
+                                TotalNetAmount += Convert.ToDecimal(NewObj.Amount * NewObj.GSTPer / 100);
+                            }
+
+                                foreach (GridViewRow row in objgrid.Rows)
                             {
                                 _objactualinvoice.DocumentNo = Convert.ToInt32(txtDocno.Text);
                                 _objactualinvoice.SubDocId = Convert.ToDecimal(e.CommandArgument.ToString().Trim());
@@ -493,7 +500,7 @@ public partial class UserControls_ODC_uc_GenerateInvoice : System.Web.UI.UserCon
                                 _objactualinvoice.Tax = Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
                                 _objactualinvoice.Transporter = (((TextBox)e.Item.FindControl("lbltransporter")).Text);
                                 _objactualinvoice.LRNo = (((TextBox)e.Item.FindControl("txtlrno")).Text);
-                                _objactualinvoice.TotalAmount = Convert.ToDecimal(getTotalValues(objgrid).ToString()) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text) + Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
+                               
                                 _objactualinvoice.Bundles = (((TextBox)e.Item.FindControl("txtbundles")).Text);
                                 _objactualinvoice.CreatedBy = Convert.ToString(Session["UserName"]);
                                 _objactualinvoice.FinancialYearFrom = strFY;
@@ -502,6 +509,7 @@ public partial class UserControls_ODC_uc_GenerateInvoice : System.Web.UI.UserCon
                                 _objactualinvoice.GSTPer = Convert.ToDecimal(((Label)row.FindControl("lblGstPer")).Text);
                                 _objactualinvoice.Typ = e.CommandName == "GSTInvoice" ? "G" : "N";
                                 _objactualinvoice.GSTAmt = Convert.ToDecimal(_objactualinvoice.Amount * _objactualinvoice.GSTPer / 100);
+                                _objactualinvoice.TotalAmount = Convert.ToDecimal(getTotalValues(objgrid).ToString())+ TotalNetAmount + Convert.ToDecimal(((TextBox)e.Item.FindControl("txtfrieght")).Text); //+ Convert.ToDecimal(((TextBox)e.Item.FindControl("txttax")).Text);
                                 //_objactualinvoice.GSTPer=
 
                                 TextBox txtIdate1 = ((TextBox)e.Item.FindControl("txtdateabc"));
@@ -849,6 +857,7 @@ public partial class UserControls_ODC_uc_GenerateInvoice : System.Web.UI.UserCon
     }
 
     #endregion
+
     public void sendmail(string subject, string tomail, string body)
     {
         String MFromID = ConfigurationManager.AppSettings["FromMail"].ToString();
