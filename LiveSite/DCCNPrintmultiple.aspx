@@ -2,7 +2,7 @@
     CodeFile="DCCNPrintmultiple.aspx.cs" Inherits="DCCNPrintmultiple" Title="CN Print" %>
 
 <%@ Register TagPrefix="ajaxCt" Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" %>
-<%@ Register Assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
+<%@ Register Assembly="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
     Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -79,6 +79,7 @@
                 <td>
                     <asp:Button ID="btngetcust" runat="server" Text="Get" CssClass="submitbtn" ValidationGroup="dateft"
                         Width="50px" OnClick="btngetcust_Click" />
+                   
                 </td>
             </tr>
         </table>
@@ -139,6 +140,8 @@
                     <td align="right">
                         <asp:Button ID="btnget" OnClick="btnget_Click" CssClass="submitbtn" runat="server"
                             Width="70px" Text="Get" />
+                         <asp:Button ID="btnGST" runat="server" Text="Get GST" CssClass="submitbtn" ValidationGroup="dateft"
+                        Width="50px" OnClick="btnGST_Click" />
                     </td>
                 </asp:Panel>
             </tr>

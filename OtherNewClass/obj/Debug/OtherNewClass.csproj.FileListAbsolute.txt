@@ -40,3 +40,8 @@ E:\Working\Chetana_Solution - 14-10-2016\OtherNewClass\bin\Debug\OtherNewClass.p
 E:\Working\Chetana_Solution - 14-10-2016\OtherNewClass\obj\Debug\OtherNewClass.csprojResolveAssemblyReference.cache
 E:\Working\Chetana_Solution - 14-10-2016\OtherNewClass\obj\Debug\OtherNewClass.dll
 E:\Working\Chetana_Solution - 14-10-2016\OtherNewClass\obj\Debug\OtherNewClass.pdb
+D:\Working\Chetana_Solution - 14-10-2016\chetana.net\OtherNewClass\bin\Debug\OtherNewClass.dll
+D:\Working\Chetana_Solution - 14-10-2016\chetana.net\OtherNewClass\bin\Debug\OtherNewClass.pdb
+D:\Working\Chetana_Solution - 14-10-2016\chetana.net\OtherNewClass\obj\Debug\OtherNewClass.csprojResolveAssemblyReference.cache
+D:\Working\Chetana_Solution - 14-10-2016\chetana.net\OtherNewClass\obj\Debug\OtherNewClass.dll
+D:\Working\Chetana_Solution - 14-10-2016\chetana.net\OtherNewClass\obj\Debug\OtherNewClass.pdb

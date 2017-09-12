@@ -75,13 +75,13 @@ public partial class UserControls_ODC_uc_DC__Returnbook : System.Web.UI.UserCont
     }
     #endregion
 
-    #region Events
+    #region Save And GST Save
 
-    #region Save
+    #region Save GST 
 
-    protected void btnSave_Click(object sender, EventArgs e)
+    protected void btnGSTSave_Click(object sender, EventArgs e)
     {
-       btnSave.Enabled = false;
+        btnSave.Enabled = false;
         cndate = txtCNDate.Text.Split('/')[2] + "/" + txtCNDate.Text.Split('/')[1] + "/" + txtCNDate.Text.Split('/')[0];
         cndt = Convert.ToDateTime(cndate);
 
@@ -104,8 +104,12 @@ public partial class UserControls_ODC_uc_DC__Returnbook : System.Web.UI.UserCont
         SCN = Convert.ToInt32(Txtscn.Text.Trim());
         if (Session["UserName"] != null)
         {
-            DCReturnBook _obdcrtbk = new DCReturnBook();
-            CreditNote _obcn = new CreditNote();
+            //DCReturnBook _obdcrtbk = new DCReturnBook();
+            Other_Z.OtherReturn_Book.ReturnBook_Prop _obdcrtbk = new Other_Z.OtherReturn_Book.ReturnBook_Prop();
+            Other_Z.OtherReturn_Book ObjBal = new Other_Z.OtherReturn_Book();
+            //CreditNote _obcn = new CreditNote();
+            Other_Z.OtherReturn_Book.DCCNProp _obcn = new Other_Z.OtherReturn_Book.DCCNProp();
+
             LedgerCN _oblcn = new LedgerCN();
             try
             {
@@ -132,11 +136,13 @@ public partial class UserControls_ODC_uc_DC__Returnbook : System.Web.UI.UserCont
                 {
                     MessageBox("Please Enter Return Quantity");
                     Panel2.Visible = true;
+                    btnSave.Enabled = true;
                 }
                 if (flag1 > flag2)
                 {
                     MessageBox("Please Enter Comment For Respective Quantity");
                     Panel2.Visible = true;
+                    btnSave.Enabled = true;
                 }
 
                 if (flag1 == flag2)
@@ -153,6 +159,10 @@ public partial class UserControls_ODC_uc_DC__Returnbook : System.Web.UI.UserCont
                         _obdcrtbk.ReturnQty = Convert.ToInt32(RQty);
                         string cmt = ((TextBox)Row.FindControl("txtcmmt")).Text.Trim();
                         _obdcrtbk.Comment = ((TextBox)Row.FindControl("txtcmmt")).Text.Trim();
+                        _obdcrtbk.HSNCode = (((Label)Row.FindControl("lblHSNCode")).Text.Trim());
+                        _obdcrtbk.GSTAmount = Convert.ToDecimal(((Label)Row.FindControl("lblGST")).Text.Trim());
+                        _obdcrtbk.GSTPer = Convert.ToDecimal(((Label)Row.FindControl("lblGstPer")).Text.Trim());
+
                         _obdcrtbk.CreatedBy = Session["UserName"].ToString();
                         _obdcrtbk.Flag = "DC";
                         string dqty = ((TextBox)Row.FindControl("txtDefect")).Text.Trim();
@@ -174,6 +184,10 @@ public partial class UserControls_ODC_uc_DC__Returnbook : System.Web.UI.UserCont
                             _obcn.DefectQty = 0;
                             _obcn.TotReturnQty = Convert.ToInt32(RQty);
                             _obcn.Comment = ((TextBox)Row.FindControl("txtcmmt")).Text.Trim();
+                            _obcn.HSNCode = (((Label)Row.FindControl("lblHSNCode")).Text.Trim());
+                            _obcn.GSTAmount = Convert.ToDecimal(((Label)Row.FindControl("lblGST")).Text.Trim());
+                            _obcn.GSTPer = Convert.ToDecimal(((Label)Row.FindControl("lblGstPer")).Text.Trim());
+                            _obdcrtbk.Typ = "G";
                             _obcn.IsActive = true;
                             _obcn.GCN = GCN;
                             _obcn.SCN = SCN;
@@ -196,14 +210,16 @@ public partial class UserControls_ODC_uc_DC__Returnbook : System.Web.UI.UserCont
 
                         if (rqty1 > 0 && cmt != "")
                         {
-                            _obdcrtbk.Save_DC_ReturnBook(Convert.ToInt32(strFY));
+                            //_obdcrtbk.Save_DC_ReturnBook(Convert.ToInt32(strFY));
+                            ObjBal.Save_ReturnBook(_obdcrtbk);
 
                             if (RdbtnYN.SelectedValue == "1")
                             {
                                 _oblcn.CNNo = CNNo;
                                 _oblcn.strFY = Convert.ToInt32(strFY);
                                 _oblcn.CNDate = cndt;
-                                _obcn.Save_CN(Convert.ToInt32(strFY));
+                                //_obcn.Save_CN(Convert.ToInt32(strFY));
+                                ObjBal.SaveDCCN(_obcn);
                             }
                             else { }
                             flag = true;
@@ -230,6 +246,209 @@ public partial class UserControls_ODC_uc_DC__Returnbook : System.Web.UI.UserCont
                             btnPrint.Visible = true;
                             btnaddBooks.Visible = false;
                             txtcustomer.Enabled = true;
+                            btnSave.Enabled = true;
+                        }
+                        else
+                            if (RdbtnYN.SelectedValue == "0")
+                        {
+                            MessageBox(Constants.save);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox("Error : " + ex.Message.ToString());
+                        clearall();
+                        Txtgcn.Focus();
+                    }
+                    Panel2.Visible = false;
+                    // RdbtnYN.SelectedIndex = 0;
+                    // txtcustomer.Text = "";
+                    //lblCustName.Text = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox("Error : " + ex.Message.ToString());
+                btnSave.Enabled = true;
+
+            }
+        }
+    }
+
+    #endregion
+
+
+    #region Normal Save
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+       btnSave.Enabled = false;
+        cndate = txtCNDate.Text.Split('/')[2] + "/" + txtCNDate.Text.Split('/')[1] + "/" + txtCNDate.Text.Split('/')[0];
+        cndt = Convert.ToDateTime(cndate);
+
+        bool flag = false;
+        int flag1 = 0;
+        int flag2 = 0;
+        CNNo = 0;
+        int GCN;
+        int SCN;
+        if (Txtgcn.Text.Trim() == "")
+        {
+            Txtgcn.Text = "0";
+        }
+        if (Txtscn.Text.Trim() == "")
+        {
+            Txtscn.Text = "0";
+        }
+
+        GCN = Convert.ToInt32(Txtgcn.Text.Trim());
+        SCN = Convert.ToInt32(Txtscn.Text.Trim());
+        if (Session["UserName"] != null)
+        {
+            //DCReturnBook _obdcrtbk = new DCReturnBook();
+            Other_Z.OtherReturn_Book.ReturnBook_Prop _obdcrtbk = new Other_Z.OtherReturn_Book.ReturnBook_Prop();
+            Other_Z.OtherReturn_Book ObjBal = new Other_Z.OtherReturn_Book();
+            //CreditNote _obcn = new CreditNote();
+            Other_Z.OtherReturn_Book.DCCNProp _obcn = new Other_Z.OtherReturn_Book.DCCNProp();
+
+            LedgerCN _oblcn = new LedgerCN();
+            try
+            {
+                foreach (GridViewRow Row in Grd2.Rows)
+                {
+                    string RQty = ((TextBox)Row.FindControl("txtreturn")).Text.Trim();
+                    int qty = (Convert.ToInt32(RQty));
+                    string cmt = ((TextBox)Row.FindControl("txtcmmt")).Text.Trim();
+
+                    if (qty > 0)
+                    {
+                        flag1 = flag1 + 1;
+                        if (cmt != "")
+                        {
+                            flag2 = flag2 + 1;
+                        }
+                        else
+                        {
+                        }
+                    }
+                }
+
+                if (flag1 == 0)
+                {
+                    MessageBox("Please Enter Return Quantity");
+                    Panel2.Visible = true;
+                    btnSave.Enabled = true;
+                }
+                if (flag1 > flag2)
+                {
+                    MessageBox("Please Enter Comment For Respective Quantity");
+                    Panel2.Visible = true;
+                    btnSave.Enabled = true;
+                }
+
+                if (flag1 == flag2)
+                {
+                    CNNo = Convert.ToInt32(CreditNote.GetCNNo(Convert.ToInt32(strFY)));
+                    lblCNNo.Text = CreditNote.GetCNNo(Convert.ToInt32(strFY));
+                    foreach (GridViewRow Row in Grd2.Rows)
+                    {
+                        _obdcrtbk.DCReturnBkID = 0;
+                        _obdcrtbk.CustCode = CustCode;
+                        _obdcrtbk.BookCode = (((Label)Row.FindControl("lblbkcode")).Text.Trim());
+                        string RQty = ((TextBox)Row.FindControl("txtreturn")).Text.Trim();
+                        int rqty1 = Convert.ToInt32(RQty);
+                        _obdcrtbk.ReturnQty = Convert.ToInt32(RQty);
+                        string cmt = ((TextBox)Row.FindControl("txtcmmt")).Text.Trim();
+                        _obdcrtbk.Comment = ((TextBox)Row.FindControl("txtcmmt")).Text.Trim();
+                        _obdcrtbk.HSNCode = "-"; //(((Label)Row.FindControl("lblHSNCode")).Text.Trim());
+                        _obdcrtbk.GSTAmount = 0 ; //Convert.ToDecimal(((Label)Row.FindControl("lblGST")).Text.Trim());
+                        _obdcrtbk.GSTPer = 0; //Convert.ToDecimal(((Label)Row.FindControl("lblGstPer")).Text.Trim());
+                        _obdcrtbk.Typ = "N";
+
+
+                        _obdcrtbk.CreatedBy = Session["UserName"].ToString();
+                        _obdcrtbk.Flag = "DC";
+                        string dqty = ((TextBox)Row.FindControl("txtDefect")).Text.Trim();
+                        // _obdcrtbk.DefectQty = Convert.ToInt32(dqty);
+                        _obdcrtbk.DefectQty = 0;
+                        _obdcrtbk.strFY = Convert.ToInt32(strFY);
+
+                        if (RdbtnYN.SelectedValue == "1")
+                        {
+                            _obcn.AutoID = 0;
+                            _obcn.CNNo = CNNo;
+                            _obcn.CustCode = CustCode;
+                            _obcn.BookCode = (((Label)Row.FindControl("lblbkcode")).Text.Trim());
+                            _obcn.Rate = Convert.ToDecimal(((DropDownList)Row.FindControl("DDLR")).SelectedValue);
+                            _obcn.Discount = Convert.ToDecimal(((DropDownList)Row.FindControl("DDLD")).SelectedValue);
+                            
+                            string CNqty = ((TextBox)Row.FindControl("txtCN")).Text.Trim();
+                            _obcn.ReturnQty = Convert.ToInt32(CNqty);
+                            _obcn.DefectQty = 0;
+                            _obcn.TotReturnQty = Convert.ToInt32(RQty);
+                            _obcn.Comment = ((TextBox)Row.FindControl("txtcmmt")).Text.Trim();
+                            _obcn.HSNCode = (((Label)Row.FindControl("lblHSNCode")).Text.Trim());
+                            _obcn.GSTAmount = Convert.ToDecimal(((Label)Row.FindControl("lblGST")).Text.Trim());
+                            _obcn.GSTPer = Convert.ToDecimal(((Label)Row.FindControl("lblGstPer")).Text.Trim());
+                            _obcn.IsActive = true;
+                            _obcn.GCN = GCN;
+                            _obcn.SCN = SCN;
+                            _obcn.CreatedBy = Session["UserName"].ToString();
+                            _obcn.Flag = "DC";
+                            _obcn.strFY = Convert.ToInt32(strFY);
+                            _obcn.CNDate = cndt;
+
+                            _obcn.TransportName = lbltransporter.Text.ToString();
+                            _obcn.LrNo = txtlrno.Text.ToString();
+                            _obcn.Remark1 = "";
+                            _obcn.Remark2 = "";
+                            _obcn.Remark3 = "";
+                            _obcn.Remark4 = "";
+                            _obcn.Remark5 = "";
+                        }
+                        else
+                        {
+                        }
+
+                        if (rqty1 > 0 && cmt != "")
+                        {
+                            //_obdcrtbk.Save_DC_ReturnBook(Convert.ToInt32(strFY));
+                            ObjBal.Save_ReturnBook(_obdcrtbk);
+
+                            if (RdbtnYN.SelectedValue == "1")
+                            {
+                                _oblcn.CNNo = CNNo;
+                                _oblcn.strFY = Convert.ToInt32(strFY);
+                                _oblcn.CNDate = cndt;
+                                //_obcn.Save_CN(Convert.ToInt32(strFY));
+                                ObjBal.SaveDCCN(_obcn);
+                            }
+                            else { }
+                            flag = true;
+
+                            //bind grid to display printdata 
+                            Bindgrdcn();
+                        }
+                        else
+                        {
+                        }
+                    }
+                }
+
+                if (flag)
+                {
+                    try
+                    {
+                        if (RdbtnYN.SelectedValue == "1")
+                        {
+                            _oblcn.Ledger_CN();
+                            MessageBox(Constants.save + "\\r\\n CreditNote No: " + CNNo);
+                            //BindGrd2();
+                            PnlPrint.Visible = true;
+                            btnPrint.Visible = true;
+                            btnaddBooks.Visible = false;
+                            txtcustomer.Enabled = true;
+                            btnSave.Enabled = true;
                         }
                         else
                             if (RdbtnYN.SelectedValue == "0")
@@ -252,6 +471,7 @@ public partial class UserControls_ODC_uc_DC__Returnbook : System.Web.UI.UserCont
             catch (Exception ex)
             {
                 MessageBox("Error : " + ex.Message.ToString());
+                btnSave.Enabled = true;
 
             }
         }
@@ -639,6 +859,9 @@ public partial class UserControls_ODC_uc_DC__Returnbook : System.Web.UI.UserCont
         {
             //CREATE NEW DATATABLE
             //ADD COLUMNS IN DATATABLE
+            dt.Columns.Add("HSNCode");
+            dt.Columns.Add("GST");
+            dt.Columns.Add("GSTPer");
             dt.Columns.Add("BookCode");
             dt.Columns.Add("BookName");
             dt.Columns.Add("Standard");
@@ -697,7 +920,7 @@ public partial class UserControls_ODC_uc_DC__Returnbook : System.Web.UI.UserCont
                     //    Tdiscount = amt * (discount / 100);
                     //    amt = amt - Tdiscount;
                     //}
-                    dt.Rows.Add(row["BookCode"].ToString(),
+                    dt.Rows.Add(row["HSNCode"].ToString(), row["GST"].ToString(), row["GSTPer"].ToString(), row["BookCode"].ToString(),
                    row["BookName"].ToString(),row["Standard"].ToString() , row["Medium"].ToString(),
                    row["Qty"].ToString(),
                    row["ReturnedQty"].ToString(),
@@ -718,7 +941,7 @@ public partial class UserControls_ODC_uc_DC__Returnbook : System.Web.UI.UserCont
                 //    amt = amt - Tdiscount;
                 //}
 
-                dt.Rows.Add(row["BookCode"].ToString(),
+                dt.Rows.Add(row["HSNCode"].ToString(), row["GST"].ToString(), row["GSTPer"].ToString(), row["BookCode"].ToString(),
                     row["BookName"].ToString(),row["Standard"].ToString() , row["Medium"].ToString(),
                     row["Qty"].ToString(),
                     row["ReturnedQty"].ToString(),

@@ -61,14 +61,88 @@ public partial class DCCNPrintmultiple : System.Web.UI.Page
             Pnldate.Visible = true;
             Pnl1.Visible = false;
             Pnl2.Visible = false;
-           
-             BindDDlCust();
+            Session["Typ"] = null;
+            Session["Datacn"] = null;
+            BindDDlCust();
             txtFromDate.Focus();
+
             //txtcustomer.Focus();
         }
         else
         {
+           
         }
+
+
+        if (Session["Typ"] != null)
+        {
+            if (Session["Typ"].ToString() == "N")
+            {
+                fillReport();
+            }
+            else
+            {
+                GSTPrint();
+            }
+        }
+        else
+        {
+            Session["Datacn"] = null;
+            Session["Typ"] = null;
+        }
+
+    }
+    #endregion
+
+    #region GST Print Method
+    private void GSTPrint()
+    {
+        
+        
+        string Selectedcn = "";
+        bool checkAll = false;
+        if (Chkbxlstcn.Items[0].Selected == true)
+        {
+            checkAll = true;
+        }
+        for (int i = 1; i < Chkbxlstcn.Items.Count; i++)
+        {
+
+            if (checkAll == true)
+            {
+                Selectedcn = Selectedcn + Chkbxlstcn.Items[i].Value.ToString() + ",";
+            }
+            else if (Chkbxlstcn.Items[i].Selected == true)
+            {
+                Selectedcn = Selectedcn + Chkbxlstcn.Items[i].Value.ToString() + ",";
+            }
+
+        }
+        // Selectedcn = Selectedcn ;
+        DataTable dt = new DataTable();
+
+        dt = CreditNote.Get_PrintCN_multiple(Convert.ToInt32(strFY), Selectedcn).Tables[0];
+        Session["Datacn"] = dt;
+        if (Session["Datacn"] != null)
+        {
+            DataTable dt5 = new DataTable();
+            dt5 = (DataTable)Session["Datacn"];
+            ReportDocument CR = new ReportDocument();
+            CR.Load(Server.MapPath("Report/GSTCNPrint.rpt"));
+            CR.SetDataSource(dt5);
+            Crptcnprint.ReportSource = CR;
+        }
+    }
+
+    #endregion
+
+    #region GST Get Button Click Event
+    protected void btnGST_Click(object sender, EventArgs e)
+    {
+        Session["Typ"] = null;
+        Session["Typ"] = "G";
+        Session["Datacn"] = null;
+        GSTPrint();
     }
     #endregion
 
@@ -78,18 +152,20 @@ public partial class DCCNPrintmultiple : System.Web.UI.Page
     protected void btnget_Click(object sender, EventArgs e)
     {
         Session["Datacn"] = null;
-        string Selectedcn="";
+        Session["Typ"] = null;
+        Session["Typ"] = "N";
+        string Selectedcn = "";
         bool checkAll = false;
         if (Chkbxlstcn.Items[0].Selected == true)
         {
             checkAll = true;
         }
-        for (int i = 1; i < Chkbxlstcn.Items.Count ; i++)
+        for (int i = 1; i < Chkbxlstcn.Items.Count; i++)
         {
-          
+
             if (checkAll == true)
             {
-              Selectedcn= Selectedcn + Chkbxlstcn.Items[i].Value.ToString() + ",";
+                Selectedcn = Selectedcn + Chkbxlstcn.Items[i].Value.ToString() + ",";
             }
             else if (Chkbxlstcn.Items[i].Selected == true)
             {
@@ -97,13 +173,13 @@ public partial class DCCNPrintmultiple : System.Web.UI.Page
             }
 
         }
-       // Selectedcn = Selectedcn ;
+        // Selectedcn = Selectedcn ;
         DataTable dt = new DataTable();
 
         dt = CreditNote.Get_PrintCN_multiple(Convert.ToInt32(strFY), Selectedcn).Tables[0];
         Session["Datacn"] = dt;
         fillReport();
-       
+
 
     }
     protected void btngetcust_Click(object sender, EventArgs e)
@@ -136,7 +212,7 @@ public partial class DCCNPrintmultiple : System.Web.UI.Page
             if (RdbtnSelect.SelectedValue == "CustomerwiseCN")
             {
                 DataSet ds = new DataSet();
-               // ds = CreditNote.GetCustlist_Bydt(Convert.ToInt32(strFY), fdt, tdt);
+                // ds = CreditNote.GetCustlist_Bydt(Convert.ToInt32(strFY), fdt, tdt);
                 ds = ObjotherZ.Idv_Chetana_DC_GetCustlist_Bydt(Convert.ToInt32(strFY), fdt, tdt, UserName, "", "");
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -144,7 +220,7 @@ public partial class DCCNPrintmultiple : System.Web.UI.Page
                     DDLCustomer.DataBind();
                     DDLCustomer.Items.Insert(0, new ListItem("-Select Customer-", "0"));
                     Chkbxlstcn.Items.Insert(0, new ListItem("All", "0"));
-                    
+
                     Pnl1.Visible = true;
                 }
                 else
@@ -164,7 +240,7 @@ public partial class DCCNPrintmultiple : System.Web.UI.Page
         //}
 
     }
-    
+
     #endregion
 
     #region TextChanged
@@ -185,9 +261,9 @@ public partial class DCCNPrintmultiple : System.Web.UI.Page
     #region IndexChanged
     protected void DDLCustomer_SelectedIndexChanged(object sender, EventArgs e)
     {
-    
-      // frdate = txtFromDate.Text.Split('/')[2] + "/" + txtFromDate.Text.Split('/')[1] + "/" + txtFromDate.Text.Split('/')[0];
-      //  todate = txttoDate.Text.Split('/')[2] + "/" + txttoDate.Text.Split('/')[1] + "/" + txttoDate.Text.Split('/')[0];
+
+        // frdate = txtFromDate.Text.Split('/')[2] + "/" + txtFromDate.Text.Split('/')[1] + "/" + txtFromDate.Text.Split('/')[0];
+        //  todate = txttoDate.Text.Split('/')[2] + "/" + txttoDate.Text.Split('/')[1] + "/" + txttoDate.Text.Split('/')[0];
 
         fdt = Convert.ToDateTime("1900/01/01");
         tdt = Convert.ToDateTime("1900/01/01");
@@ -278,10 +354,10 @@ public partial class DCCNPrintmultiple : System.Web.UI.Page
         DDLCustomer.DataBind();
         DDLCustomer.Items.Insert(0, new ListItem("-Select Customer-", "0"));
     }
-  
+
     #endregion
 
-    # endregion
+    #endregion
 
     protected void RdbtnSelect_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -308,7 +384,7 @@ public partial class DCCNPrintmultiple : System.Web.UI.Page
             //Pnldate.Visible = false;
             Pnl1.Visible = false;
             //btnPrint.Visible = false;
-           // PnlPrint.Visible = false;
+            // PnlPrint.Visible = false;
 
             Chkbxlstcn.DataSource = CreditNote.GetCNNo_Bydt(Convert.ToInt32(strFY), fdt, tdt);
             Chkbxlstcn.DataBind();
@@ -353,19 +429,14 @@ public partial class DCCNPrintmultiple : System.Web.UI.Page
             Crptcnprint.ReportSource = CR;
         }
     }
+
+
     protected override void OnInit(System.EventArgs e)
     {
         base.OnInit(e);
 
-        if ((Request.Form.Keys.Count > 0))
-        {
-            fillReport();
-        }
-        else
-        {
-            Session["Datacn"] = null;
-        }
+
 
     }
-   
+
 }

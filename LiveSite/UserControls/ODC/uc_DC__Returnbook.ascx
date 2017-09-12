@@ -14,6 +14,14 @@
         <asp:GridView ID="GrdRD" runat="server" AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="false"
             CellPadding="4" CssClass="product-table">
             <Columns>
+                 <asp:TemplateField HeaderStyle-Width="80px" HeaderText="HSN Code">
+                    <ItemTemplate>
+                        <asp:Label ID="lblHSNCode" runat="server" Text='<%#Eval("HSNCode")%>'></asp:Label>
+                        <asp:Label ID="lblGST" runat="server" Style="display: none;" Text='<%#Eval("GST")%>'></asp:Label>
+                        <asp:Label ID="lblGstPer" runat="server" Style="display: none;" Text='<%#Eval("GSTPer")%>'></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="80px" />
+                </asp:TemplateField>
                 <asp:TemplateField HeaderStyle-Width="80px" HeaderText="Book Code">
                     <ItemTemplate>
                         <asp:Label ID="lblbkcode1" runat="server" Text='<%#Eval("bookcode")%>'></asp:Label>
@@ -250,6 +258,8 @@
                         Text="Clear Grid" Width="80px" OnClick="btnClearGrid_Click" />
                     <asp:Button ID="btnSave" CssClass="submitbtn" TabIndex="19" runat="server" Text="Save" OnClientClick="javascript:onSaveClick(this);" 
                         Width="80px" OnClick="btnSave_Click" ValidationGroup="s1" />
+                    <asp:Button ID="btnGSTSave" CssClass="submitbtn" TabIndex="19" runat="server" Text="Save GST" OnClientClick="javascript:onSaveClick(this);" 
+                        Width="80px" OnClick="btnGSTSave_Click" ValidationGroup="s1" />
                 </td>
             </tr>
         </table>
@@ -258,6 +268,14 @@
         CellPadding="4" CssClass="product-table" OnRowDataBound="Grd2_RowDataBound" TabIndex="8" 
         OnRowDeleting="Grd2_RowDeleting">
         <Columns>
+             <asp:TemplateField HeaderStyle-Width="80px" HeaderText="HSN Code">
+                <ItemTemplate>
+                    <asp:Label ID="lblHSNCode" runat="server" Text='<%#Eval("HSNCode")%>'></asp:Label>
+                    <asp:Label ID="lblGST" runat="server" Style="display: none;" Text='<%#Eval("GST")%>'></asp:Label>
+                    <asp:Label ID="lblGstPer" runat="server" Style="display: none;" Text='<%#Eval("GSTPer")%>'></asp:Label>
+                </ItemTemplate>
+                <HeaderStyle Width="80px" />
+            </asp:TemplateField>
             <asp:TemplateField HeaderStyle-Width="80px" HeaderText="Book Code">
                 <ItemTemplate>
                     <asp:Label ID="lblbkcode" runat="server" Text='<%#Eval("bookcode")%>'></asp:Label>
@@ -418,11 +436,14 @@
     <asp:GridView ID="grdcn" CssClass="product-table" AutoGenerateColumns="false" ShowFooter="true"
         runat="server" Width="900px" CellPadding="2" OnRowDataBound="grdcn_RowDataBound">
         <Columns>
-            <%--<asp:TemplateField HeaderText="Book Code" HeaderStyle-Width="80px" >
-        <ItemTemplate>
-            <asp:Label ID="lblbookC" runat="server" Text='<%#Eval("BookCode")%>'></asp:Label>
-        </ItemTemplate>
-       </asp:TemplateField>--%>
+            <asp:TemplateField HeaderStyle-Width="80px" HeaderText="HSN Code">
+                <ItemTemplate>
+                    <asp:Label ID="lblHSNCode" runat="server" Text='<%#Eval("HSNCode")%>'></asp:Label>
+                    <asp:Label ID="lblGST" runat="server" Style="display: none;" Text='<%#Eval("GST")%>'></asp:Label>
+                    <asp:Label ID="lblGstPer" runat="server" Style="display: none;" Text='<%#Eval("GSTPer")%>'></asp:Label>
+                </ItemTemplate>
+                <HeaderStyle Width="80px" />
+            </asp:TemplateField>
             <asp:TemplateField HeaderText="PARTICULARS" HeaderStyle-HorizontalAlign="Left" HeaderStyle-Width="450px">
                 <ItemTemplate>
                     <asp:Label ID="lblbkname" runat="server" Text='<%#Eval("BookName")%>'></asp:Label>

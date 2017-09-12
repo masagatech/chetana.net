@@ -81,7 +81,9 @@
     <Compile Include="InquiryDAL.cs" />
     <Compile Include="InquiryDetail.cs" />
     <Compile Include="OtherBAL.cs" />
+    <Compile Include="OtherReturn_Book.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesPerformance.cs" />
     <Compile Include="SpecimenConfirmQtyDetailsNew.cs" />
   </ItemGroup>
   <ItemGroup>
