@@ -23,6 +23,7 @@
 <div style="float: right; width: 72%">
     <asp:Button ID="btnSave" CssClass="submitbtn" TabIndex="5" runat="server" Text="Save"
             Width="70px" onclick="btnSave_Click" ValidationGroup="A" /> 
+                        <asp:Label ID="lblCoder" runat="server" Style="display: none;"></asp:Label>
 </div>
 <br />
 <br />

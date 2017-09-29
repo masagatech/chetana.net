@@ -5,7 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <%@ register tagprefix="ajaxCt" assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" %>
-    <%@ register assembly="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
+    <%@ register assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
         namespace="CrystalDecisions.Web" tagprefix="CR" %>
     <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
     </asp:ScriptManagerProxy>

@@ -4,8 +4,7 @@
 <div class="section-header">
     <div class="title">
         <img src="Images/forms/ico-promotions.png" alt="Edit campaign details" />
-        Transaction > ORDER > Edit D.C. <a href="Campaigns.aspx" title="back to campaign list">
-        </a>
+        Transaction > ORDER > Edit D.C. <a href="Campaigns.aspx" title="back to campaign list"></a>
     </div>
     <div class="options">
     </div>
@@ -32,6 +31,7 @@
         <tr>
             <td width="100px">
                 <asp:Label ID="Label1" runat="server" CssClass="lbl-form" Text="Document No."></asp:Label>
+                <asp:Label ID="lblchksplitdc" runat="server" Text="splitdc" Style="display: none"></asp:Label>
             </td>
             <td width="110px">
                 <asp:UpdatePanel ID="UpdatePanel9" runat="server">
@@ -43,8 +43,7 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </td>
-            <td width="10px">
-            </td>
+            <td width="10px"></td>
             <td width="120px">
                 <asp:Label ID="Label2" CssClass="lbl-form" runat="server" Text="Document Date"></asp:Label>
                 <font color="red">*</font>
@@ -52,8 +51,7 @@
             <td>
                 <asp:UpdatePanel ID="UpdatePanel12" runat="server">
                     <ContentTemplate>
-                        <asp:TextBox ID="txtdocDate" CssClass="inp-form" TabIndex="2" Width="80px" runat="server"
-                            ></asp:TextBox>
+                        <asp:TextBox ID="txtdocDate" CssClass="inp-form" TabIndex="2" Width="80px" runat="server"></asp:TextBox>
                         <ajaxCt:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtdocDate"
                             Format="dd/MM/yyyy" />
                         <ajaxCt:MaskedEditExtender ID="meeRequestDate" runat="server" TargetControlID="txtdocDate"
@@ -74,7 +72,8 @@
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <asp:TextBox ID="txtchalan" CssClass="inp-form" Width="80px" TabIndex="3" runat="server"
-                            AutoPostBack="true" OnTextChanged="txtchalan_TextChanged" MaxLength="10"></asp:TextBox></ContentTemplate>
+                            AutoPostBack="true" OnTextChanged="txtchalan_TextChanged" MaxLength="10"></asp:TextBox>
+                    </ContentTemplate>
                 </asp:UpdatePanel>
             </td>
             <td>
@@ -112,8 +111,7 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </td>
-            <td>
-            </td>
+            <td></td>
             <td>
                 <asp:Label ID="Label6" CssClass="lbl-form" runat="server" Text="Order Date"></asp:Label>
                 <font color="red">*</font>
@@ -121,9 +119,8 @@
             <td>
                 <asp:UpdatePanel ID="UpdatePanel11" runat="server">
                     <ContentTemplate>
-                        <asp:TextBox ID="txtOrdDate"  CssClass="inp-form"
-                            Width="80px" TabIndex="6" runat="server" 
-                            ></asp:TextBox>
+                        <asp:TextBox ID="txtOrdDate" CssClass="inp-form"
+                            Width="80px" TabIndex="6" runat="server"></asp:TextBox>
                         <ajaxCt:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtOrdDate"
                             Format="dd/MM/yyyy" />
                         <ajaxCt:MaskedEditExtender ID="Maskedorddate" runat="server" TargetControlID="txtOrdDate"
@@ -159,7 +156,8 @@
                         <asp:RequiredFieldValidator ID="RFVCust" runat="server" ErrorMessage="Require Customer Code"
                             ValidationGroup="S" ControlToValidate="txtcustomer">.</asp:RequiredFieldValidator>
                         <asp:Label ID="lblCustName" CssClass="lbl-form" ForeColor="Blue" Font-Size="15px"
-                            runat="server"></asp:Label></ContentTemplate>
+                            runat="server"></asp:Label>
+                    </ContentTemplate>
                 </asp:UpdatePanel>
             </td>
         </tr>
@@ -239,7 +237,7 @@
             <td>
                 <asp:UpdatePanel ID="UpdatePanel8" runat="server">
                     <ContentTemplate>
-                        <asp:TextBox ID="txtspInstruct" Width="130px" CssClass="inp-form" TabIndex="11" 
+                        <asp:TextBox ID="txtspInstruct" Width="130px" CssClass="inp-form" TabIndex="11"
                             runat="server"></asp:TextBox>
                     </ContentTemplate>
                 </asp:UpdatePanel>
@@ -249,6 +247,7 @@
             <td>
                 <asp:Label ID="Label15" CssClass="lbl-form" runat="server" Text="Transporter"></asp:Label>
             </td>
+
             <td colspan="4">
                 <asp:UpdatePanel ID="UpdatePanel5" runat="server">
                     <ContentTemplate>
@@ -264,15 +263,23 @@
                             UseContextKey="true" ContextKey="transporter" CompletionListElementID="divtrasport">
                         </ajaxCt:AutoCompleteExtender>
                         <asp:Label ID="lbltransporter" CssClass="lbl-form" ForeColor="Blue" Font-Size="15px"
-                            runat="server"></asp:Label></ContentTemplate>
+                            runat="server"></asp:Label>
+                    </ContentTemplate>
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="txtcustomer" EventName="TextChanged" />
                     </Triggers>
                 </asp:UpdatePanel>
             </td>
+
             <td>
                 <asp:RequiredFieldValidator ID="reqtransport" runat="server" ErrorMessage="Require Transporter"
                     InitialValue="none" ValidationGroup="S" ControlToValidate="txttransporter">.</asp:RequiredFieldValidator>
+            </td>
+            <td>
+                <asp:Label ID="Label13" runat="server">Limit</asp:Label>
+            </td>
+            <td>
+                <asp:Label ID="lblsplitval" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>
@@ -294,7 +301,8 @@
                             UseContextKey="true" ContextKey="Bank" CompletionListElementID="divbank">
                         </ajaxCt:AutoCompleteExtender>
                         <asp:Label ID="lblbankname" CssClass="lbl-form" ForeColor="Blue" Font-Size="15px"
-                            runat="server"></asp:Label></ContentTemplate>
+                            runat="server"></asp:Label>
+                    </ContentTemplate>
                 </asp:UpdatePanel>
             </td>
         </tr>
@@ -304,12 +312,9 @@
             </td>
         </tr>
         <tr>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td align="right">
                 <asp:Label ID="lbldate" Text="Delivery Date " CssClass="lbl-form" runat="server"></asp:Label>
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -329,10 +334,10 @@
         </tr>
         <tr>
             <td colspan="4">
-                     <ajaxCt:TextBoxWatermarkExtender ID="TextBoxWatermarkDDlset" runat="server" TargetControlID="txtsetqty"
-                            WatermarkText="Qty">
-                        </ajaxCt:TextBoxWatermarkExtender>
-               
+                <ajaxCt:TextBoxWatermarkExtender ID="TextBoxWatermarkDDlset" runat="server" TargetControlID="txtsetqty"
+                    WatermarkText="Qty">
+                </ajaxCt:TextBoxWatermarkExtender>
+
                 <asp:Panel runat="server" ID="Panel1" DefaultButton="btngetset" Style="display: none">
                     <asp:DropDownList CssClass="ddl-form" Width="160px" ID="DDLSelectSet" TabIndex="15"
                         runat="server" DataTextField="Value" DataValueField="AutoId">
@@ -393,7 +398,8 @@
             <Columns>
                 <asp:TemplateField HeaderText="Book Code" HeaderStyle-Width="80px" ItemStyle-HorizontalAlign="Center">
                     <ItemTemplate>
-                        <asp:Label ID="lblDCDetailID"  style="display:none" runat="server" Text='<%#Eval("DCDetailID")%>'></asp:Label>
+                        <asp:Label ID="lblDCDetailID" Style="display: none" runat="server" Text='<%#Eval("DCDetailID")%>'></asp:Label>
+                        <asp:Label ID="lblBookid" Style="display: none;" runat="server" Text='<%#Eval("Bookid")%>'></asp:Label>
                         <asp:Label ID="lblBookCode" runat="server" Text='<%#Eval("BookCode")%>'></asp:Label>
                     </ItemTemplate>
                     <HeaderStyle Width="80px" />
@@ -465,7 +471,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Disc.(%)" HeaderStyle-Width="20px" ItemStyle-HorizontalAlign="right">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtDiscount" Style="text-align: right;" Text='<%#Eval("Discount")%>'
+                        <asp:TextBox ID="txtDiscount" ReadOnly Style="text-align: right;" Text='<%#Eval("Discount")%>'
                             runat="server" Width="40px"></asp:TextBox>
                         <ajaxCt:FilteredTextBoxExtender ID="filter" runat="server" TargetControlID="txtDiscount"
                             FilterType="Custom, Numbers" ValidChars="+-=/*()." />
@@ -519,8 +525,7 @@
 <asp:LinkButton ID="LinkButton1" runat="server" Style="display: none;">LinkButton</asp:LinkButton>
 <!--End -->
 <!--Modal popup for get details by Document No -->
-<asp:Panel ID="PnlInsertDocNum" runat="server" DefaultButton="BtnGetDCDetails" Style="display: none;
-    text-align: left; width: 300px; height: 140px;">
+<asp:Panel ID="PnlInsertDocNum" runat="server" DefaultButton="BtnGetDCDetails" Style="display: none; text-align: left; width: 300px; height: 140px;">
     <div class="facebox" width="300px">
         <asp:Label ID="Label9" runat="server" Style="float: left; font-size: 11px; font-weight: bold"
             ForeColor="White"></asp:Label>
@@ -598,155 +603,141 @@
 <script type="text/javascript">
 
 
-shortcut.add("Ctrl+S",function() {
-document.getElementById('ctl00_ContentPlaceHolder1_uc_EditDC1_btn_Save').click();
-});
+    shortcut.add("Ctrl+S", function () {
+        document.getElementById('ctl00_ContentPlaceHolder1_uc_EditDC1_btn_Save').click();
+    });
 
-shortcut.add("Ctrl+A",function() {
-  document.getElementById('ctl00_ContentPlaceHolder1_uc_EditDC1_txtbkcod').focus();
-});
-shortcut.add("Ctrl+G",function() {
-Openpopup(2)});
-
-shortcut.add("esc",function() {
-
-Closepopup(2)
-});
-
-
-
-
-
-  function Openpopup(id)
-   {
-    if(id==1)
-     {
-        $find('ctl00_ContentPlaceHolder1_uc_EditDC1_modalPopupForBooks').show();
-         document.getElementById('ctl00_ContentPlaceHolder1_uc_EditDC1_txtbkcod').value="";
+    shortcut.add("Ctrl+A", function () {
         document.getElementById('ctl00_ContentPlaceHolder1_uc_EditDC1_txtbkcod').focus();
-     }
-     if(id==2)
-     {
-        $find('ctl00_ContentPlaceHolder1_uc_EditDC1_ModalPopUpDocNum').show();
-        document.getElementById('ctl00_ContentPlaceHolder1_uc_EditDC1_TxtDocNo').focus();
-     }
-   }
-   function Closepopup(id)
-   {
-    if(id==1)
-     {
-        $find('ctl00_ContentPlaceHolder1_uc_EditDC1_modalPopupForBooks').hide();
-     }
-     if(id==2)
-     {
-        $find('ctl00_ContentPlaceHolder1_uc_EditDC1_ModalPopUpDocNum').hide();
-     }
-   }
-   
-   function clearAddbook()
-   {
-       document.getElementById('ctl00_ContentPlaceHolder1_uc_EditDC1_txtbkcod').value="";
-       document.getElementById('ctl00_ContentPlaceHolder1_uc_EditDC1_txtbkcod').focus();
-       document.getElementById('ctl00_ContentPlaceHolder1_uc_EditDC1_txtbookqty').value="";
-   }
-   
-   
-   
-   setTimeout("setSatus()",2000);
-   function setSatus()
-   {
-   var status="[ Ctrl+A : Add book ]&nbsp;&nbsp;&nbsp;[ Ctrl+S : Save ]&nbsp;&nbsp;&nbsp;[ Ctrl+G : Edit Order ]";
-   document.getElementById('status').innerHTML=status;
+    });
+    shortcut.add("Ctrl+G", function () {
+        Openpopup(2)
+    });
 
-   }
- function multiplyQty(id,id1,id2,disc,orgqty)
-{
-$('.totalQty').html("0");
-   $('.totalAmt').html("0");
-var orgQty = document.getElementById(orgqty).innerHTML;
-var Qty = document.getElementById(id).value;
-var Rate = document.getElementById(id1).value;
-var Amt = 0;
-var disc = parseFloat(document.getElementById(disc).value);
-var totalQtyId = "";
-var totalAmtID = "";
-Qty = parseInt(Qty) + parseInt(orgQty);
+    shortcut.add("esc", function () {
 
-var totalQty = 0;
-var totalAmt = 0;
+        Closepopup(2)
+    });
 
 
 
-    //  var adddisc1 = parseFloat(adddisc.innerHTML);
-    var newdisc = disc;
-    var discountprice= (Qty * Rate) * (disc /100);
-      //id1.innerHTML * id.value;        
-   document.getElementById(id2).innerHTML  = (Qty * Rate)- discountprice;
-   document.getElementById(id2).innerHTML =document.getElementById(id2).innerHTML ;
-   
-   totalQtyId = document.getElementById("<%=lblTotalqtyId.ClientID %>").innerHTML;
+
+
+    function Openpopup(id) {
+        if (id == 1) {
+            $find('ctl00_ContentPlaceHolder1_uc_EditDC1_modalPopupForBooks').show();
+            document.getElementById('ctl00_ContentPlaceHolder1_uc_EditDC1_txtbkcod').value = "";
+            document.getElementById('ctl00_ContentPlaceHolder1_uc_EditDC1_txtbkcod').focus();
+        }
+        if (id == 2) {
+            $find('ctl00_ContentPlaceHolder1_uc_EditDC1_ModalPopUpDocNum').show();
+            document.getElementById('ctl00_ContentPlaceHolder1_uc_EditDC1_TxtDocNo').focus();
+        }
+    }
+    function Closepopup(id) {
+        if (id == 1) {
+            $find('ctl00_ContentPlaceHolder1_uc_EditDC1_modalPopupForBooks').hide();
+        }
+        if (id == 2) {
+            $find('ctl00_ContentPlaceHolder1_uc_EditDC1_ModalPopUpDocNum').hide();
+        }
+    }
+
+    function clearAddbook() {
+        document.getElementById('ctl00_ContentPlaceHolder1_uc_EditDC1_txtbkcod').value = "";
+        document.getElementById('ctl00_ContentPlaceHolder1_uc_EditDC1_txtbkcod').focus();
+        document.getElementById('ctl00_ContentPlaceHolder1_uc_EditDC1_txtbookqty').value = "";
+    }
+
+
+
+    setTimeout("setSatus()", 2000);
+    function setSatus() {
+        var status = "[ Ctrl+A : Add book ]&nbsp;&nbsp;&nbsp;[ Ctrl+S : Save ]&nbsp;&nbsp;&nbsp;[ Ctrl+G : Edit Order ]";
+        document.getElementById('status').innerHTML = status;
+
+    }
+    function multiplyQty(id, id1, id2, disc, orgqty) {
+        $('.totalQty').html("0");
+        $('.totalAmt').html("0");
+        var orgQty = document.getElementById(orgqty).innerHTML;
+        var Qty = document.getElementById(id).value;
+        var Rate = document.getElementById(id1).value;
+        var Amt = 0;
+        var disc = parseFloat(document.getElementById(disc).value);
+        var totalQtyId = "";
+        var totalAmtID = "";
+        Qty = parseInt(Qty) + parseInt(orgQty);
+
+        var totalQty = 0;
+        var totalAmt = 0;
+
+
+
+        //  var adddisc1 = parseFloat(adddisc.innerHTML);
+        var newdisc = disc;
+        var discountprice = (Qty * Rate) * (disc / 100);
+        //id1.innerHTML * id.value;        
+        document.getElementById(id2).innerHTML = (Qty * Rate) - discountprice;
+        document.getElementById(id2).innerHTML = document.getElementById(id2).innerHTML;
+
+        totalQtyId = document.getElementById("<%=lblTotalqtyId.ClientID %>").innerHTML;
    totalAmtID = document.getElementById("<%=lblTotalamtId.ClientID %>").innerHTML;
-   
-   totalQty = document.getElementById(totalQtyId).innerHTML;
-   totalAmt = document.getElementById(totalAmtID).innerHTML;
-   
-   if(totalQty >=0)
-   {
-       totalQty = parseInt(totalQty) + parseInt(Qty);
-     //  document.getElementById(totalQtyId).innerHTML = totalQty;
-   }
-   if(totalAmt >=0)
-   {
-   totalAmt = parseFloat(totalAmt) + ((Qty * Rate)- discountprice);
-    
-   //document.getElementById(totalAmtID).innerHTML = totalAmt;
-   
-   TOTAL();
-   }
-}
 
-function TOTAL()
-   {
-    
+     totalQty = document.getElementById(totalQtyId).innerHTML;
+     totalAmt = document.getElementById(totalAmtID).innerHTML;
+
+     if (totalQty >= 0) {
+         totalQty = parseInt(totalQty) + parseInt(Qty);
+         //  document.getElementById(totalQtyId).innerHTML = totalQty;
+     }
+     if (totalAmt >= 0) {
+         totalAmt = parseFloat(totalAmt) + ((Qty * Rate) - discountprice);
+
+         //document.getElementById(totalAmtID).innerHTML = totalAmt;
+
+         TOTAL();
+     }
+ }
+
+ function TOTAL() {
+
      var gridview = document.getElementById('<%=grdBookDetails.ClientID %>')
-      
-     var Qty = 0;
-     var ToatalQty = 0 ;
-     var amount = 0 ;
-     var totalAmt = 0 ;
-     var Rate= 0;
-     var TotalRate= 0;
-     var Disc=0;
-     var TotalDisc=0;
-     var originalqty = 0 ;
-                    
-		                for (var r = 1; r < gridview.rows.length-1; r++)
-		                {
-		                    // originalqty =  parseInt(gridview.rows[r].cells[4].innerHTML.replace(/<[^>]+>/g,""));
-		                 
-		                    Qty  = $(gridview.rows[r].cells[6]).find('input:text').attr("value");
-			             if(Qty != "")
-			             {
-			                Rate  = $(gridview.rows[r].cells[8]).find('input:text').attr("value");
-			              }
-			              //  Disc  = $(gridview.rows[r].cells[10].innerHTML);
-			              // alert(Disc);
-			              if(gridview.rows[r].cells[10].innerHTML.replace(/<[^>]+>/g,"") != "")
-			               {
-			                totalAmt = totalAmt + parseFloat(gridview.rows[r].cells[10].innerHTML.replace(/<[^>]+>/g,""));
-			               }
-			               // TotalDisc = TotalDisc + parseFloat(Disc);
-			                ToatalQty = ToatalQty + (parseInt(Qty));//+ parseInt(originalqty));
-			                TotalRate = TotalRate + parseFloat(Rate)
-			               
-			                
-		                }
-		                  $('.totalQty').html(ToatalQty.toString());
-		                  $('.totalAmt').html(totalAmt.toString());
-		           
-		   
-     
-   }
+
+    var Qty = 0;
+    var ToatalQty = 0;
+    var amount = 0;
+    var totalAmt = 0;
+    var Rate = 0;
+    var TotalRate = 0;
+    var Disc = 0;
+    var TotalDisc = 0;
+    var originalqty = 0;
+
+    for (var r = 1; r < gridview.rows.length - 1; r++) {
+        // originalqty =  parseInt(gridview.rows[r].cells[4].innerHTML.replace(/<[^>]+>/g,""));
+
+        Qty = $(gridview.rows[r].cells[6]).find('input:text').attr("value");
+        if (Qty != "") {
+            Rate = $(gridview.rows[r].cells[8]).find('input:text').attr("value");
+        }
+        //  Disc  = $(gridview.rows[r].cells[10].innerHTML);
+        // alert(Disc);
+        if (gridview.rows[r].cells[10].innerHTML.replace(/<[^>]+>/g, "") != "") {
+            totalAmt = totalAmt + parseFloat(gridview.rows[r].cells[10].innerHTML.replace(/<[^>]+>/g, ""));
+        }
+        // TotalDisc = TotalDisc + parseFloat(Disc);
+        ToatalQty = ToatalQty + (parseInt(Qty));//+ parseInt(originalqty));
+        TotalRate = TotalRate + parseFloat(Rate)
+
+
+    }
+    $('.totalQty').html(ToatalQty.toString());
+    $('.totalAmt').html(totalAmt.toString());
+
+
+
+}
 
 
 </script>

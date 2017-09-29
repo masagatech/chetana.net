@@ -48,6 +48,8 @@
                     <td width="100px">
                         <asp:Label ID="Label2" CssClass="lbl-form" runat="server" Text="Document Date"></asp:Label>
                         <font color="red">*</font>
+                        <asp:Label ID="lblchksplitdc" runat="server" Text="splitdc" Style="display: none"></asp:Label>
+                         <%--<asp:Label ID="lblsplitval" runat="server" Text="splitdc" Style="display: none"></asp:Label>--%>
                     </td>
                     <td width="110px">
                         <asp:TextBox ID="txtdocDate" CssClass="inp-form" TabIndex="2" Width="80px" runat="server"></asp:TextBox>
@@ -163,7 +165,7 @@
                     <td colspan="4">
                         <%-- <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                     <ContentTemplate>--%>
-                        <asp:TextBox ID="txtcustomer" onfocus="setfocus('customer');" autocomplete="off"
+                        <asp:TextBox ID="txtcustomer" onfocus="setfocus('customer');" autocomplete="off" Enabled="false"
                             Width="80px" CssClass="inp-form" TabIndex="7" runat="server" AutoPostBack="true"
                             OnTextChanged="txtcustomer_TextChanged"></asp:TextBox>
                         <div id="dvcust" class="divauto350">
@@ -267,13 +269,13 @@
                     <td>
                         <asp:Label ID="Label15" CssClass="lbl-form" runat="server" Text="Transporter"></asp:Label>
                     </td>
-                    <td colspan="4">
+                   <td colspan="4">
                         <%-- <asp:UpdatePanel ID="UpdatePanel5" runat="server">
                     <ContentTemplate>--%>
                         <%-- <table width="100%">
               <tr>
                 <td style="width: 120px">--%>
-                        <asp:TextBox ID="txttransporter" Width="80px" CssClass="inp-form" TabIndex="12" autocomplete="off"
+                        <asp:TextBox ID="txttransporter" Width="180px" CssClass="inp-form" TabIndex="12" autocomplete="off"
                             runat="server" AutoPostBack="True" OnTextChanged="txttransporter_TextChanged"></asp:TextBox>
                         <div id="divtrasport" class="divauto">
                         </div>
@@ -327,6 +329,12 @@
                                 <td>
                                     <asp:Label ID="lblbankname" CssClass="lbl-form" ForeColor="Blue" Font-Size="15px"
                                         runat="server"></asp:Label>
+                                </td>
+                                <td>
+                                     <asp:Label ID="Label13" runat="server">Limit</asp:Label>
+                                 </td>
+                                <td>
+                                    <asp:Label ID="lblsplitval" runat="server"></asp:Label>
                                 </td>
                             </tr>
                         </table>
@@ -448,9 +456,18 @@
             AlternatingRowStyle-CssClass="alt" OnRowDataBound="grdBookDetails_RowDataBound"
             ShowFooter="true">
             <Columns>
+                 <asp:TemplateField HeaderText="HSN Code" HeaderStyle-Width="80px" ItemStyle-HorizontalAlign="Center">
+                    <ItemTemplate>
+                        <asp:Label ID="lblHNSCode" runat="server" Text='<%#Eval("HSNCode")%>'></asp:Label>
+                        <asp:Label ID="lblGstPer" Style="display: none;" runat="server" Text='<%#Eval("GST")%>'></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle HorizontalAlign="Left" />
+                    <ItemStyle HorizontalAlign="Left" />
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Book Code" HeaderStyle-Width="80px" ItemStyle-HorizontalAlign="Center">
                     <ItemTemplate>
                         <asp:Label ID="lblDCDetailID" Style="display: none;" runat="server" Text='<%#Eval("DCDetailID")%>'></asp:Label>
+                        <asp:Label ID="lblBookid" Style="display: none;" runat="server" Text='<%#Eval("Bookid")%>'></asp:Label>
                         <asp:Label ID="lblBookCode" runat="server" Text='<%#Eval("BookCode")%>'></asp:Label>
                     </ItemTemplate>
                     <HeaderStyle Width="80px" />
@@ -511,7 +528,7 @@
                 <asp:TemplateField HeaderText="Rate" HeaderStyle-Width="80px" ItemStyle-HorizontalAlign="right"
                     HeaderStyle-HorizontalAlign="Center">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtrate" MaxLength="6" runat="server" onkeypress="return CheckNumericWithDot(event)"
+                        <asp:TextBox Enabled=false ID="txtrate" MaxLength="6" runat="server" onkeypress="return CheckNumericWithDot(event)"
                             AutoComplete="off" Style="text-align: right;" Text='<%#Eval("Rate","{0:0.00}")%>'
                             Width="40px"></asp:TextBox>
                         <asp:Label ID="lblRate" Style="text-align: right; display: none" runat="server" Text='<%#Eval("Rate","{0:0.00}")%>'></asp:Label>
@@ -591,7 +608,7 @@
                                     <asp:Label ID="LablEmpCode" runat="server" Text="Salesman Code : "></asp:Label>
                                 </td>
                                 <td style="display: none;">
-                                    <asp:TextBox ID="TxtEmpCode" runat="server" MaxLength="10" OnTextChanged="TxtEmpCode_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                    <asp:TextBox ID="TxtEmpCode" runat="server" MaxLength="10" OnTextChanged="TxtEmpCode_TextChanged"></asp:TextBox>
                                 </td>
                                 <td>
                                     <asp:Label ID="lblDocNo" runat="server" Font-Bold="true" Font-Size="12px" Text="Document No : "

@@ -141,7 +141,7 @@
                 </ItemTemplate>
                
             </asp:TemplateField>
-            <asp:TemplateField HeaderStyle-Width="80px" HeaderStyle-BorderColor="Brown" ItemStyle-BorderColor="Brown" HeaderText="Net Sale" ItemStyle-HorizontalAlign="right">
+            <asp:TemplateField HeaderStyle-Width="80px" HeaderStyle-BorderColor="Brown" ItemStyle-BorderColor="Brown" HeaderText="Balance QTY" ItemStyle-HorizontalAlign="right">
                 <ItemTemplate>
                     <asp:Label ID="lblnetSale" runat="server" Text='<%#Eval("NetSale_Qty") %>'></asp:Label>
                 </ItemTemplate>
@@ -150,6 +150,12 @@
             <asp:TemplateField HeaderStyle-Width="80px" HeaderStyle-BorderColor="Blue" ItemStyle-BorderColor="Blue" HeaderText="Spe Qty" ItemStyle-HorizontalAlign="right">
                 <ItemTemplate>
                     <asp:Label ID="lblSold" runat="server" Text='<%#Eval("Specimen_QTY") %>'></asp:Label>
+                </ItemTemplate>
+               
+            </asp:TemplateField>
+             <asp:TemplateField HeaderStyle-Width="80px" HeaderStyle-BorderColor="Blue" ItemStyle-BorderColor="Blue" HeaderText="Spe. CN" ItemStyle-HorizontalAlign="right">
+                <ItemTemplate>
+                    <asp:Label ID="lblSpeCn" runat="server" Text='<%#Eval("SpeCn") %>'></asp:Label>
                 </ItemTemplate>
                
             </asp:TemplateField>

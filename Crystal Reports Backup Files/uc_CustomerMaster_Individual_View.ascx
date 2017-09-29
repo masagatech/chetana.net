@@ -6,22 +6,23 @@
 </asp:Panel>
 
 <style type="text/css">
-        .inp-formNew {
-    border: 1px solid #adadad;
-    color: #393939;
-    height: 15px;
-    width: 30px;
-    padding: 3px 6px 3px 6px;
-    background-color: ThreeDFace;
-}
- .inp-formNewBook {
-    border: 1px solid #adadad;
-    color: #393939;
-    height: 15px;
-    width: 110px;
-    padding: 3px 6px 3px 6px;
-    background-color: ThreeDFace;
-}
+    .inp-formNew {
+        border: 1px solid #adadad;
+        color: #393939;
+        height: 15px;
+        width: 30px;
+        padding: 3px 6px 3px 6px;
+        background-color: ThreeDFace;
+    }
+
+    .inp-formNewBook {
+        border: 1px solid #adadad;
+        color: #393939;
+        height: 15px;
+        width: 110px;
+        padding: 3px 6px 3px 6px;
+        background-color: ThreeDFace;
+    }
 </style>
 
 <div class="section-header">
@@ -129,6 +130,12 @@
                             Text='<%#Eval("SBUCode") %>'></asp:Label>
                         <asp:Label ID="lblPan" runat="server" CssClass="lbl-form" Style="display: none;"
                             Text='<%#Eval("PAN") %>'></asp:Label>
+                         <asp:Label ID="lblGst" runat="server" CssClass="lbl-form" Style="display: none;"
+                            Text='<%#Eval("GST") %>'></asp:Label>
+                        <asp:Label ID="lblStateCode" runat="server" CssClass="lbl-form" Style="display: none;"
+                            Text='<%#Eval("StateCode") %>'></asp:Label>
+                        <asp:CheckBox ID="chk_isSplit" runat="server" CssClass="lbl-form" Style="display: none;"
+                            Checked='<%#Eval("isSplit") %>' />
                         <asp:Label ID="LblKeyPersonName1" runat="server" Style="display: none;" Text='<%#Eval("KeyPersonName") %>'> </asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
@@ -403,10 +410,8 @@
                     </asp:UpdatePanel>
                     <asp:Label ID="LblArea" runat="server" Text="Label" Style="display: none"></asp:Label>
                 </td>
-                <td>
-                </td>
-                <td>
-                </td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
                 <td>
@@ -421,8 +426,7 @@
                 <td>
                     <asp:TextBox ID="txtcreditdays" runat="server" CssClass="inp-form" TabIndex="13"></asp:TextBox>
                 </td>
-                <td>
-                </td>
+                <td></td>
             </tr>
             <tr runat="server" id="RowadditionalDisc" visible="false">
                 <td>
@@ -501,6 +505,14 @@
                     </asp:DropDownList>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="Label37" runat="server" CssClass="lbl-form" Text="Split DC"></asp:Label>
+                </td>
+                <td>
+                    <asp:CheckBox ID="chk_splitdc" TabIndex="3" runat="server" Checked="true" />
+                </td>
+            </tr>
         </table>
     </asp:Panel>
     <asp:Panel ID="Panel1" CssClass="pnldash" runat="server" GroupingText="Customer Address Details">
@@ -525,10 +537,24 @@
                     </asp:DropDownList>
                 </td>
                 <td width="100px">
-                    <asp:Label ID="Label14" runat="server" CssClass="lbl-form" Text="City"></asp:Label>
+                   <asp:Label ID="Label30" runat="server" CssClass="lbl-form" Text="State Code"></asp:Label>
                 </td>
                 <td>
-                    <asp:UpdatePanel ID="UpdatePanel4" UpdateMode="Conditional" runat="server">
+                   <asp:TextBox ID="txtStateCode" runat="server" MaxLength="2" CssClass="inp-form" TabIndex="20"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="Label7" runat="server" CssClass="lbl-form" Text="Zip"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="TxtZip" runat="server" CssClass="inp-form" TabIndex="20"></asp:TextBox>
+                </td>
+                <td>
+                     <asp:Label ID="Label14" runat="server" CssClass="lbl-form" Text="City"></asp:Label>
+                </td>
+                <td>
+                     <asp:UpdatePanel ID="UpdatePanel4" UpdateMode="Conditional" runat="server">
                         <ContentTemplate>
                             <asp:DropDownList CssClass="ddl-form" TabIndex="19" ID="ddlCity" runat="server" Width="200px"
                                 DataValueField="DMID" DataTextField="Name" Enabled="False">
@@ -540,18 +566,6 @@
                     </asp:UpdatePanel>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="Label7" runat="server" CssClass="lbl-form" Text="Zip"></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="TxtZip" runat="server" CssClass="inp-form" TabIndex="20"></asp:TextBox>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
         </table>
     </asp:Panel>
     <asp:Panel ID="PnlCustDetails" GroupingText="Contact Details" CssClass="pnldash"
@@ -559,10 +573,13 @@
         <table>
             <tr>
                 <td>
-                    <asp:Label ID="Label8" runat="server" CssClass="lbl-form" Text="Phone1 "></asp:Label>
+                    <asp:Label ID="Label8" runat="server" CssClass="lbl-form" Text="RMN "></asp:Label>
+		    <font color="red">*</font>
                 </td>
                 <td>
-                    <asp:TextBox ID="TxtPhone1" runat="server" CssClass="inp-form" TabIndex="21" MaxLength="12"></asp:TextBox>
+                    <asp:TextBox ID="TxtPhone1" runat="server" CssClass="inp-form" TabIndex="21" MaxLength="10"></asp:TextBox>
+			<asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ErrorMessage="Enter Customer RMN"
+                                ControlToValidate="TxtPhone1" ValidationGroup="ct">.</asp:RequiredFieldValidator>
                 </td>
                 <td>
                     <asp:Label ID="Label9" runat="server" CssClass="lbl-form" Text="Phone2"></asp:Label>
@@ -732,8 +749,10 @@
                         FilterType="Custom, Numbers" />
                 </td>
                 <td width="100px">
+                     <asp:Label ID="Label29" runat="server" Text="GST No"></asp:Label>
                 </td>
                 <td>
+                    <asp:TextBox ID="txtGst" runat="server" CssClass="inp-form"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -812,8 +831,8 @@
 </asp:Panel>
 
 <asp:Panel ID="AssortedPanel" Visible="false" CssClass="panelDetails" Style="float: left" runat="server"
-    Width="364px" >
-        <ContentTemplate>
+    Width="364px">
+    <contenttemplate>
             <asp:Panel ID="Panel6" CssClass="pnldash" Height="274px" runat="server">
                     <fieldset>
                         <legend>Assorted Discount</legend>
@@ -855,7 +874,7 @@
                     </asp:UpdatePanel>
                 </asp:Panel>
             </asp:Panel>
-        </ContentTemplate>
+        </contenttemplate>
 </asp:Panel>
 <br />
 <br />

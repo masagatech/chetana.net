@@ -254,6 +254,7 @@
                     <ItemTemplate>
                         <asp:Label ID="lblspecDetailID" Style="display: none;" runat="server" Text='<%#Eval("SpecimenDetailID")%>'></asp:Label>
                         <asp:Label ID="lblBookCode" runat="server" Text='<%#Eval("BookCode")%>'></asp:Label>
+                         <asp:TextBox ID="txtbooksetid" Style="text-align: right; display: none;" Text='<%#Eval("BookSetID")%>' runat="server"></asp:TextBox>
                     </ItemTemplate>
                     <HeaderStyle Width="80px" />
                     <ItemStyle HorizontalAlign="Center" />
@@ -314,6 +315,7 @@
                  <asp:TemplateField HeaderStyle-Width="80px" HeaderText="Original Qty" ItemStyle-HorizontalAlign="Center">
                     <ItemTemplate>
                         <asp:Label ID="lblavailable" Style="text-align: right;" runat="server" Text='<%#Eval("Quantity")%>'></asp:Label>
+                        
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderStyle-Width="80px" HeaderText="Confirmed Qty" ItemStyle-HorizontalAlign="Center">

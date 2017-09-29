@@ -18,6 +18,9 @@
                 runat="server" Text="Save" Width="80px" OnClick="btn_Save_Click" />
             <asp:Button ID="btnEdit1" OnClientClick="Openpopup(2)" CssClass="submitbtn" Width="80px"
                 runat="server" Text="Edit"></asp:Button>
+             <asp:Button ID="btn_PrintSave" Visible="true"
+            CssClass="submitbtn" ValidationGroup="S" TabIndex="100" ToolTip="Save below data and Print"
+            runat="server" Text="Save & Print" OnClick="btn_PrintSave_Click" Width="80px" />&nbsp;
             <asp:Label Style="display: none;" ID="lblmsg" runat="server" Text=" "></asp:Label>
         </ContentTemplate>
         <Triggers>
@@ -30,7 +33,7 @@
 <br />
 <br />
 <asp:Panel ID="PnlSpecimenDetails" CssClass="panelDetails" runat="server" Style="width: 740px;">
-    <table width="100%" cellpadding="0" cellspacing="0">
+    <table width="100%" cellpadding="0">
         <tr>
             <td width="100px">
                 <asp:Label ID="Label1" runat="server" CssClass="lbl-form" Text="GCN"></asp:Label>
@@ -635,8 +638,8 @@
             {
                 alert('Invalid Quntity');
                 $(d).val();
-                $(d).focus();
-                return false;
+               // $(d).focus();
+              //  return false;
             }
         }
         else {

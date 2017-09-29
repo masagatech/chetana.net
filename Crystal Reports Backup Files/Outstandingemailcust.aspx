@@ -19,7 +19,7 @@
         <div class="options">
         </div>
     </div>
-    <asp:Panel ID="pnDetails" runat="server" DefaultButton="btnsave">
+    <asp:Panel ID="panelDetails" runat="server" CssClass="panelDetails" Height="40px" Width="735px">
         <table>
             <tr>
                 <td>

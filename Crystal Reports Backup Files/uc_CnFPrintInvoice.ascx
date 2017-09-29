@@ -99,8 +99,10 @@
                                                             Text='<%#Eval("DocumentNo")%>'></asp:Label>
                                                 </td>
                                                 <td align="right">
-                                                    <asp:Button ID="btnPrint" OnClick="btnPrint_Click" runat="server" Text="Print" Style="float: right;
+                                                    <asp:Button ID="btnPrint" CssClass="submitbtn" OnClick="btnPrint_Click" runat="server" Text="Print" Style="float: right;
                                                         margin-right: 10px;" CommandArgument='<%#Eval("DocumentNo")%>'  ToolTip="click to print" />
+                                                     <asp:Button ID="btnform" CssClass="submitbtn" OnClick="btnform_Click" runat="server" Text="Form Print" Style="float: right;
+                                                        margin-right: 10px;" CommandArgument='<%#Eval("DocumentNo")%>'  ToolTip="Form Print" />
                                                 </td>
                                             </tr>
                                         </table>

@@ -490,6 +490,12 @@
                             DataValueField="SectionID" TabIndex="23">
                         </asp:DropDownList>
                     </td>
+                    <td>
+                        <asp:Label ID="Label35" runat="server" CssClass="lbl-form" Text="Split DC"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:CheckBox ID="chk_splitdc" TabIndex="3" runat="server" Checked="true" />
+                    </td>
                 </tr>
             </tr>
         </table>
@@ -519,6 +525,14 @@
                     </asp:DropDownList>
                 </td>
                 <td width="100px">
+                    <asp:Label ID="Label37" runat="server" CssClass="lbl-form" Text="State Code"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtStateCode" runat="server" CssClass="inp-form" TabIndex="27"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                 <td>
                     <asp:Label ID="Label14" runat="server" CssClass="lbl-form" Text="City"></asp:Label>
                 </td>
                 <td>
@@ -533,17 +547,11 @@
                         </Triggers>
                     </asp:UpdatePanel>
                 </td>
-            </tr>
-            <tr>
                 <td>
                     <asp:Label ID="Label7" runat="server" CssClass="lbl-form" Text="Zip"></asp:Label>
                 </td>
                 <td>
                     <asp:TextBox ID="TxtZip" runat="server" CssClass="inp-form" TabIndex="27"></asp:TextBox>
-                </td>
-                <td>
-                </td>
-                <td>
                 </td>
             </tr>
         </table>
@@ -552,10 +560,13 @@
         <table>
             <tr>
                 <td>
-                    <asp:Label ID="Label8" runat="server" CssClass="lbl-form" Text="Phone1 "></asp:Label>
+                    <asp:Label ID="Label8" runat="server" CssClass="lbl-form" Text="RMN "></asp:Label>
+                      <font color="red">*</font>
                 </td>
                 <td>
-                    <asp:TextBox ID="TxtPhone1" runat="server" CssClass="inp-form" TabIndex="21" MaxLength="28"></asp:TextBox>
+                    <asp:TextBox ID="TxtPhone1" runat="server" CssClass="inp-form" TabIndex="21" MaxLength="10"></asp:TextBox>
+                     <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ErrorMessage="Enter Customer RMN"
+                                ControlToValidate="TxtPhone1" ValidationGroup="ct">.</asp:RequiredFieldValidator>
                 </td>
                 <td>
                     <asp:Label ID="Label9" runat="server" CssClass="lbl-form" Text="Phone2"></asp:Label>
@@ -711,8 +722,10 @@
                         FilterType="Custom, Numbers" />
                 </td>
                 <td width="100px">
+                     <asp:Label ID="Label36" runat="server" Text="GST NO "></asp:Label>
                 </td>
                 <td>
+                    <asp:TextBox ID="txtGstNo" runat="server" CssClass="inp-form" TabIndex="43"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -720,13 +733,13 @@
                     <asp:Label ID="Lable" runat="server" Text="Upper Limit"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtUpperlimit" runat="server" CssClass="inp-form" TabIndex="43"></asp:TextBox>
+                    <asp:TextBox ID="txtUpperlimit" runat="server" CssClass="inp-form" TabIndex="44"></asp:TextBox>
                 </td>
                 <td>
                     <asp:Label ID="Label26" runat="server" Text="Lower Limit"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtLowerlimit" runat="server" CssClass="inp-form" TabIndex="44"></asp:TextBox>
+                    <asp:TextBox ID="txtLowerlimit" runat="server" CssClass="inp-form" TabIndex="45"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -735,17 +748,15 @@
                 </td>
                 <td>
                     <%--<asp:TextBox ID="txtSbuCode" runat="server" CssClass="inp-form" TabIndex="45"></asp:TextBox>--%>
-                    <asp:DropDownList ID="ddlSbucode" TabIndex="45" CssClass="ddl-form" DataValueField="AutoId"
+                    <asp:DropDownList ID="ddlSbucode" TabIndex="46" CssClass="ddl-form" DataValueField="AutoId"
                         DataTextField="Value" Width="100px" runat="server">
                     </asp:DropDownList>
                 </td>
-                 <td>
+		        <td>
                     <asp:Label ID="Label34" runat="server" Text="PAN No"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtPANNo" runat="server" TabIndex="46" CssClass="inp-form"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ErrorMessage="Please enter PAN no"
-                                ControlToValidate="txtPANNo" ValidationGroup="ct">.</asp:RequiredFieldValidator>
+                    <asp:TextBox ID="txtPANNo" runat="server" TabIndex="47" CssClass="inp-form"></asp:TextBox>
                 </td>
             </tr>
         </table>
@@ -769,7 +780,7 @@
                             <td>
                                 <asp:Label ID="lblTest" runat="server">Tod Amount</asp:Label>
                                 <asp:TextBox ID="txtTODAmount" runat="server" CssClass="inp-form" onkeypress="return CheckNumericWithDot(event)"
-                                    TabIndex="47"></asp:TextBox>
+                                    TabIndex="46"></asp:TextBox>
                             </td>
                             <td>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtTODAmount"
@@ -778,7 +789,7 @@
                             <td>
                                 <asp:Label ID="Label33" runat="server">Tod Dis.%</asp:Label>
                                 <asp:TextBox ID="txtTodDis" runat="server" CssClass="inp-form" onkeypress="return CheckNumericWithDot(event)"
-                                    TabIndex="48"></asp:TextBox>
+                                    TabIndex="47"></asp:TextBox>
                             </td>
                             <td>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="txtTodDis"

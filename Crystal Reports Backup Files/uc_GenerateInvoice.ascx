@@ -48,7 +48,7 @@
                         </td>
                         <td width="100px" style="display: none">
                             <asp:TextBox ID="txtDocno" CssClass="inp-form" Width="80px" runat="server"></asp:TextBox>
-				<asp:TextBox ID="txtOrgDocNo" style="display:none;" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtOrgDocNo" Style="display: none;" runat="server"></asp:TextBox>
                         </td>
                         <td width="100px" style="display: none">
                             <asp:RequiredFieldValidator ID="reqdocno" runat="server" ErrorMessage="Require Document No."
@@ -117,6 +117,12 @@
                                 ShowFooter="true" AutoGenerateColumns="false" OnRowDataBound="grdapproval_RowDataBound"
                                 runat="server">
                                 <Columns>
+                                    <asp:TemplateField HeaderText="HSN Code" HeaderStyle-Width="80px">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblHsnCode" runat="server" Text='<%#Eval("HSNCode")%>'></asp:Label>
+                                            <asp:Label ID="lblGstPer" Style="display:none;" runat="server" Text='<%#Eval("GSTPer")%>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Book Code" HeaderStyle-Width="80px">
                                         <ItemTemplate>
                                             <asp:Label ID="lblbookC" runat="server" Text='<%#Eval("BookCode")%>'></asp:Label>
@@ -149,7 +155,7 @@
                                         FooterStyle-HorizontalAlign="Right">
                                         <ItemTemplate>
                                             <asp:TextBox ID="txtrate" MaxLength="6" runat="server" onkeypress="return CheckNumericWithDot(event)"
-                                                Enabled="false" Style="text-align: right;" Text='<%#Eval("Rate","{0:0.00}")%>'
+                                                Style="text-align: right;" Text='<%#Eval("Rate","{0:0.00}")%>'
                                                 Width="45px" CssClass="TotalBox"></asp:TextBox>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -157,7 +163,7 @@
                                         FooterStyle-HorizontalAlign="Right">
                                         <ItemTemplate>
                                             <asp:TextBox ID="txtdiscount" runat="server" MaxLength="6" Text='<%#Eval("Discount","{0:0.00}")%>'
-                                                Enabled="false" Width="45px" HeaderStyle-HorizontalAlign="Left" Style="text-align: right;"
+                                                Width="45px" HeaderStyle-HorizontalAlign="Left" Style="text-align: right;"
                                                 onkeypress="return CheckNumericWithDot(event)"></asp:TextBox>
                                             <asp:Label Style="display: none;" ID="lblTotalAmtForFright" runat="server" Text=""></asp:Label>
                                             <asp:Label ID="lblqunty" Style="text-align: right; display: none;" runat="server"
@@ -226,7 +232,7 @@
                                     </td>
                                     <td>
                                         <asp:TextBox ID="txtbundles" CssClass="inp-form" Width="50px" runat="server" Text=""
-                                            TabIndex="4" ></asp:TextBox>
+                                            TabIndex="4"></asp:TextBox>
                                         <ajaxCt:TextBoxWatermarkExtender ID="TextBoxWatermarkDDlset" runat="server" TargetControlID="txtbundles"
                                             WatermarkText="Bundles">
                                         </ajaxCt:TextBoxWatermarkExtender>
@@ -246,13 +252,22 @@
                                             Text=" L.R. Date :  "></asp:Label>
                                     </td>
                                     <td>
-                                        <asp:TextBox ID="txtlrdate"  CssClass="inp-form" Width="100px"
+                                        <asp:TextBox ID="txtlrdate" CssClass="inp-form" Width="100px"
                                             runat="server" TabIndex="4"></asp:TextBox>
                                         <ajaxCt:CalendarExtender Animated="true" PopupPosition="Right" ID="CalendarExtender1"
                                             runat="server" TargetControlID="txtlrdate" Format="dd/MM/yyyy" />
                                         <ajaxCt:MaskedEditExtender ID="MaskedEditExtender1" runat="server" TargetControlID="txtlrdate"
                                             MaskType="Date" Mask="99/99/9999" AcceptAMPM="true" MessageValidatorTip="false"
                                             AutoComplete="true" CultureName="en-US" />
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="Label7" Style="font-size: 12px; font-weight: bold" runat="server"
+                                            Text="Way Bill No :"></asp:Label>
+
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="txt_wayBillNo" CssClass="inp-form" Width="100px" runat="server" Text=""
+                                            TabIndex="5"></asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>
@@ -301,8 +316,8 @@
                                             <td>
                                                 <asp:Label ID="lbltotalAmtget" Style="display: none;" Width="50px" runat="server"
                                                     Text=""></asp:Label>
-                                                <asp:Label ID="lbltotalamt" CssClass="inp-form" Width="70px" Style="font-size: 12px;
-                                                    text-align: right; font-weight: bold" runat="server" Text=""></asp:Label>
+                                                <asp:Label ID="lbltotalamt" CssClass="inp-form" Width="70px" Style="font-size: 12px; text-align: right; font-weight: bold"
+                                                    runat="server" Text=""></asp:Label>
                                                 <asp:Label ID="lbltotalAmtJS" Style="display: none;" Width="50px" runat="server"
                                                     Text=""></asp:Label>
                                             </td>
@@ -312,6 +327,12 @@
                                                 <asp:Button ID="btnConfirmed" CommandArgument='<%#Eval("SubConfirmID")%>' OnClick="btnapproval_Click"
                                                     CommandName="Invoice" TabIndex="7" runat="server" Text="Create Invoice" CssClass="submitbtn" Width="110px"
                                                     Style="float: right;" OnClientClick="return confirm('Do you want to Create Invoice ?');" />
+                                            </td>
+
+                                             <td align="left" colspan="2">
+                                                <asp:Button ID="btnGstInvoice" CommandArgument='<%#Eval("SubConfirmID")%>' OnClick="btnGstInvoice_Click"
+                                                    CommandName="GSTInvoice" TabIndex="7" runat="server" Text="Create GST Invoice" CssClass="submitbtn" Width="110px"
+                                                    Style="float: right;" OnClientClick="return confirm('Do you want to Create GST Invoice ?');" />
                                             </td>
 
                                             <td align="left" colspan="2">
@@ -334,8 +355,7 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
         </td>
-        <td width="20%" valign="top">
-        </td>
+        <td width="20%" valign="top"></td>
     </tr>
 </table>
 <asp:Label ID="lblMobNo" Style="display: none;" runat="server" Text="noContact"></asp:Label>
@@ -355,7 +375,7 @@ document.getElementById('filterdata').focus();
 </script>--%>
 
 <script type="text/javascript">
-     function setVal(id, orgdocno) {
+    function setVal(id, orgdocno) {
         document.getElementById("ctl00_ContentPlaceHolder1_uc_GenerateInvoice1_txtDocno").value = id;
         document.getElementById("ctl00_ContentPlaceHolder1_uc_GenerateInvoice1_txtOrgDocNo").value = orgdocno;
         document.getElementById("ctl00_ContentPlaceHolder1_uc_GenerateInvoice1_btnget").click();

@@ -152,6 +152,12 @@
                                 ShowFooter="true" AutoGenerateColumns="false" OnRowDataBound="grdapproval_RowDataBound"
                                 OnRowDeleting="grdapproval_RowDeleting" runat="server">
                                 <Columns>
+                                     <asp:TemplateField HeaderText="HSN Code" HeaderStyle-Width="80px">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblHsnCode" runat="server" Text='<%#Eval("HSNCode")%>'></asp:Label>
+                                            <asp:Label ID="lblGstPer" Style="display:none;" runat="server" Text='<%#Eval("GSTPer")%>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Book Code" HeaderStyle-Width="80px">
                                         <ItemTemplate>
                                             <asp:Label ID="lblbookC" runat="server" Text='<%#Eval("BookCode")%>'></asp:Label>
@@ -391,7 +397,7 @@
             var total = 0;
             var totalgetAmt =0;
         
-            frieghtchrgs = document.getElementById(frigt).value ;
+            frieghtchrgs = document.getElementById(frigt).value;
             taxamt = document.getElementById(tax).value ;
             totalgetAmt = document.getElementById(totalamt).innerHTML;
             total = parseFloat(frieghtchrgs) + parseFloat(taxamt)+ parseFloat(totalgetAmt);
@@ -471,8 +477,4 @@ var TotalQty = 0
      return TotalAmt.toString();
 }
 </script>
-
-<p>
-    <asp:Label ID="lblAuditMsg" runat="server" ForeColor="Maroon" Font-Bold="True" ></asp:Label></p>
-
 

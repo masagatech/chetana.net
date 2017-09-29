@@ -33,6 +33,21 @@
                 Width="80px" OnClick="btn_Save_Click" ValidationGroup="bnkrct" />
             <asp:Button ID="btnCashEntry" Visible="false" CssClass="submitbtn" TabIndex="16" runat="server" Text="Cash Entry"
                 Width="100px" OnClick="btn_CashEntry" />
+		 <asp:DropDownList ID="ddlMonth" Visible="false" runat="server" CssClass="ddl-form" >
+                <asp:ListItem Text="Apr" Value="4"></asp:ListItem>
+                <asp:ListItem Text="May" Value="5"></asp:ListItem>
+                <asp:ListItem Text="Jun" Value="6"></asp:ListItem>
+                <asp:ListItem Text="Jul" Value="7"></asp:ListItem>
+                <asp:ListItem Text="Aug" Value="8"></asp:ListItem>
+                <asp:ListItem Text="Sep" Value="9"></asp:ListItem>
+                <asp:ListItem Text="Oct" Value="10"></asp:ListItem>
+                <asp:ListItem Text="Nov" Value="11"></asp:ListItem>
+                <asp:ListItem Text="Dec" Value="12"></asp:ListItem>
+		<asp:ListItem Text="Jan" Value="1"></asp:ListItem>
+		<asp:ListItem Text="Feb" Value="2"></asp:ListItem>
+		<asp:ListItem Text="Mar" Value="3"></asp:ListItem>
+            </asp:DropDownList>
+
             <%--<%#ConfigurationManager.AppSettings["editlockMsg"].ToString()     %>--%>
         </div>
         <br />
@@ -256,7 +271,7 @@
                         <asp:Label ID="lblCustOS" runat="server" CssClass="lbl-form" Font-Size="15px" ForeColor="Blue"
                             Visible="False" Width="120px"></asp:Label>
                     </td>
-                </tr>
+		    </tr>
                 <tr>
                     <td>
                         <asp:Label ID="Label5" CssClass="lbl-form" runat="server" Text="Person Incharge"></asp:Label>
@@ -266,6 +281,15 @@
                             runat="server"></asp:TextBox>
                     </td>
                     <td></td>
+		    <td>
+	                <asp:Label ID="lbldislimit" runat="server" Text="Cash limit" CssClass="lbl-form" Visible="False"></asp:Label>
+
+	            </td>
+	            <td>
+                <asp:Label ID="lbllimit" runat="server" CssClass="lbl-form" Font-Size="10px" ForeColor="Blue"
+                    Visible="False" Width="120px"></asp:Label>
+                 <asp:Label ID="lblsplitdc" runat="server" Text="" CssClass="lbl-form" Visible="False"></asp:Label>
+            </td>
                 </tr>
                 <tr>
                     <td>
@@ -358,7 +382,7 @@
                             <td>
 
                                 <asp:TextBox ID="txtAmt" runat="server" CssClass="inp-form" TabIndex="12" Width="85px"
-                                    MaxLength="20"></asp:TextBox>
+                                    MaxLength="20" OnTextChanged="txtAmt_TextChanged" AutoPostBack="true" ></asp:TextBox>
                                 <ajaxCt:FilteredTextBoxExtender ID="filter1" runat="server" FilterType="Custom, Numbers"
                                     TargetControlID="txtAmt" ValidChars="." />
                                 <asp:RequiredFieldValidator ID="Reqamt" runat="server" ErrorMessage="Enter Amount"
