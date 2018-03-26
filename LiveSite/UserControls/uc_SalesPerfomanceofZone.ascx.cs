@@ -53,40 +53,17 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
 
         if (!Page.IsPostBack)
         {
-            //DDLsuperzone.Focus();
             ddlSDZone.Focus();
+
             ddlSDZone.DataSource = Masters.Get_AreaZone_Zone_SuperZone(0, "SDZone");
             ddlSDZone.DataBind();
             ddlSDZone.Items.Insert(0, new ListItem("-Select Super Duper Zone-", "0"));
-            DDLsuperzone.Items.Insert(0, new ListItem("-Select Super Zone-", "0"));
+
+            DDLsuperzone.Focus();
             setdefaultdate();
         }
-
+      
     }
-
-    protected void ddlSDZone_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        if (ddlSDZone.SelectedIndex == 0)
-        {
-            // MessageBox("Select SuperZone");
-
-            ddlSDZone.DataSource = Masters.Get_AreaZone_Zone_SuperZone(0, "SDZone");
-            ddlSDZone.DataBind();
-            ddlSDZone.Focus();
-            DDLsuperzone.Items.Clear();
-            DDLsuperzone.Items.Insert(0, new ListItem("-Select Super Zone-", "0"));
-            //  DDLZone.SelectedValue = null;
-            // Bind_DDL_ZoneCust();
-        }
-        else
-        {
-            DDLsuperzone.DataSource = SuperZone.GetSuperzonemaster();
-            DDLsuperzone.DataBind();
-            DDLsuperzone.Items.Insert(0, new ListItem("-- Select SuperZone --", "0"));
-            DDLsuperzone.Focus();
-        }
-    }
-
     public void setdefaultdate()
     {
         txtfromDate.Text = Session["FromDate"].ToString();
@@ -167,6 +144,39 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
         //    lblgrdcustomer.Text = "";
         //}
     }
+    protected void ddlSDZone_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (ddlSDZone.SelectedIndex == 0)
+        {
+            // MessageBox("Select SuperZone");
+
+            ddlSDZone.DataSource = Masters.Get_AreaZone_Zone_SuperZone(0, "SDZone");
+            ddlSDZone.DataBind();
+            ddlSDZone.Focus();
+
+            DDLsuperzone.Items.Clear();
+            DDLsuperzone.Items.Insert(0, new ListItem("-Select Super Zone-", "0"));
+            //  DDLZone.SelectedValue = null;
+            // Bind_DDL_ZoneCust();
+        }
+        else
+        {
+            Bind_DDL_SuperZone();
+            DDLsuperzone.Focus();
+        }
+    }
+    public void Bind_DDL_SuperZone()
+    {
+        //DDLsuperzone.DataSource = SuperZone.GetSuperzonemaster();
+        DDLsuperzone.DataSource  = Masters.Get_AreaZone_Zone_SuperZone(Convert.ToInt32(ddlSDZone.SelectedValue.ToString()), "SuperZone1");
+        DDLsuperzone.DataBind();
+        DDLsuperzone.Items.Insert(0, new ListItem("-- Select SuperZone --", "0"));
+      
+    }
+
+     
+
+
     protected void grdcustomer_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         Label lblbillamt1;
@@ -174,6 +184,8 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
         Label lblcnamt1;
         Label lblRecdamt1;
         Label lblbalance1;
+        Label lbltarper;
+
         if (e.Row.RowType == DataControlRowType.Header)
         {
             billamt = openbalance = cnamt = recdamt = totalbalance = 0;
@@ -189,6 +201,7 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
             lblRecdamt1 = (Label)e.Row.FindControl("lblRecdamt");
             recdamt = recdamt + Convert.ToDecimal(lblRecdamt1.Text.Trim());
             lblbalance1 = (Label)e.Row.FindControl("lbltotalBalance");
+            lbltarper = (Label)e.Row.FindControl("lblTargetAchpercent");
             totalbalance = totalbalance + Convert.ToDecimal(lblbalance1.Text.Trim());
         }
         if (e.Row.RowType == DataControlRowType.Footer)
@@ -405,7 +418,7 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
         {
             DataSet ds = new DataSet();
             //ds = Other.Dashboard.Get_Report_SalesPerformance(0, Convert.ToInt32(DDLsuperzone.SelectedValue), Convert.ToInt32(strFY), fdate, tdate);
-            ds = Other_Z.SalesPerformance.Get_OtherZ_SalesPerformanceReport(0, Convert.ToInt32(DDLsuperzone.SelectedValue), Convert.ToInt32(ddlSDZone.SelectedValue), Convert.ToInt32(strFY), fdate, tdate);
+            ds = Other.Dashboard.Get_Report_SalesPerformance(Convert.ToInt32(ddlSDZone.SelectedValue), Convert.ToInt32(DDLsuperzone.SelectedValue), Convert.ToInt32(strFY), fdate, tdate);
             grdoutstanding.DataSource = ds.Tables[0];
             grdoutstanding.DataBind();
             grdnoofparty.DataSource = ds.Tables[0];
