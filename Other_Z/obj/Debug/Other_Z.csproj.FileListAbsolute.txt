@@ -64,3 +64,11 @@ D:\Working\Chetana_Solution - 14-10-2016\chetana.net\Other_Z\bin\Debug\Idv.Cheta
 D:\Working\Chetana_Solution - 14-10-2016\chetana.net\Other_Z\obj\Debug\Other_Z.csprojResolveAssemblyReference.cache
 D:\Working\Chetana_Solution - 14-10-2016\chetana.net\Other_Z\obj\Debug\Other_Z.dll
 D:\Working\Chetana_Solution - 14-10-2016\chetana.net\Other_Z\obj\Debug\Other_Z.pdb
+F:\Projects\chetana.net\Other_Z\bin\Debug\Other_Z.dll
+F:\Projects\chetana.net\Other_Z\bin\Debug\Other_Z.pdb
+F:\Projects\chetana.net\Other_Z\bin\Debug\Idv.Chetana.Common.dll
+F:\Projects\chetana.net\Other_Z\bin\Debug\Idv.Chetana.DAL.dll
+F:\Projects\chetana.net\Other_Z\bin\Debug\Idv.Chetana.DAL.pdb
+F:\Projects\chetana.net\Other_Z\obj\Debug\Other_Z.csprojResolveAssemblyReference.cache
+F:\Projects\chetana.net\Other_Z\obj\Debug\Other_Z.dll
+F:\Projects\chetana.net\Other_Z\obj\Debug\Other_Z.pdb
