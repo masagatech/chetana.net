@@ -12,6 +12,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using Idv.Chetana.BAL;
 using System.Net.Mail;
+
 using System.Text;
 
 public partial class Godown_GetPass_OutSide : System.Web.UI.UserControl
@@ -270,7 +271,7 @@ public partial class Godown_GetPass_OutSide : System.Web.UI.UserControl
                     smtp.Host = "crm.chetanapublications.com";
                     smtp.Port = 25;
                     smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new System.Net.NetworkCredential("wecare@chetanapublications.com", "cbdcppl@2015");
+                    smtp.Credentials = new System.Net.NetworkCredential("wecare@chetanapublications.com", "we0504260");
                     smtp.EnableSsl = false;
 
                     try
@@ -278,7 +279,7 @@ public partial class Godown_GetPass_OutSide : System.Web.UI.UserControl
                         smtp.Send(msg);
                         DataSet DsMailLog = new DataSet();
                         string mDocumentNo = obj.DC_No.ToString();
-                        DsMailLog = CourierDetails.SendDispatchEmail(SCD, float.Parse(mDocumentNo), "DispatchEmail", "DispatchId", Convert.ToInt32(strFY), "wecare@chetanapublications.com", "cbdcppl@2015", Convert.ToString(Session["UserName"]));
+                        DsMailLog = CourierDetails.SendDispatchEmail(SCD, float.Parse(mDocumentNo), "DispatchEmail", "DispatchId", Convert.ToInt32(strFY), "wecare@chetanapublications.com", "we0504260", Convert.ToString(Session["UserName"]));
                         //MessageBox("Mail Sent successfully");
 
                     }
@@ -531,8 +532,10 @@ public partial class Godown_GetPass_OutSide : System.Web.UI.UserControl
         stBody.Append(" <tbody>");
         stBody.Append(" <tr><td></td></tr>");
         stBody.Append(" <tr>  <td align=center  style=background-color:#8B7D6B;color:White;><u><h1>Chetana Book Depot</h1></u>");
-        stBody.Append(" 263-C, KHATAUWADI, GOREGAONKAR LANE, BEHIND CENTRAL CINEMA, GIRGAON MUMBAI");
-        stBody.Append(" PHONES : 4342 50 00.  DATE OF INCORP-, 5TH OCT.1989 Fax No : 2382 19 10<br/></td></tr> ");
+         
+stBody.Append(" 4TH  FLOOR, B WING, “BUILDING E”, TRADE LINK KAMALA CITY, ABOVE BOMBAY CANTEEN, LOWER PAREL, MUMBAI - 400013");              
+	stBody.Append("<br/></td></tr> ");
+
         stBody.Append("<tr>");
         stBody.Append(" <td colspan=2 align=center bgcolor=#d1d8db valign=top>");
         stBody.Append(" <table cellpadding=5 cellspacing=5 >");

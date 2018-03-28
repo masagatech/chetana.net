@@ -1,5 +1,4 @@
-﻿
-#region Name Spaces
+﻿#region Name Spaces
 
 using System;
 using System.Collections;
@@ -260,7 +259,7 @@ public partial class Godown_GetPass_Local : System.Web.UI.UserControl
                         smtp.Host = "crm.chetanapublications.com";
                         smtp.Port = 25;
                         smtp.UseDefaultCredentials = false;
-                        smtp.Credentials = new System.Net.NetworkCredential("wecare@chetanapublications.com", "cbdcppl@2015");
+                        smtp.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["Username"].ToString(), ConfigurationManager.AppSettings["Password"].ToString());
                         smtp.EnableSsl = false;
 
                         try
@@ -268,7 +267,7 @@ public partial class Godown_GetPass_Local : System.Web.UI.UserControl
                             smtp.Send(msg);
                             DataSet DsMailLog = new DataSet();
                             string mDocumentNo = obj.DC_NO.ToString();
-                            DsMailLog = CourierDetails.SendDispatchEmail(SCD, float.Parse(mDocumentNo), "DispatchEmail", "DispatchId", Convert.ToInt32(strFY), "wecare@chetanapublications.com", "cbdcppl@2015", Convert.ToString(Session["UserName"]));
+                            DsMailLog = CourierDetails.SendDispatchEmail(SCD, float.Parse(mDocumentNo), "DispatchEmail", "DispatchId", Convert.ToInt32(strFY), "wecare@chetanapublications.com", "we0504260", Convert.ToString(Session["UserName"]));
                             //MessageBox("Mail Sent successfully");
 
                         }
@@ -665,7 +664,7 @@ public partial class Godown_GetPass_Local : System.Web.UI.UserControl
     {
         Clear();
         DataSet ds = G_GetPass.GetpassOnDocNo(Convert.ToInt32(txtDocIdEdit.Text.Trim()), "DC", Convert.ToInt32(strFY));
-        DataTable dt = ds.Tables[1];
+        DataTable dt = ds.Tables[0];
         if (dt.Rows.Count > 0)
         {
             string date = (Convert.ToDateTime(dt.Rows[0]["Doc_Date"].ToString())).ToString("dd/MM/yyyy");
@@ -684,7 +683,7 @@ public partial class Godown_GetPass_Local : System.Web.UI.UserControl
             lblDeliveryBoy.Text = dt.Rows[0]["Deliveruy_Boy"].ToString();
             lblDeliveryBoy.Visible = true;
             lblDeliveryBoyID.Text = dt.Rows[0]["Deliveruy_Boy_ID"].ToString();
-            filltempData(ds.Tables[2]);
+            filltempData(ds.Tables[1]);
             CallButonVisible("edit");
             txtDocDate.Focus();
         }
@@ -737,7 +736,6 @@ public partial class Godown_GetPass_Local : System.Web.UI.UserControl
     }
 
     #endregion
-
     protected void grdTemp_RowEditing(object sender, GridViewEditEventArgs e)
     {
         lblSubDocId.Text = ((Label)(grdTemp.Rows[e.NewEditIndex].FindControl("lblSubID"))).Text.Trim();
@@ -778,9 +776,11 @@ public partial class Godown_GetPass_Local : System.Web.UI.UserControl
         stBody.Append(" <tbody>");
         stBody.Append(" <tr><td></td></tr>");
         stBody.Append(" <tr>  <td align=center  style=background-color:#8B7D6B;color:White;><u><h1>Chetana Book Depot</h1></u>");
-        stBody.Append(" 263-C, KHATAUWADI, GOREGAONKAR LANE, BEHIND CENTRAL CINEMA, GIRGAON MUMBAI");
-        stBody.Append(" PHONES : 4342 50 00.  DATE OF INCORP-, 5TH OCT.1989 Fax No : 2382 19 10<br/></td></tr> ");
-        stBody.Append("<tr>");
+
+        stBody.Append(" 4TH  FLOOR, B WING, “BUILDING E”, TRADE LINK KAMALA CITY, ABOVE BOMBAY 	CANTEEN, LOWER PAREL, MUMBAI - 400013");              
+	stBody.Append("<br/></td></tr> ");
+        
+stBody.Append("<tr>");
         stBody.Append(" <td colspan=2 align=center bgcolor=#d1d8db valign=top>");
         stBody.Append(" <table cellpadding=5 cellspacing=5 >");
         stBody.Append(" <tr>  <td align=left >");

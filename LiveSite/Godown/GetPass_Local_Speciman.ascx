@@ -19,7 +19,7 @@
         OnClientClick="javascript:return confirm('Wish to clear this data');" TabIndex="17"
         ToolTip="Clear all fields" Visible="false" runat="server" Text="Cancel" Width="80px"
         OnClick="btnClear_Click" />
-    <asp:Button ID="btnDelete" Style="float: right; color: Red; margin: 0px 2px 0px 2px" Enabled="false"
+    <asp:Button ID="btnDelete" Style="float: right; color: Red; margin: 0px 2px 0px 2px" Enabled="true"
         CssClass="submitbtn" OnClientClick="javascript:return confirm('Wish to delete this data');"
         TabIndex="14" ToolTip="Delete the below data" Visible="false" runat="server"
         Text="Delete" Width="80px" OnClick="btnDelete_Click" />
@@ -254,7 +254,7 @@
                             </ajaxCt:AutoCompleteExtender>
                         </td>
                         <td>
-                            <asp:TextBox ID="txtArea" runat="server" ValidationGroup="strip" CssClass="inp-form"
+                             <asp:TextBox ID="txtArea" runat="server" ValidationGroup="strip" CssClass="inp-form"
                                 TabIndex="9"></asp:TextBox>
                              <div id="dvcust" class="divauto350">
                             </div>

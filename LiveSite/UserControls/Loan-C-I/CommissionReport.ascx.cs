@@ -119,7 +119,6 @@ public partial class UserControls_Loan_C_I_CommissionReport : System.Web.UI.User
             //if (ds.Tables[1].Rows.Count > 0)
             {
                 rd.Database.Tables[0].SetDataSource(ds.Tables[0]);
-                rd.Database.Tables[1].SetDataSource(ds.Tables[1]);
                 //rd.Database.Tables[1].SetDataSource(ds.Tables[1]);
                 // rd.Database.Tables[1].SetDataSource(dv2);
                 //rd.SetDataSource(ds);

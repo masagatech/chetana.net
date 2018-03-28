@@ -87,7 +87,7 @@ public partial class CNF_UserControl_uc_CnFEditInvoice : System.Web.UI.UserContr
         }
         if (txtLRDate.Text == "")
         {
-            lrdate = "1/1/2001";
+           lrdate = "1/1/2001";
         }
         else
         {

@@ -14,9 +14,10 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 
-    <script src="../js/jquery-ui.min.js" type="text/javascript"></script>
-
+  
     <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+  <script src="../js/jquery-ui.min.js" type="text/javascript"></script>
+
 
     <script src="js/ddsmoothmenu.js" type="text/javascript"></script>
 
@@ -45,7 +46,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="false">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+        <Services>
+            <asp:ServiceReference Path="~/AutoComplete.asmx" InlineScript="true" />
+        </Services>
     </asp:ScriptManager>
     <div class="loding" id="loding" style="display: none;">
         <span id="loder">Loading...</span>

@@ -139,6 +139,7 @@ public partial class Godown_GetPass_Local_Speciman : System.Web.UI.UserControl
     #region  Button save
 
     protected void btn_Save_Click(object sender, EventArgs e)
+    
     {
         SaveMain(false);
     }
@@ -164,7 +165,7 @@ public partial class Godown_GetPass_Local_Speciman : System.Web.UI.UserControl
             string Docdate = txtDocDate.Text.Split('/')[1] + "/" + txtDocDate.Text.Split('/')[0] + "/" + txtDocDate.Text.Split('/')[2];
             G_GetPass _obj = new G_GetPass();
             _obj.Doc_ID = Convert.ToInt32(lblDocNo.Text.Trim());
-            _obj.DC_No = Convert.ToInt32(txtDocNo.Text==""? "0":txtDocNo.Text);
+            _obj.DC_No = Convert.ToInt32(0);
             _obj.Doc_Date = Convert.ToDateTime(Docdate);
             _obj.Veh_ID = Convert.ToInt32(lblVehicleNoID.Text.Trim());
             _obj.Driver_ID = Convert.ToInt32(lblDriverID.Text.Trim());
@@ -188,7 +189,7 @@ public partial class Godown_GetPass_Local_Speciman : System.Web.UI.UserControl
                 SaveSubRecords(DocId, Doc_No_New);
                 if (isprint)
                 {
-                    ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "window", "f_open_window_max('Godown/print/LocalGodownPrint.aspx?d=" + Doc_No_New + "&L=" + Localout + "')", true);
+                    ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "window", "f_open_window_max('Godown/print/LocalGodownPrint.aspx?d=" + Doc_No_New + "&L=" + "SP" + "')", true);
                 }
                 Clear();
                 CallButonVisible("new");

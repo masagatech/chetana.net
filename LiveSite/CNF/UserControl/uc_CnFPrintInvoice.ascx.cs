@@ -17,11 +17,11 @@ public partial class CNF_uc_CnFPrintInvoice : System.Web.UI.UserControl
 {
     string strFY = "0";
     DataSet stDS;
-    int quantity = 0;
+     int quantity = 0;
     decimal tamount = 0;
     decimal totalamount = 0;
     string strChetanaCompanyName = "cppl";
-
+    
     int docnewno = 0;
     string RdBValue;
     DateTime fdate;
@@ -40,33 +40,25 @@ public partial class CNF_uc_CnFPrintInvoice : System.Web.UI.UserControl
             pnlDetails.Visible = false;
         }
     }
-
     protected void btnget_Click(object sender, EventArgs e)
     {
         pnlDetails.Visible = true;
         stDS = new DataSet();
         docno.InnerHtml = txtDocno.Text.Trim();
         stDS = CnFInvoice.GetInvoiceDetails(Convert.ToInt32(txtDocno.Text), "print", Convert.ToInt32(strFY));
-
+       
         RepDetailsApprove.DataSource = stDS.Tables[1];
         RepDetailsApprove.DataBind();
-
+        
     }
-
     public void BindInvoice()
     {
         Rptrpending.DataSource = CnFInvoice.GetInvoiceNos(Convert.ToInt32(strFY));
         Rptrpending.DataBind();
     }
-
     protected void btnPrint_Click(object sender, EventArgs e)
     {
         ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "window", "f_open_window_max('CNF/print/CPrintInvoice.aspx?d=" + ((Button)(sender)).CommandArgument.Trim() + "&fy=" + strFY + "&type=with" + "')", true);
-
-    }
-
-    protected void btnform_Click(object sender, EventArgs e)
-    {
 
     }
 
@@ -125,7 +117,7 @@ public partial class CNF_uc_CnFPrintInvoice : System.Web.UI.UserControl
         //    ((Label)e.Item.FindControl("lbltax")).Text = "0";
         //    ((Label)e.Item.FindControl("lbltotalamt")).Text = totalamount.ToString();
         //}
-
+      
     }
     protected void RepDetailsApprove_ItemCommand(object source, RepeaterCommandEventArgs e)
     {

@@ -273,8 +273,7 @@ public partial class CNF_CnFInvoice : System.Web.UI.UserControl
         _objInvoice.Details = strdetails;
         _objInvoice.flag = "I";
         _objInvoice.FinancialYearFrom = Convert.ToInt32(Session["FY"].ToString());
-        int l = 0;
-        _objInvoice.Save(out l);
+        _objInvoice.Save();
  MessageBox("Record saved successfully");
     } 
  #region MsgBox

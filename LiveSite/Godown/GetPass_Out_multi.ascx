@@ -21,7 +21,7 @@
         OnClick="btnClear_Click" />
     <asp:Button ID="btnDelete" Style="float: right; color: Red; margin: 0px 2px 0px 2px"
         CssClass="submitbtn" OnClientClick="javascript:return confirm('Wish to delete this data');"
-        TabIndex="115" ToolTip="Delete the below data" runat="server"
+        TabIndex="115" ToolTip="Delete the below data" Visible="false" runat="server"
         Text="Delete" Width="80px" OnClick="btnDelete_Click" />
     <asp:Button ID="btn_Edit" Visible="false" Style="float: right; margin: 0px 2px 0px 2px"
         CssClass="submitbtn" OnClientClick="javascript:return openEditPopup();" TabIndex="110"
@@ -441,7 +441,6 @@
         </asp:UpdatePanel>
     </asp:Panel>
 </asp:Panel>
-
 <asp:Panel ID="Panel1" runat="server" Width="480px">
     <asp:UpdatePanel ID="upDetails" runat="server" UpdateMode="Conditional">
         <ContentTemplate>

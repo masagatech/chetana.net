@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtherNewClass", "OtherNewClass\OtherNewClass.csproj", "{D8C3772B-EA41-430C-B10E-EA31717CD5EE}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "LiveSite", "LiveSite\", "{57BB7C2C-F5C4-45AE-9FA7-7D07362DED8D}"
@@ -23,8 +25,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "LiveSite", "LiveSite\", "{5
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "20441"
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Others", "..\..\Other\Others.csproj", "{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Other_Z", "Other_Z\Other_Z.csproj", "{BD597FCD-9F3B-4E99-BD29-862EAC6C859E}"
 EndProject
@@ -60,16 +60,6 @@ Global
 		{57BB7C2C-F5C4-45AE-9FA7-7D07362DED8D}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{57BB7C2C-F5C4-45AE-9FA7-7D07362DED8D}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{57BB7C2C-F5C4-45AE-9FA7-7D07362DED8D}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
-		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Release|.NET.ActiveCfg = Release|Any CPU
-		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BD597FCD-9F3B-4E99-BD29-862EAC6C859E}.Debug|.NET.ActiveCfg = Debug|Any CPU
 		{BD597FCD-9F3B-4E99-BD29-862EAC6C859E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BD597FCD-9F3B-4E99-BD29-862EAC6C859E}.Debug|Any CPU.Build.0 = Debug|Any CPU

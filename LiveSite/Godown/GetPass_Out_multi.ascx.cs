@@ -588,7 +588,7 @@ string LRdate = txtLrDate.Text.Split('/')[1] + "/" + txtLrDate.Text.Split('/')[0
     public void fillEditForm()
     {
         Clear();
-        DataSet ds = G_GetPass.GetpassOnDocNo(Convert.ToInt32(txtDocIdEdit.Text.Trim()), "O", Convert.ToInt32(strFY));
+        DataSet ds = G_GetPass.GetpassOnDocNo(Convert.ToInt32(txtDocIdEdit.Text.Trim()), "OEM", Convert.ToInt32(strFY));
         DataTable dt = ds.Tables[0];
 
         if (dt.Rows.Count > 0)
