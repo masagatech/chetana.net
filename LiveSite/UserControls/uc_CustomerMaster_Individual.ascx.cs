@@ -411,8 +411,7 @@ public partial class UserControls_uc_CustomerMaster_Individual : System.Web.UI.U
             ddLStates.SelectedValue = "0";
             DDLsuperzone.SelectedValue = "0";
             DdlCustRating.SelectedValue = "0";
-            txtGstNo.Text = "";
-            txtStateCode.Text=";"
+
             txtFromQty.Text = "";
             txtDiscount.Text = "";
             txtToQty.Text = "";

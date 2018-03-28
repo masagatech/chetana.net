@@ -648,7 +648,7 @@ public partial class CnFGenerateInvoice : System.Web.UI.Page
 
     public void SendEmail(string email)
     {
-        mailsend.sendmail("Chetana Book Depot", email, MailBodyDesign().ToString());
+        //mailsend.sendmail("Chetana Book Depot", email, MailBodyDesign().ToString());
     }
 
 
@@ -677,8 +677,10 @@ public partial class CnFGenerateInvoice : System.Web.UI.Page
         stBody.Append(" <tbody>");
         stBody.Append(" <tr><td></td></tr>");
         stBody.Append(" <tr>  <td align=center  style=background-color:#8B7D6B;color:White;><u><h1>Chetana Invoice Mail</h1></u>");
-        stBody.Append(" 263-C, KHATAUWADI, GOREGAONKAR LANE, BEHIND CENTRAL CINEMA, GIRGAON MUMBAI");
-        stBody.Append(" PHONES : 2386 70 90.  DATE OF INCORP-, 5TH OCT.1989 Fax No : 2382 19 10<br/></td></tr> ");
+
+       stBody.Append(" 4TH  FLOOR, B WING, “BUILDING E”, TRADE LINK KAMALA CITY, ABOVE BOMBAY CANTEEN, LOWER PAREL, MUMBAI - 400013");              
+	stBody.Append("<br/></td></tr> ");
+
         stBody.Append("<tr>");
         stBody.Append(" <td colspan=2 align=center bgcolor=#d1d8db valign=top>");
         stBody.Append(" <table cellpadding=5 cellspacing=5 >");

@@ -631,6 +631,7 @@ public partial class UserControls_uc_Masterofmaster : System.Web.UI.UserControl
     {
 	
         bool Auth = Masters.GetCodeValidation(lblCoder.Text, txtkey.Text.Trim());
+       // MessageBox(Auth.ToString()); 
         if (Auth)
         {
             MessageBox("Code already exist");

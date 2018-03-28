@@ -128,7 +128,7 @@ public partial class DCCNPrintmultiple : System.Web.UI.Page
             DataTable dt5 = new DataTable();
             dt5 = (DataTable)Session["Datacn"];
             ReportDocument CR = new ReportDocument();
-            CR.Load(Server.MapPath("Report/GSTCNPrint.rpt"));
+            CR.Load(Server.MapPath("Report/GSTCNPrint1.rpt"));
             CR.SetDataSource(dt5);
             Crptcnprint.ReportSource = CR;
         }

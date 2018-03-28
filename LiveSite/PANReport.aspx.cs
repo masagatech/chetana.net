@@ -36,50 +36,70 @@ public partial class PANReport : System.Web.UI.Page
         }
         if (!Page.IsPostBack)
         {
-            Bind_DDL_SuperZone();
+            BindSDZone();
             Bind_DDL_Zone();
-            DDLSuperZone.Focus();
+            DDLSDZone.Focus();
 
         }
         if (Page.IsPostBack)
         {
             if (Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()) != Convert.ToInt32("0"))
             {
-                rdbAll.Checked = false;
-                rdbAmount.Checked = false;
-                txtAmount.Text = "";
-                txtAmount.Visible = false;
-            }
-            else if (rdbAmount.Checked == true)
-            {
-                if (txtAmount.Text != "")
-                {
-                    DDLSuperZone.SelectedValue = "0";
-                    DDLZone.SelectedValue = "0";
-                    BindReport();
-                }
-                else
-                {
-                    DDLSuperZone.SelectedValue = "0";
-                    DDLZone.SelectedValue = "0";
-                }
-            }
-            else if (Convert.ToInt32(DDLZone.SelectedValue.ToString()) != Convert.ToInt32("0"))
-            {
                 BindReport();
+                //rdbAll.Checked = false;
+                //rdbAmount.Checked = false;
+                //txtAmount.Text = "";
+                //txtAmount.Visible = false;
             }
-            else if (rdbAll.Checked == true)
-            {
-                DDLSuperZone.SelectedValue = "0";
-                DDLZone.SelectedValue = "0";
-                BindReport();
-            }
+            //else if (rdbAmount.Checked == true)
+            //{
+            //    if (txtAmount.Text != "")
+            //    {
+            //        DDLSuperZone.SelectedValue = "0";
+            //        DDLZone.SelectedValue = "0";
+            //        BindReport();
+            //    }
+            //    else
+            //    {
+            //        DDLSuperZone.SelectedValue = "0";
+            //        DDLZone.SelectedValue = "0";
+            //    }
+            //}
+            //else if (Convert.ToInt32(DDLZone.SelectedValue.ToString()) != Convert.ToInt32("0"))
+            //{
+            //    BindReport();
+            //}
+            //else if (rdbAll.Checked == true)
+            //{
+            //    DDLSuperZone.SelectedValue = "0";
+            //    DDLZone.SelectedValue = "0";
+            //    BindReport();
+            //}
 
 
 
         }
     }
     #endregion
+
+    protected void DDLSDZone_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (DDLSDZone.SelectedIndex == 0)
+        {
+            DDLSuperZone.Items.Clear();
+            DDLSuperZone.Items.Insert(0, new ListItem("-Select Super Zone-", "0"));
+            DDLZone.Items.Insert(0, new ListItem("-Select  Zone-", "0"));
+        }
+        else
+        {
+            DDLSuperZone.DataSource = Masters.Get_AreaZone_Zone_SuperZone(Convert.ToInt32(DDLSDZone.SelectedValue.ToString()), "SuperZone");
+            DDLSuperZone.DataBind();
+            DDLSuperZone.Items.Insert(0, new ListItem("-- Select SuperZone --", "0"));
+            Bind_DDL_SuperZone();
+            DDLSuperZone.Focus();
+            // DDLSuperZone.Focus();
+        }
+    }
 
     #region Biind SuperZoneName
     public void Bind_DDL_SuperZone()
@@ -98,6 +118,18 @@ public partial class PANReport : System.Web.UI.Page
         DDLZone.DataSource = Masters.Get_AreaZone_Zone_SuperZone(Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), "Zone");
         DDLZone.DataBind();
         DDLZone.Items.Insert(0, new ListItem("-Select Zone-", "0"));
+    }
+    #endregion
+
+    #region Super Duper Zone Bind
+    public void BindSDZone()
+    {
+        DDLSDZone.DataSource = Masters.Get_AreaZone_Zone_SuperZone(0, "SDZone");
+        DDLSDZone.DataBind();
+        DDLSDZone.Focus();
+        DDLSuperZone.Items.Clear();
+        DDLSDZone.Items.Insert(0, new ListItem("-Select Super Duper Zone-", "0"));
+        DDLSuperZone.Items.Insert(0, new ListItem("-Select Super Zone-", "0"));
     }
     #endregion
 
@@ -122,8 +154,8 @@ public partial class PANReport : System.Web.UI.Page
         else
         {
             Bind_DDL_Zone();
-            rdbAll.Checked = false;
-            rdbAmount.Checked = false;
+            //rdbAll.Checked = false;
+            //rdbAmount.Checked = false;
             DDLZone.Focus();
         }
     }
@@ -132,28 +164,26 @@ public partial class PANReport : System.Web.UI.Page
     #region Print Data Method
     private void BindReport()
     {
-        string All = "";
-        int Amount = 0;
-        if (rdbAll.Checked == true)
-        {
-            All = "All".ToString();
-            DDLSuperZone.SelectedValue = "0";
-            DDLZone.SelectedValue = "0";
-        }
-        else if (rdbAmount.Checked == true)
-        {
-            Amount = Convert.ToInt32(txtAmount.Text == "" ? "0" : txtAmount.Text);
-            DDLSuperZone.SelectedValue = "0";
-            DDLZone.SelectedValue = "0";
-        }
-        DataSet ds = OtherBAL.Idv_Chetana_PANReport(Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), Convert.ToInt32(Session["FY"]), All, Amount.ToString(), "", "");
+        //if (rdbAll.Checked == true)
+        //{
+        //    All = "All".ToString();
+        //    DDLSuperZone.SelectedValue = "0";
+        //    DDLZone.SelectedValue = "0";
+        //}
+        //else if (rdbAmount.Checked == true)
+        //{
+        //    Amount = Convert.ToInt32(txtAmount.Text == "" ? "0" : txtAmount.Text);
+        //    DDLSuperZone.SelectedValue = "0";
+        //    DDLZone.SelectedValue = "0";
+        //}
+        DataSet ds = OtherBAL.Idv_Chetana_PANReport(Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), Convert.ToInt32(Session["FY"]), "","", "", "");
         if (ds.Tables[0].Rows.Count > 0)
         {
             ReportDocument rd = new ReportDocument();
             rd.Load(Server.MapPath("~/Report/PANReport.rpt"));
             rd.SetDataSource(ds.Tables[0]);
-            rd.SetParameterValue("SuperZoneName", DDLSuperZone.SelectedValue.ToString() == "0" ? "-" : DDLSuperZone.SelectedItem.Text);
-            rd.SetParameterValue("ZoneName", DDLZone.SelectedValue.ToString() == "0" ? "-" : DDLZone.SelectedItem.Text);
+            //rd.SetParameterValue("SuperZoneName", DDLSuperZone.SelectedValue.ToString() == "0" ? "-" : DDLSuperZone.SelectedItem.Text);
+            //rd.SetParameterValue("ZoneName", DDLZone.SelectedValue.ToString() == "0" ? "-" : DDLZone.SelectedItem.Text);
             CrystalPanReport.ReportSource = rd;
         }
         else
@@ -170,8 +200,8 @@ public partial class PANReport : System.Web.UI.Page
     {
         DDLSuperZone.SelectedValue = "0";
         DDLZone.SelectedValue = "0";
-        txtAmount.Visible = true;
-        txtAmount.Focus();
+        //txtAmount.Visible = true;
+        //txtAmount.Focus();
     }
     #endregion
 
@@ -179,14 +209,14 @@ public partial class PANReport : System.Web.UI.Page
     {
         DDLSuperZone.SelectedValue = "0";
         DDLZone.SelectedValue = "0";
-        txtAmount.Text = "";
-        txtAmount.Visible = false;
+        //txtAmount.Text = "";
+        //txtAmount.Visible = false;
     }
 
     protected void btnClear_Click(object sender, EventArgs e)
     {
-        rdbAll.Checked = false;
-        rdbAmount.Checked = false;
+        //rdbAll.Checked = false;
+        //rdbAmount.Checked = false;
         DDLSuperZone.SelectedValue = "0";
         DDLZone.SelectedValue = "0";
     }

@@ -5,8 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-
- <div class="section-header">
+<div class="section-header">
     <div class="title">
         <img src="Images/forms/ico-promotions.png" alt="Edit campaign details">
        Getpass Outstation Speciman<a href="Campaigns.aspx" title="back to campaign list"></a>
@@ -20,7 +19,6 @@
     <div class="options">
     </div>
 </div>
-
 <div style="float: left; width: 555px">
    <asp:Button ID="btnClear" Style="float: right; margin: 0px 0px 0px 2px" CssClass="submitbtn"
         OnClientClick="javascript:return confirm('Wish to clear this data');" TabIndex="120"
@@ -51,14 +49,14 @@
     <table>
         <tr>
             <td>
-                <asp:Label ID="Label1" runat="server" Text="Speciman No"></asp:Label>
+                <asp:Label ID="Label1" runat="server" Text="Doc No"></asp:Label>
                 <asp:Label ID="lblSpecId" runat="server" Text="0" Visible="false"></asp:Label>
             </td>
             <td style="padding-left:13px">
                 <asp:TextBox ID="txtSpecimanNo" style="text-align: center" runat="server" CssClass="inp-form" Enabled="False"></asp:TextBox>
             </td>
             <td>
-                <asp:Label ID="Label6" runat="server" Text="Spec Date"></asp:Label>
+                <asp:Label ID="Label6" runat="server" Text="Doc Date"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="txtSpecDate" runat="server" CssClass="inp-form" TabIndex="1"></asp:TextBox>

@@ -55,7 +55,7 @@ public partial class CustOutstanding : System.Web.UI.Page
             pnlcustomer.Visible = true;
             btnSave.Visible = true;
             ddlCustmore.Items.Insert(0, new ListItem("-Select Customer-", "0"));
-            txtcustomer.Focus();
+	    txtcustomer.Focus();
 
         }
         if (IsPostBack)
@@ -63,7 +63,6 @@ public partial class CustOutstanding : System.Web.UI.Page
             ShowDetails();
             if (rdbselect.SelectedValue == "Customer")
             {
-               
                 // if (txtcustomer.Text.ToString().Trim() != "")
                 // {
                 //     if (txtFrom.Text.Trim() != "" && txtTo.Text.Trim() != "")

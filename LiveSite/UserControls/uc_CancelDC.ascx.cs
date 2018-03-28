@@ -189,9 +189,7 @@ public partial class UserControls_uc_CancelDC : System.Web.UI.UserControl
         {
             tempGetData = SpecimanDetails.GetSpecimenDatilsByEmpCode(bookcode, "documentno").Tables[0];
         }
-        if (tempGetData.Rows.Count == 0) { 
-        btncancel.Visible =false;
-        }
+        
         foreach (DataRow row in tempGetData.Rows)
         {
             if (dt.Rows.Count != 0)

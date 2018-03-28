@@ -19,33 +19,33 @@ using CrystalDecisions.CrystalReports.Engine;
 public partial class BankSummary : System.Web.UI.Page
 {
     string strChetanaCompanyName = "cppl";
-    string strFY;
-    DataSet ds = new DataSet();
-
+     string strFY ;
+     DataSet ds = new DataSet();
+     
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        if (Session["FY"] != null)
-        {
-
-            strFY = Session["FY"].ToString();
-        }
-        else
-        {
-            Session.Clear();
-        }
-
+        
+            if (Session["FY"] != null)
+            {
+                
+                strFY = Session["FY"].ToString();
+            }
+            else
+            {
+                Session.Clear();
+            }
+           
         if (!Page.IsPostBack)
         {
             GetFinancialYear();
             Session["pettycash"] = null;
-        }
+        }   
     }
     private void GetFinancialYear()
     {
         DataTable dt = Yearmaster.GetFinancialYear();
-
+      
         if (dt.Rows.Count > 0)
         {
 
@@ -61,7 +61,7 @@ public partial class BankSummary : System.Web.UI.Page
         dt = Idv.Chetana.BAL.DCMaster.Get_Name(txtBank.Text.ToString().Split(':')[0].Trim(), "Bank").Tables[0];
         if (dt.Rows.Count != 0)
         {
-            txtBank.Text = txtBank.Text.ToString().Split(':')[0].Trim();
+            txtBank.Text = txtBank.Text.ToString().Split(':')[0].Trim(); 
             lblBankName.Text = Convert.ToString(dt.Rows[0]["BankName"]);
             ddlFinancialYear.Focus();
         }
@@ -75,10 +75,10 @@ public partial class BankSummary : System.Web.UI.Page
     }
     protected void btnget_Click(object sender, EventArgs e)
     {
-        if (txtBank.Text.ToString().Trim() == "PC36")
+       if (txtBank.Text.ToString().Trim() == "PC36")
         {
-            ds = Bank.Idv_Chetana_Get_PettyCashBook(txtBank.Text.ToString().Trim(), Convert.ToInt32(ddlFinancialYear.SelectedValue.ToString()), "", "", "", "");
-
+            ds = Bank.Idv_Chetana_Get_PettyCashBook(txtBank.Text.ToString().Trim() ,Convert.ToInt32(ddlFinancialYear.SelectedValue.ToString()),"","","","" );
+           
             Session["pettycash"] = ds.Tables[1];
         }
         else
@@ -95,10 +95,10 @@ public partial class BankSummary : System.Web.UI.Page
             MessageBox("Records not Found");
             txtBank.Focus();
         }
-        if (txtBank.Text.ToString().Trim() == "PC36")
+if (txtBank.Text.ToString().Trim() == "PC36")
         {
-            // grdBankbook.Columns[5].Visible = false;
-            // grdBankbook.Columns[6].Visible = false;
+           // grdBankbook.Columns[5].Visible = false;
+           // grdBankbook.Columns[6].Visible = false;
 
         }
     }
@@ -121,10 +121,10 @@ public partial class BankSummary : System.Web.UI.Page
     protected void lnkismonthreco_Click(object sender, EventArgs e)
     {
         //code added by me
-
+        
         LinkButton link = (LinkButton)sender;
         //Response.Redirect("MyReportRecoDetails.aspx?d=" + link.CommandArgument.ToString() + "&code=" + txtBank.Text.ToString().Trim() + "&FY=" + ddlFinancialYear.SelectedValue.ToString() + "&OP=" + link.CommandName.ToString().Trim() + "&flag=" + "no");
-        ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "window", "f_open_window_max('MonthwiseReconsiledData.aspx?d=" + link.CommandArgument.ToString() + "&code=" + txtBank.Text.ToString().Trim() + "&FY=" + ddlFinancialYear.SelectedValue.ToString() + "&OP=" + link.CommandName.ToString().Trim() + "&flag=" + "no" + "&FlagBit=" + "1" + "')", true);
+        ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "window", "f_open_window_max('MonthwiseReconsiledData.aspx?d=" + link.CommandArgument.ToString() + "&code=" + txtBank.Text.ToString().Trim() + "&FY=" + ddlFinancialYear.SelectedValue.ToString() + "&OP=" + link.CommandName.ToString().Trim() + "&flag=" + "no" +"&FlagBit="+"1"+ "')", true);
 
     }
     protected void lnkisnotmonthreco_Click(object sender, EventArgs e)
@@ -139,14 +139,22 @@ public partial class BankSummary : System.Web.UI.Page
     protected void lnkyear_Click(object sender, EventArgs e)
     {
         LinkButton link = (LinkButton)sender;
-        ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "window", "f_open_window_max('print/BankBook.aspx?d=" + link.CommandArgument.ToString() + "&code=" + txtBank.Text.ToString().Trim() + "&FY=" + ddlFinancialYear.SelectedValue.ToString() + "&OP=" + link.CommandName.ToString().Trim() + "')", true);
+       
+        //if (txtBank.Text.ToString().Trim() == "PC36")
+        //{
+        //    ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "window", "f_open_window_max('print/BankBook.aspx?" + link.CommandArgument.ToString() + "&code=" + txtBank.Text.ToString().Trim() + "&FY=" + ddlFinancialYear.SelectedValue.ToString() + "&OP=" + link.CommandName.ToString().Trim() + "')", true);
+        //}
+        //else
+        //{
+            ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "window", "f_open_window_max('print/BankBook.aspx?d=" + link.CommandArgument.ToString() + "&code=" + txtBank.Text.ToString().Trim() + "&FY=" + ddlFinancialYear.SelectedValue.ToString() + "&OP=" + link.CommandName.ToString().Trim() + "')", true);
+       // }
     }
     protected void lnkmonth_Click(object sender, EventArgs e)
     {
         LinkButton link = (LinkButton)sender;
         //Response.Redirect("ReconsiledReportDetails.aspx?d=" + link.CommandArgument.ToString() + "&code=" + txtBank.Text.ToString().Trim() + "&FY=" + ddlFinancialYear.SelectedValue.ToString() + "&OP=" + link.CommandName.ToString().Trim() + "&flag=" + "yes");
         ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "window", "f_open_window_max('ReconsiledReportDetails.aspx?d=" + link.CommandArgument.ToString() + "&code=" + txtBank.Text.ToString().Trim() + "&FY=" + ddlFinancialYear.SelectedValue.ToString() + "&OP=" + link.CommandName.ToString().Trim() + "&flag=" + "yes" + "')", true);
-
+       
     }
     protected void grdBankbook_SelectedIndexChanged(object sender, EventArgs e)
     {

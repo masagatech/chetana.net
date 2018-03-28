@@ -63,10 +63,15 @@ public partial class UserControls_uc_Login : System.Web.UI.UserControl
             {
                 Login();
             }
-            else
+            else if (ddlChetanaCompanyName.SelectedValue.ToLower().Trim() == "cspl")
             {
                 Response.Redirect(RedirectLogin(ConfigurationManager.AppSettings["chStationaryUrl"].ToString()));
             }
+		else if (ddlChetanaCompanyName.SelectedValue.ToLower().Trim() == "llp")
+            {
+                Response.Redirect(RedirectLogin(ConfigurationManager.AppSettings		["llpUrl"].ToString()));
+            }
+
         }
         //catch (Exception ex)
         //{
@@ -144,7 +149,7 @@ public partial class UserControls_uc_Login : System.Web.UI.UserControl
                     if (ds.Tables[0].Rows.Count > 0)
                     {
                         DataRow dr = ds.Tables[0].Rows[0];
-                        Session["AuditCutOffDate"] = Convert.ToDateTime(dr[0].ToString()).ToString("dd/MM/yyyy");
+                        Session["AuditCutOffDate"] = Convert.ToDateTime(dr[0].ToString()).ToString("dd-MM-yyyy");
                     }
                 }
 

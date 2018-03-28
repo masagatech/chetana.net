@@ -38,7 +38,7 @@ public partial class KYCForm : System.Web.UI.Page
                     strChetanaCompanyName = Session["ChetanaCompanyName"].ToString();
                     strFY = Session["FY"].ToString();
                     UserName = Session["UserName"].ToString();
-                    Cust_AutoCompleteExtender.ContextKey = "custz" + "!" + Session["UserName"].ToString();
+		    Cust_AutoCompleteExtender.ContextKey = "custz" + "!" + Session["UserName"].ToString();
                     //txtOrderRecdDate.Text = System.DateTime.Now.ToString("dd/MM/yyyy");
                     //txtOrderRecdDate.Focus();
                     txtCustCode.Focus();
@@ -120,7 +120,7 @@ public partial class KYCForm : System.Web.UI.Page
         ObjProperty.TitleCurrentYear = Convert.ToInt32(txtTitlesYear.Text);
 
         ObjProperty.PrevDic = float.Parse(lblprvyeardisc.Text);
-        ObjProperty.PrevTitle = Convert.ToInt32(lblpreyeartitles.Text == "" ? "0" : lblpreyeartitles.Text);
+        ObjProperty.PrevTitle = Convert.ToInt32(lblpreyeartitles.Text==""?"0":lblpreyeartitles.Text);
 
         ObjProperty.ChkSchemeLetter = Convert.ToInt32(ChkScheme.Checked);
         ObjProperty.ChkAddCommFrm = Convert.ToInt32(ChkAddComminsion.Checked);
@@ -150,10 +150,10 @@ public partial class KYCForm : System.Web.UI.Page
             btnDelete.Visible = false;
             Clear();
         }
-
+        
     }
-    #endregion
-
+    #endregion	
+	
 
     #region Kyc Form Save
     protected void btn_Save_Click(object sender, EventArgs e)
@@ -187,13 +187,13 @@ public partial class KYCForm : System.Web.UI.Page
     #region Print Button Click Event
     protected void btn_Print_Click(object sender, EventArgs e)
     {
-        if (lblAutoExtend.Text != "")
+	if (lblAutoExtend.Text != "")
         {
-            Page.ClientScript.RegisterStartupScript(
-            this.GetType(), "OpenWindow", "window.open('KycFormReport.aspx?KycNo=" + Convert.ToInt32(lblAutoExtend.Text) + "');", true);
-            lblAutoExtend.Text = "";
-        }
-        else
+        Page.ClientScript.RegisterStartupScript(
+        this.GetType(), "OpenWindow", "window.open('KycFormReport.aspx?KycNo=" + Convert.ToInt32(lblAutoExtend.Text) + "');", true);
+	lblAutoExtend.Text = "";
+	}
+	 else
         {
             Message("First save before printing");
             return;
@@ -214,13 +214,13 @@ public partial class KYCForm : System.Web.UI.Page
         {
             KycFormSave();
             ModalPopupExtenderNew.Hide();
-            // Response.Redirect("KycFormReport.aspx?KycNo=" + Convert.ToInt32(KycId));
+           // Response.Redirect("KycFormReport.aspx?KycNo=" + Convert.ToInt32(KycId));
             Page.ClientScript.RegisterStartupScript(
        this.GetType(), "OpenWindow", "window.open('KycFormReport.aspx?KycNo=" + KycMax.ToString() + "');", true);
             lblAutoExtend.Text = "";
 
         }
-
+        
     }
 
     protected void btnExCancel_Click(object sender, EventArgs e)
@@ -289,9 +289,9 @@ public partial class KYCForm : System.Web.UI.Page
             lblOS.Text = Convert.ToSingle(dt.Rows[0]["OS"]).ToString();
             lblAvg.Text = dt.Rows[0]["TotalAvg"].ToString();
             txtRemrk.Text = dt.Rows[0]["Remark"].ToString();
-            // txtPersonInchrg.Text = dt.Rows[0]["PersonInchrg"].ToString();
+           // txtPersonInchrg.Text = dt.Rows[0]["PersonInchrg"].ToString();
             txtTransport.SelectedValue = dt.Rows[0]["Transport"].ToString();
-            lblAutoExtend.Text = lblKycId.Text;
+            lblAutoExtend.Text =lblKycId.Text;
             txtCustCode.Focus();
             lblEdit.Text = "Edit";
         }
@@ -347,7 +347,7 @@ public partial class KYCForm : System.Web.UI.Page
         lblAvg.Text = "0";
         lblpreyeartitles.Text = "0";
         lblKycId.Text = "0";
-
+     
         txtCustCode.Focus();
     }
     #endregion
@@ -405,7 +405,7 @@ public partial class KYCForm : System.Web.UI.Page
     protected void btnClear_Click(object sender, EventArgs e)
     {
         Clear();
-        lblAutoExtend.Text = "";
+	lblAutoExtend.Text = "";
     }
     #endregion
 
@@ -413,38 +413,40 @@ public partial class KYCForm : System.Web.UI.Page
     protected void txtCustCode_TextChanged(object sender, EventArgs e)
     {
         OtherBAL ObjBal = new OtherBAL();
-        string CustCode = txtCustCode.Text.ToString().Split(':')[0].Trim() + "!" + Session["UserName"].ToString();
-
-        DataSet ds = ObjBal.Idv_Chetana_Get_KycForm_CusCode(CustCode, Convert.ToInt32(Session["FY"]), "");
+	string CustCode = txtCustCode.Text.ToString().Split(':')[0].Trim() + "!" + Session["UserName"].ToString();
+        
+        DataSet ds = ObjBal.Idv_Chetana_Get_KycForm_CusCode(CustCode,Convert.ToInt32(Session["FY"]),"");
         DataTable dt = ds.Tables[1];
-        if (dt.Rows.Count > 0)
+         if (dt.Rows.Count > 0)
         {
             Clear();
             if (ds.Tables[1].Columns.Contains("BlackList"))
             {
-                Message("This customer is black list");
+                Message("This customer is in black list");
                 txtCustCode.Text = CustCode.Split('!')[0].Trim();
                 return;
             }
             else
             {
-                txtCustCode.Text = CustCode.Split('!')[0].Trim();
-                txtCustName.Text = dt.Rows[0]["CustName"].ToString();
-                txtCustAdd.Text = dt.Rows[0]["Address"].ToString();
-                txtArea.Text = dt.Rows[0]["AreaCode"].ToString();
-                txtCity.Text = dt.Rows[0]["cityname"].ToString();
-                txtZipCode.Text = dt.Rows[0]["Zip"].ToString();
-                txtZoneCode.Text = dt.Rows[0]["ZoneCode"].ToString();
-                lblZoneCode.Text = dt.Rows[0]["ZoneName"].ToString();
-                txtTelephone.Text = dt.Rows[0]["telephone_exel"].ToString();
-                txtMobile.Text = dt.Rows[0]["Phone1"].ToString();
-                lblOS.Text = dt.Rows[0]["OutStanding"].ToString();
-                lblAvg.Text = dt.Rows[0]["TotalAvg"].ToString();
-                txtDelAdd.Text = dt.Rows[0]["Address"].ToString();
-                lblprvyeardisc.Text = dt.Rows[0]["prevdiscount"].ToString();
-                lblpreyeartitles.Text = dt.Rows[0]["Titles"].ToString();
-                txtCustName.Focus();
-            }
+	    txtCustCode.Text = CustCode.Split('!')[0].Trim();
+            txtCustName.Text = dt.Rows[0]["CustName"].ToString();
+            txtCustAdd.Text = dt.Rows[0]["Address"].ToString();
+            txtArea.Text = dt.Rows[0]["AreaCode"].ToString();
+            txtCity.Text = dt.Rows[0]["cityname"].ToString();
+            txtZipCode.Text = dt.Rows[0]["Zip"].ToString();
+            txtZoneCode.Text = dt.Rows[0]["ZoneCode"].ToString();
+            lblZoneCode.Text = dt.Rows[0]["ZoneName"].ToString();
+            txtTelephone.Text = dt.Rows[0]["telephone_exel"].ToString();
+            txtMobile.Text = dt.Rows[0]["Phone1"].ToString();
+            lblOS.Text = dt.Rows[0]["OutStanding"].ToString();
+            lblAvg.Text = dt.Rows[0]["TotalAvg"].ToString();
+            txtDelAdd.Text = dt.Rows[0]["Address"].ToString();
+            lblprvyeardisc.Text = dt.Rows[0]["prevdiscount"].ToString();
+            lblpreyeartitles.Text = dt.Rows[0]["Titles"].ToString();
+         
+            txtCustName.Focus();
+	}
+
         }
         else
         {

@@ -149,11 +149,11 @@
             <asp:Label ID="Status_Name" runat="server" Text='<%#Eval("Status_Name") %>'></asp:Label> 
         </ItemTemplate>
         </asp:TemplateField>
-        <asp:TemplateField HeaderText="Exlation" HeaderStyle-HorizontalAlign="Center">
+       <%-- <asp:TemplateField HeaderText="Exlation" HeaderStyle-HorizontalAlign="Center">
         <ItemTemplate>
             <asp:Label ID="lblEclation" runat="server" Text='<%#Eval("Exlation") %>'></asp:Label> 
         </ItemTemplate>
-        </asp:TemplateField>
+        </asp:TemplateField>--%>
 </Columns>
         
     </asp:GridView>
@@ -333,8 +333,7 @@
                                 CompletionListHighlightedItemCssClass="AutoExtenderHighlight1" Enabled="True"
                                 ServiceMethod="GetCodes" CompletionSetCount="20" ServicePath="~/AutoComplete.asmx"
                                 CompletionInterval="100" MinimumPrefixLength="1" EnableCaching="false" TargetControlID="txtcustomer"
-                                UseContextKey="true" ContextKey="EmpSuper" CompletionListElementID="dvcust">
-                                <%-- customer --%>
+                                UseContextKey="true" ContextKey="customerWithMob" CompletionListElementID="dvcust">
                             </ajaxCt:AutoCompleteExtender>
                             <div id="dvcust" class="divauto1">
                             </div>

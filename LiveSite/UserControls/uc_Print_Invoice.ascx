@@ -184,13 +184,15 @@
                                                             Text='<%#Eval("SubConfirmID")%>'></asp:Label>
                                                 </td>
                                                 <td align="right">
-  <asp:Button ID="btnWithoutDisc" CommandArgument='<%#Eval("SubConfirmID")%>'   OnClick="btnWithoutDisc_Click"
-                                                        runat="server" Text="Print Without %" Style="float: right;" CssClass="submitbtn"
-                                                        />  
-
+                                                <asp:Button ID="btnWithoutDisc" CommandArgument='<%#Eval("SubConfirmID")%>'   OnClick="btnWithoutDisc_Click"
+                                                        runat="server" Text="Print Without %" Style="float: right;" CssClass="submitbtn"/>  
+                                                      <asp:Button ID="btnGstPrint" CommandArgument='<%#Eval("SubConfirmID")%>' OnClick="btnGstPrint_Click"
+                                                        runat="server" Text="GST Print" Style="float: right;margin-right: 10px;" CssClass='<%#Eval("class")%>'
+                                                        ToolTip="click to GST print" />
                                                     <asp:Button ID="btnPrint" CommandArgument='<%#Eval("SubConfirmID")%>' OnClick="btnPrint_Click"
                                                         runat="server" Text="Print" Style="float: right;margin-right: 10px;" CssClass='<%#Eval("class")%>'
                                                         ToolTip="click to print" />
+                                                   
                                                         
                                                       <asp:Button ID="btnView" CommandArgument='<%#Eval("SubConfirmID")%>'  OnClick="btnView_Click"
                                                         runat="server" Text="View" Style="float: right;margin-right: 10px;" CssClass="submitbtn"

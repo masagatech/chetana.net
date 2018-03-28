@@ -162,7 +162,17 @@ public partial class UserControls_uc_New_Header : System.Web.UI.UserControl
         if(Session["FY_Text"].ToString() != "" && Session["FY_Text"].ToString() !="")
         {FP.InnerHtml = Session["FY_Text"].ToString();
             spnYear.InnerHtml = Session["FY_Text"].ToString().Split('-')[0];
-        
+	      int currentyear = DateTime.Now.Year;
+            if (DateTime.Now.Month >= 1 && DateTime.Now.Month <= 3)
+            {
+                currentyear = currentyear - 1;
+            }
+            if (currentyear.ToString() != Session["FY_Text"].ToString().Split('-')[0])
+            {
+                FP.Style["background-color"] = "red";
+                FP.Attributes.Add("title", "You are not logged in current financial. current financial is : " + currentyear.ToString() + "-" + (currentyear + 1).ToString());
+            }   
+
         }
     }
     #endregion

@@ -62,7 +62,7 @@ public partial class UserControls_CustomerOutStanding : System.Web.UI.Page
         }
         if (IsPostBack)
         {
-            ShowDetails();
+            //ShowDetails();
             if (rdbselect.SelectedValue == "Customer")
             {
                 // if (txtcustomer.Text.ToString().Trim() != "")
@@ -105,7 +105,6 @@ public partial class UserControls_CustomerOutStanding : System.Web.UI.Page
 
 
     }
-
     #region MessageBox
 
     public void message(string msg)
@@ -140,7 +139,6 @@ public partial class UserControls_CustomerOutStanding : System.Web.UI.Page
         ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "msg", jv, true);
     }
     #endregion
-
     protected void DDLSuperZone_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (DDLSuperZone.SelectedIndex == 0)
@@ -201,6 +199,7 @@ public partial class UserControls_CustomerOutStanding : System.Web.UI.Page
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {
+        Session["osrpt"] = null;
         if (rdbselect.SelectedValue == "Customer")
         {
             //  if (CustCode != "")
@@ -246,12 +245,21 @@ public partial class UserControls_CustomerOutStanding : System.Web.UI.Page
     }
     public void ShowDetails()
     {
-        if (ddlDetails.SelectedValue == "details")
-        {
+        
 
-            DataSet ds = new DataSet();
-            ds = Idv.Chetana.BAL.Specimen.Idv_Chetana_Customer_ZoneDate_Report(Convert.ToInt32(ddlCustmore.SelectedValue.ToString()), (txtFrom.Text.Split('/')[1] + "/" + txtFrom.Text.Split('/')[0] + "/" + txtFrom.Text.Split('/')[2]), (txtTo.Text.Split('/')[1] + "/" + txtTo.Text.Split('/')[0] + "/" + txtTo.Text.Split('/')[2]), Convert.ToInt32(strFY),
-           Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), txtcustomer.Text.ToString().Split(':')[0].Trim(), rdbselectnull.SelectedValue.ToString() + "!" + (txtInvoicedate.Text.Split('/')[1] + "/" + txtInvoicedate.Text.Split('/')[0] + "/" + txtInvoicedate.Text.Split('/')[2]));
+        if (ddlDetails.SelectedValue == "details")
+        {   
+            DataSet ds =null;
+            if (Session["osrpt"] == null)
+            {
+                ds = new DataSet();
+                ds = Idv.Chetana.BAL.Specimen.Idv_Chetana_Customer_ZoneDate_Report(Convert.ToInt32(ddlCustmore.SelectedValue.ToString()), (txtFrom.Text.Split('/')[1] + "/" + txtFrom.Text.Split('/')[0] + "/" + txtFrom.Text.Split('/')[2]), (txtTo.Text.Split('/')[1] + "/" + txtTo.Text.Split('/')[0] + "/" + txtTo.Text.Split('/')[2]), Convert.ToInt32(strFY),
+               Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), txtcustomer.Text.ToString().Split(':')[0].Trim(), rdbselectnull.SelectedValue.ToString() + "!" + (txtInvoicedate.Text.Split('/')[1] + "/" + txtInvoicedate.Text.Split('/')[0] + "/" + txtInvoicedate.Text.Split('/')[2]));
+                Session["osrpt"] = ds;
+            }
+            else {
+                ds = (DataSet)Session["osrpt"];
+            }
             //DataSet ds2 = new DataSet();
             // ds2 = Idv.Chetana.BAL.Specimen.Idv_Chetana_Get_CustomerDetailsForReport(Convert.ToInt32(ddlCustmore.SelectedValue.ToString()));
             DataView dv = new DataView(ds.Tables[0]);
@@ -265,36 +273,49 @@ public partial class UserControls_CustomerOutStanding : System.Web.UI.Page
         }
         else
         {
-            DataSet ds1 = new DataSet();
-
+             DataSet ds1 =null;
+             
             if (rdbselect.SelectedValue == "Analysis")
             {
-		if (DDLSuperZone.SelectedValue != "0")
-                {
-                ds1 = Other_Z.OtherBAL.Idv_Chetana_Customer_Outstanding_Report(Convert.ToInt32(ddlCustmore.SelectedValue.ToString()), (txtFrom.Text.Split('/')[1] + "/" + txtFrom.Text.Split('/')[0] + "/" + txtFrom.Text.Split('/')[2]), (txtTo.Text.Split('/')[1] + "/" + txtTo.Text.Split('/')[0] + "/" + txtTo.Text.Split('/')[2]), Convert.ToInt32(strFY),
-                        Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), txtcustomer.Text.ToString().Split(':')[0].Trim(), 0, "c", rdbselectnull.SelectedValue.ToString());
-                if (ds1.Tables[0].Rows.Count > 0)
-                {
-                    DataView dv = new DataView(ds1.Tables[0]);
-                    ReportDocument rd = new ReportDocument();
-                    rd.Load(Server.MapPath("Report/OutstandingAnalysisReport.rpt"));
-                    rd.Database.Tables[0].SetDataSource(dv);
-                    CustomerReportView.ReportSource = rd;
-                }
-                else
-                {
-                    message("Record not found");
-                    return;
-                }
-		}
+		        if (DDLSuperZone.SelectedValue != "0")
+                        {
+                            if (Session["osrpt"] == null)
+                            {
+                                ds1 = Other_Z.OtherBAL.Idv_Chetana_Customer_Outstanding_Report(Convert.ToInt32(ddlCustmore.SelectedValue.ToString()), (txtFrom.Text.Split('/')[1] + "/" + txtFrom.Text.Split('/')[0] + "/" + txtFrom.Text.Split('/')[2]), (txtTo.Text.Split('/')[1] + "/" + txtTo.Text.Split('/')[0] + "/" + txtTo.Text.Split('/')[2]), Convert.ToInt32(strFY),
+                                        Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), txtcustomer.Text.ToString().Split(':')[0].Trim(), 0, "c", rdbselectnull.SelectedValue.ToString());
+                            }
+                            else {
+                                ds1 = (DataSet)Session["osrpt"];
+                            }
+                        if (ds1.Tables[0].Rows.Count > 0)
+                        {
+                            DataView dv = new DataView(ds1.Tables[0]);
+                            ReportDocument rd = new ReportDocument();
+                            rd.Load(Server.MapPath("Report/OutstandingAnalysisReport.rpt"));
+                            rd.Database.Tables[0].SetDataSource(dv);
+                            CustomerReportView.ReportSource = rd;
+                        }
+                        else
+                        {
+                            message("Record not found");
+                            return;
+                        }
+		        }
 
             }
             else
             {
                 //Add Invoice Date  Exmple   outstanding!03/31/2016
+                if (Session["osrpt"] == null)
+                {
+                    ds1 = Idv.Chetana.BAL.Specimen.Idv_Chetana_Customer_Summary_Report(Convert.ToInt32(ddlCustmore.SelectedValue.ToString()), (txtFrom.Text.Split('/')[1] + "/" + txtFrom.Text.Split('/')[0] + "/" + txtFrom.Text.Split('/')[2]), (txtTo.Text.Split('/')[1] + "/" + txtTo.Text.Split('/')[0] + "/" + txtTo.Text.Split('/')[2]), Convert.ToInt32(strFY),
+                    Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), txtcustomer.Text.ToString().Split(':')[0].Trim(), 0, "c", rdbselectnull.SelectedValue.ToString() + "!" + (txtInvoicedate.Text.Split('/')[1] + "/" + txtInvoicedate.Text.Split('/')[0] + "/" + txtInvoicedate.Text.Split('/')[2]));
+                }
+                else
+                {
+                    ds1 = (DataSet)Session["osrpt"];
+                }
 
-                ds1 = Idv.Chetana.BAL.Specimen.Idv_Chetana_Customer_Summary_Report(Convert.ToInt32(ddlCustmore.SelectedValue.ToString()), (txtFrom.Text.Split('/')[1] + "/" + txtFrom.Text.Split('/')[0] + "/" + txtFrom.Text.Split('/')[2]), (txtTo.Text.Split('/')[1] + "/" + txtTo.Text.Split('/')[0] + "/" + txtTo.Text.Split('/')[2]), Convert.ToInt32(strFY),
-                Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), txtcustomer.Text.ToString().Split(':')[0].Trim(), 0, "c", rdbselectnull.SelectedValue.ToString() + "!" + (txtInvoicedate.Text.Split('/')[1] + "/" + txtInvoicedate.Text.Split('/')[0] + "/" + txtInvoicedate.Text.Split('/')[2]));
                 DataView dv = new DataView(ds1.Tables[0]);
                 // DataView dv2 = new DataView(ds2.Tables[0]);
                 ReportDocument rd = new ReportDocument();

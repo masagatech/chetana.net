@@ -29,8 +29,6 @@ public partial class UserControls_uc_LoginUserDetails : System.Web.UI.UserContro
         {
             BindDataEmployeeDetails();
         }
-        
-
     }
     #endregion
 
@@ -190,7 +188,6 @@ public partial class UserControls_uc_LoginUserDetails : System.Web.UI.UserContro
 
 
     }
-
     public void loder(string msg, string timetohid)
     {
         string jv = "autosloder('" + msg + "'," + timetohid + ");";
@@ -215,6 +212,7 @@ public partial class UserControls_uc_LoginUserDetails : System.Web.UI.UserContro
             ddlRolepop.SelectedValue = ((DropDownList)((System.Web.UI.WebControls.WebControl)(sender)).Parent.FindControl("ddlrole")).SelectedValue;
             ddlRolepop.Attributes.Add("style", "display:none;");
             selrol.Visible = false;
+
             txtPassword.Focus();
             txtPassword.Text = ((Label)((System.Web.UI.WebControls.WebControl)(sender)).Parent.FindControl("lblPassword")).Text;
             spnname.InnerHtml = ((Label)((System.Web.UI.WebControls.WebControl)(sender)).Parent.FindControl("lblEName")).Text;
@@ -227,7 +225,6 @@ public partial class UserControls_uc_LoginUserDetails : System.Web.UI.UserContro
         }
 
     }
-
     protected void IsSystemAdmin_CheckedChanged(object sender, EventArgs e)
     {
         Label lblEmpid = (Label)((System.Web.UI.WebControls.WebControl)(sender)).Parent.FindControl("lblEID");

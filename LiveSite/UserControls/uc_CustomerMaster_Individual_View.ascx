@@ -540,7 +540,7 @@
                    <asp:Label ID="Label30" runat="server" CssClass="lbl-form" Text="State Code"></asp:Label>
                 </td>
                 <td>
-                   <asp:TextBox ID="txtStateCode" runat="server" MaxLength="2" CssClass="inp-form" TabIndex="20"></asp:TextBox>
+                   <asp:TextBox ID="txtStateCode" runat="server" CssClass="inp-form" TabIndex="20"></asp:TextBox>
                 </td>
             </tr>
             <tr>

@@ -41,9 +41,9 @@ public partial class CollectionReport : System.Web.UI.Page
             // strChetanaCompanyName = Session["ChetanaCompanyName"].ToString();
             strFY = Session["FY"].ToString();
             //  HidFY.Value = Session["FY"].ToString();
-            //DateTime now = DateTime.Now;
-            //now.ToString("dd/MM/yyyy");
-            //txtFromDate.Text = new DateTime(now.Year, 1, now.Month).ToShortDateString();
+ 	    //DateTime now = DateTime.Now;
+	    //now.ToString("dd/MM/yyyy");
+	    //txtFromDate.Text = new DateTime(now.Year, 1, now.Month).ToShortDateString();
             //txttoDate.Text = new DateTime(now.AddMonths(1).Year, now.AddMonths(1).Month, 1).ToShortDateString();
             //todate = txttoDate.Text.Split('/')[1] + "/" + txttoDate.Text.Split('/')[0] + "/" + txttoDate.Text.Split('/')[2];
             //txttoDate.Text = todate;
@@ -73,18 +73,18 @@ public partial class CollectionReport : System.Web.UI.Page
         }
         else
         {
-            if (rdWeek.Checked)
+	    if (rdWeek.Checked)
             {
-                if (Session["Data"] != null)
-                {
-                    FillReport((DataView)Session["Data"]);
-                }
-            }
-            else
+            if (Session["Data"] != null)
             {
-                collectionReportView.Visible = false;
-
+                FillReport((DataView)Session["Data"]);
             }
+	   }
+	else
+	{
+		collectionReportView.Visible = false;
+	
+}
         }
     }
     #endregion
@@ -121,7 +121,7 @@ public partial class CollectionReport : System.Web.UI.Page
                 else
                 {
                     //ds = BankReceiptPayment.Idv_Chetana_REP_Collection_Report(Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(strFY), fdt, tdt, "mc");
-                    ds = Other_Z.OtherBAL.GetCollectionReport(Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(strFY), fdt, tdt, ddlMonth.SelectedItem.Value);
+                    ds = Other_Z.OtherBAL.GetCollectionReport(Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(strFY), fdt, tdt,  ddlMonth.SelectedItem.Value);
                     Session["month"] = ds;
                     if (ds.Tables[1].Rows.Count > 0)
                     {
@@ -153,9 +153,9 @@ public partial class CollectionReport : System.Web.UI.Page
         }
     }
     #endregion
-    protected void rdMonth_CheckedChanged(object sender, EventArgs e)
+	protected void rdMonth_CheckedChanged(object sender, EventArgs e)
     {
-        ddlMonth.Visible = true;
+            ddlMonth.Visible = true;
     }
     protected void rdWeek_CheckedChanged(object sender, EventArgs e)
     {
@@ -226,9 +226,9 @@ public partial class CollectionReport : System.Web.UI.Page
         //    Monthgrid.HeaderRow.Cells[i].Style.Add("background-color", "#df5015");
         //}
         months.RenderControl(htw);
-        string headerTable = @"<Table><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style=font-size:x-large;color:blue;text-align:center>Collection reced agst Target for the month</td></tr></Table>";
+string headerTable = @"<Table><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style=font-size:x-large;color:blue;text-align:center>Collection reced agst Target for the month</td></tr></Table>";
         string Date = @"<Table><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style=font-size:small;color:red;text-align:center;>" + txtFromDate.Text + " " + "To" + " " + txttoDate.Text + "</td></tr></Table>";
-        Response.Write(headerTable);
+Response.Write(headerTable);
         Response.Write(Date);
         Response.Write(sw.ToString());
         Response.End();
@@ -242,24 +242,89 @@ public partial class CollectionReport : System.Web.UI.Page
     }
     #endregion
 
-    double grQtyTotal = 0;
+
+    double outstd = 0;
+    double targetamt= 0;
+    double collectionAmt = 0;
+    double targetpercent = 0;
+    double fiftypercent = 0;
+    double hundredpercent = 0;
+    double totalccount = 0;
+    double Deficitpercent = 0;
+    double DeficitAmt = 0;
     protected void grdapproval_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        if (ddlMonth.SelectedItem.Value == "mcSummary" && rdMonth.Checked==true)
+	 if (ddlMonth.SelectedItem.Value == "mcSummary" && rdMonth.Checked==true)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                //storid = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "stor_id").ToString());
-                double tmpTotal = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "totaloutstanding").ToString());
-                grQtyTotal += tmpTotal;
-            }
-            if (e.Row.RowType == DataControlRowType.Footer)
-            {
-                Label lblTotal = (Label)e.Row.FindControl("lblTotal");
-                lblTotal.Text = grQtyTotal.ToString();
-                grQtyTotal = 0;
-            }
+	
+	if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            double totaloutstanding = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "totaloutstanding").ToString());
+            outstd += totaloutstanding;
+
+	    double totaltargetamt = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "targetamt").ToString());
+            targetamt += totaltargetamt ;
+
+	    double totalcollectionAmt = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "collectionAmt").ToString());
+            collectionAmt += totalcollectionAmt;
+
+	    double totaltargetpercent = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "targetpercent").ToString());
+            targetpercent += totaltargetpercent;
+
+	    double totalfiftypercent  = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "fiftypercent").ToString());
+            fiftypercent += totalfiftypercent;
+
+	    double totalhundredpercent  = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "hundredpercent").ToString());
+            hundredpercent += totalhundredpercent;
+
+	    double totaltotalccount  = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "totalccount").ToString());
+            totalccount += totaltotalccount;
+
+	    double totalDeficitpercent  = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "Deficitpercent").ToString());
+            Deficitpercent += totalDeficitpercent;
+
+	    double totalDeficitAmt  = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "DeficitAmt").ToString());
+            DeficitAmt += totalDeficitAmt;
         }
+        if (e.Row.RowType == DataControlRowType.Footer)
+        {
+            Label lblTotal = (Label)e.Row.FindControl("lblTotal");
+            lblTotal.Text = outstd.ToString();
+		outstd = 0;
+
+	    Label lblTotaltargetamt = (Label)e.Row.FindControl("lblTotaltargetamt");
+            lblTotaltargetamt.Text = targetamt.ToString();
+		targetamt = 0;
+
+	    Label lblTotalcollectionAmt = (Label)e.Row.FindControl("lblTotalcollectionAmt");
+            lblTotalcollectionAmt.Text = collectionAmt.ToString();
+		collectionAmt = 0;
+
+	   Label lblTotaltargetpercent = (Label)e.Row.FindControl("lblTotaltargetpercent");
+            lblTotaltargetpercent.Text = targetpercent.ToString();
+		targetpercent = 0;
+
+	   Label lblTotalfiftypercent = (Label)e.Row.FindControl("lblTotalfiftypercent");
+            lblTotalfiftypercent.Text = fiftypercent.ToString();
+		fiftypercent = 0;
+
+	    Label lblTotalhundredpercent = (Label)e.Row.FindControl("lblTotalhundredpercent");
+            lblTotalhundredpercent.Text = hundredpercent.ToString();
+		hundredpercent = 0;
+
+	   Label lblTotalccount = (Label)e.Row.FindControl("lblTotalccount");
+            lblTotalccount.Text = totalccount.ToString();
+		totalccount = 0;
+
+	    Label lblTotalDeficitpercent = (Label)e.Row.FindControl("lblTotalDeficitpercent");
+            lblTotalDeficitpercent.Text = Deficitpercent.ToString();
+		Deficitpercent = 0;
+
+	   Label lblTotalDeficitAmount = (Label)e.Row.FindControl("lblTotalDeficitAmount");
+            lblTotalDeficitAmount.Text = DeficitAmt.ToString();
+		DeficitAmt = 0;
+	}
+	}
     }
 
     #region Report Show

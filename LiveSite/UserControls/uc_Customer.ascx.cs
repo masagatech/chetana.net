@@ -35,7 +35,6 @@ public partial class UserControls_uc_Customer : System.Web.UI.UserControl
         GrdCCDetails.DataBind();
     }
     #endregion
-
     protected void GrdCCDetails_RowEditing(object sender, GridViewEditEventArgs e)
     {
         PnlCCDetails.Visible = false;

@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/NewChetana.master" AutoEventWireup="true" CodeFile="Pendingadddisbursal.aspx.cs" Inherits="Pendingadddisbursal" %>
 
 <%@ Register TagPrefix="ajaxCt" Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" %>
-<%@ Register Assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
+<%@ Register Assembly="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
     Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -140,7 +140,7 @@
                                 </asp:TemplateField>
                              <asp:TemplateField HeaderText="Amount" ItemStyle-Width="70px">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txtAmount" Style="width: 70px;" runat="server" Text='<%#Eval("Additionalamt")%>'></asp:TextBox>
+                                        <asp:TextBox ID="txtAmount" Style="width: 70px;" runat="server" onkeypress="return CheckNumericWithDot(event)" Text='<%#Eval("Additionalamt","{0:0.00}")%>'></asp:TextBox>
                                     </ItemTemplate>
                                     <FooterTemplate>
                                         <asp:Label ID="lblBPODId11" runat="server" Text=""></asp:Label>

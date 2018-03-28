@@ -2,7 +2,7 @@
     CodeFile="CollectionReport.aspx.cs" Inherits="CollectionReport" Title="Collection Report" %>
 
 <%@ Register TagPrefix="ajaxCt" Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" %>
-<%@ Register Assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
+<%@ Register Assembly="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
     Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -78,13 +78,13 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:RadioButton ID="rdWeek" Checked="true" runat="server" AutoPostBack="true" OnCheckedChanged="rdWeek_CheckedChanged" Text="Week" GroupName="week" />
+                        <asp:RadioButton ID="rdWeek" Checked="true" runat="server" AutoPostBack="true"  OnCheckedChanged="rdWeek_CheckedChanged" Text="Week" 				GroupName="week" />
                     </td>
                     <td>
-                        <asp:RadioButton ID="rdMonth" runat="server" Text="Month" AutoPostBack="true" OnCheckedChanged="rdMonth_CheckedChanged" GroupName="week" />
-                        <asp:DropDownList CssClass="ddl-form" Visible="false" ID="ddlMonth" TabIndex="10" runat="server" Width="200px">
-                            <asp:ListItem Value="mc">Details</asp:ListItem>
-                            <asp:ListItem Value="mcSummary" Selected="True">Summary</asp:ListItem>
+                        <asp:RadioButton ID="rdMonth" runat="server" Text="Month" AutoPostBack="true"  OnCheckedChanged="rdMonth_CheckedChanged" GroupName="week" />
+                        <asp:DropDownList CssClass="ddl-form"  Visible="false" ID="ddlMonth" TabIndex="10" runat="server" Width="200px">
+                            <asp:ListItem Value="mc" >Details</asp:ListItem>
+                             <asp:ListItem Value="mcSummary" Selected="True">Summary</asp:ListItem>
                         </asp:DropDownList>
                     </td>
                 </tr>
@@ -111,8 +111,8 @@
                             <ItemTemplate>
                                 <%#Container.DataItemIndex + 1 %>
                             </ItemTemplate>
-                        </asp:TemplateField> --%>
-                        <asp:TemplateField HeaderText="Month">
+                        </asp:TemplateField> --%>  
+                            <asp:TemplateField HeaderText="Month">
                             <ItemTemplate>
                                 <asp:Label ID="lblmonths" runat="server" Text='<% #Eval("monthnames")%>'>'</asp:Label>
                             </ItemTemplate>
@@ -137,49 +137,84 @@
                                 <asp:Label ID="lblZoneName" runat="server" Text='<% #Eval("ZoneName")%>'>'</asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Outstanding">
+                     <asp:TemplateField HeaderText="Outstanding">
                             <ItemTemplate>
-                                <asp:Label ID="lbloutstanding" Style="float: right" runat="server" Text='<% #Eval("totaloutstanding", "{0:0.00}")%>'>'</asp:Label>
+                                <asp:Label ID="lbloutstanding" style="float:right" runat="server" Text='<% #Eval("totaloutstanding", "{0:0.00}")%>'>'</asp:Label>
                             </ItemTemplate>
+			   <FooterTemplate>
+				 <div style="text-align: right;">
+				 <b><asp:Label ID="lblTotal" runat="server" /></b>
+				 </div>
+			   </FooterTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Target Amount">
                             <ItemTemplate>
-                                <asp:Label ID="lbltargetamt" Style="float: right" runat="server" Text='<% #Eval("targetamt", "{0:0.00}")%>'>'</asp:Label>
+                                <asp:Label ID="lbltargetamt" style="float:right" runat="server" Text='<% #Eval("targetamt", "{0:0.00}")%>'>'</asp:Label>
                             </ItemTemplate>
+			<FooterTemplate>
+				 <div style="text-align: right;">
+				 <b><asp:Label ID="lblTotaltargetamt" runat="server" /></b>
+				 </div>
+			   </FooterTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Collection Amount">
                             <ItemTemplate>
-                                <asp:Label ID="lblcollectionAmt" Style="float: right" runat="server" Text='<% #Eval("collectionAmt", "{0:0.00}")%>'>'</asp:Label>
+                                <asp:Label ID="lblcollectionAmt" style="float:right" runat="server" Text='<% #Eval("collectionAmt", "{0:0.00}")%>'>'</asp:Label>
                             </ItemTemplate>
+			<FooterTemplate>
+				 <div style="text-align: right;">
+				 <b><asp:Label ID="lblTotalcollectionAmt" runat="server" /></b>
+				 </div>
+			   </FooterTemplate>
                         </asp:TemplateField>
-
+                        
                         <asp:TemplateField HeaderText="Weeks" Visible="false">
                             <ItemTemplate>
                                 <asp:Label ID="lblweeks" runat="server" Text='<% #Eval("weeks")%>'>'</asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-
-
-                        <asp:TemplateField HeaderText="Target percent">
+                        
+                        
+                        <asp:TemplateField HeaderText="Collection %">
                             <ItemTemplate>
-                                <asp:Label ID="lbltargetpercent" Style="float: right" runat="server" Text='<% #Eval("targetpercent", "{0:0.00}")%>'>'</asp:Label>
+                                <asp:Label ID="lbltargetpercent" style="float:right" runat="server" Text='<% #Eval("targetpercent", "{0:0.00}")%>'>'</asp:Label>
                             </ItemTemplate>
+			<FooterTemplate>
+				 <div style="text-align: right;">
+				 <b><asp:Label ID="lblTotaltargetpercent" runat="server" /></b>
+				 </div>
+			   </FooterTemplate>
                         </asp:TemplateField>
-
+                        
                         <asp:TemplateField HeaderText="50%">
                             <ItemTemplate>
-                                <asp:Label ID="lblfiftypercent" Style="float: right" runat="server" Text='<% #Eval("fiftypercent", "{0:0.00}")%>'>'</asp:Label>
+                                <asp:Label ID="lblfiftypercent" style="float:right" runat="server" Text='<% #Eval("fiftypercent", "{0:0.00}")%>'>'</asp:Label>
                             </ItemTemplate>
+			<FooterTemplate>
+				 <div style="text-align: right;">
+				 <b><asp:Label ID="lblTotalfiftypercent" runat="server" /></b>
+				 </div>
+			   </FooterTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="100 %">
                             <ItemTemplate>
-                                <asp:Label ID="lblhundredpercent" Style="float: right" runat="server" Text='<% #Eval("hundredpercent", "{0:0.00}")%>'>'</asp:Label>
+                                <asp:Label ID="lblhundredpercent" style="float:right" runat="server" Text='<% #Eval("hundredpercent", "{0:0.00}")%>'>'</asp:Label>
                             </ItemTemplate>
+				<FooterTemplate>
+				 <div style="text-align: right;">
+				 <b><asp:Label ID="lblTotalhundredpercent" runat="server" /></b>
+				 </div>
+			   </FooterTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Total count">
                             <ItemTemplate>
-                                <asp:Label ID="lbltotalccount" Style="float: right" runat="server" Text='<% #Eval("totalccount")%>'>'</asp:Label>
+                                <asp:Label ID="lbltotalccount" style="float:right" runat="server" Text='<% #Eval("totalccount")%>'>'</asp:Label>
                             </ItemTemplate>
+			<FooterTemplate>
+				 <div style="text-align: right;">
+				 <b><asp:Label ID="lblTotalccount" runat="server" /></b>
+				 </div>
+			   </FooterTemplate>
                         </asp:TemplateField>
                         <%--<asp:TemplateField HeaderText="toDateofprev">
                     <ItemTemplate>
@@ -203,21 +238,27 @@
                                 <asp:Label ID="lbltdate" runat="server" Text='<% #Eval("tdate", "{0:dd/MM/yyyy}")%>'>'</asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>--%>
-                        <asp:TemplateField HeaderText="Deficit percent">
+			<asp:TemplateField HeaderText="Deficit Amount">
                             <ItemTemplate>
-                                <asp:Label ID="lblDeficitpercent" runat="server" Text='<% #Eval("Deficitpercent", "{0:0.00}")%>'>'</asp:Label>
+                                <asp:Label ID="lblDeficitAmount" style="float:right" runat="server" Text='<% #Eval("DeficitAmt", "{0:0.00}")%>'>'</asp:Label>
                             </ItemTemplate>
+			   <FooterTemplate>
+				 <div style="text-align: right;">
+				 <b><asp:Label ID="lblTotalDeficitAmount" runat="server" /></b>
+				 </div>
+			   </FooterTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Deficit Amount">
+			<asp:TemplateField HeaderText="Deficit %">
                             <ItemTemplate>
-                                <asp:Label ID="lblDeficitAmount" runat="server" Text='<% #Eval("DeficitAmt", "{0:0.00}")%>'>'</asp:Label>
+                                <asp:Label ID="lblDeficitpercent" style="float:right" runat="server" Text='<% #Eval("Deficitpercent", "{0:0.00}")%>'>'</asp:Label>
                             </ItemTemplate>
+			<FooterTemplate>
+				 <div style="text-align: right;">
+				 <b><asp:Label ID="lblTotalDeficitpercent" runat="server" /></b>
+				 </div>
+			   </FooterTemplate>
                         </asp:TemplateField>
-                        <footertemplate>
-				            <div style="text-align: right;">
-				           <b><asp:Label ID="lblTotal" runat="server" /></b>
-				            </div>
-			           </footertemplate>
+
                     </Columns>
                 </asp:GridView>
             </ItemTemplate>

@@ -417,8 +417,7 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
         else
         {
             DataSet ds = new DataSet();
-            //ds = Other.Dashboard.Get_Report_SalesPerformance(0, Convert.ToInt32(DDLsuperzone.SelectedValue), Convert.ToInt32(strFY), fdate, tdate);
-            ds = Other.Dashboard.Get_Report_SalesPerformance(Convert.ToInt32(ddlSDZone.SelectedValue), Convert.ToInt32(DDLsuperzone.SelectedValue), Convert.ToInt32(strFY), fdate, tdate);
+            ds = Other.Dashboard.Get_Report_SalesPerformance(0, Convert.ToInt32(DDLsuperzone.SelectedValue), Convert.ToInt32(strFY), fdate, tdate);
             grdoutstanding.DataSource = ds.Tables[0];
             grdoutstanding.DataBind();
             grdnoofparty.DataSource = ds.Tables[0];

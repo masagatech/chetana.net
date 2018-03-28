@@ -83,10 +83,7 @@ public partial class UserControls_uc_DN : System.Web.UI.UserControl
     #region Click Events
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        //docdate = TxtdocDate.Text.Split('/')[2] + "/" + TxtdocDate.Text.Split('/')[1] + "/" + TxtdocDate.Text.Split('/')[0];
-        docdate = TxtdocDate.Text.Split('/')[1] + "/" + TxtdocDate.Text.Split('/')[0] + "/" + TxtdocDate.Text.Split('/')[2];
-       // string date = txtDate.Text.Split('/')[1] + "/" + txtDate.Text.Split('/')[0] + "/" + txtDate.Text.Split('/')[2];
-
+        docdate = TxtdocDate.Text.Split('/')[2] + "/" + TxtdocDate.Text.Split('/')[1] + "/" + TxtdocDate.Text.Split('/')[0];
         ddt = Convert.ToDateTime(docdate);
         flag0 = 0;
         getTotalCD();
@@ -110,30 +107,18 @@ public partial class UserControls_uc_DN : System.Web.UI.UserControl
                     objdnm.IsActive = true;
                     objdnm.CreatedBy = Session["UserName"].ToString();
                     objdnm.strFY = Convert.ToInt32(strFY);
-                   
-                    //Validate date against Audit CutOffDate
-
-                   bool i = Global.ValidateDate(ddt.ToString());
-                   if (i == true)
-                   {
-
-                       objdnm.Save(out DocNo, out DNMID);
-                       Txtdocno.Text = Convert.ToString(DocNo);
-                       SaveDNDetails(DNMID);
-                       MessageBox(Constants.save + "\\r\\n Document No: " + (Txtdocno.Text));
-                       loder("Last saved Document no. : " + Txtdocno.Text);
-                       txtDNAccode.Text = "";
-                       lblDNacname.Text = "";
-                       Txtdocno.Text = "";
-                       TxtdocDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
-                       Session["tempDNData"] = null;
-                       btnSave.Visible = false;
-                       GrdDN.DataBind();
-                   }
-                   else
-                   {
-                       MessageBox("You cannot create DC with Order Date less than CutOffDate:" + HttpContext.Current.Session["AuditCutOffDate"].ToString() + " and should in current financial year.");
-                   }
+                    objdnm.Save(out DocNo, out DNMID);
+                    Txtdocno.Text = Convert.ToString(DocNo);
+                    SaveDNDetails(DNMID);
+                    MessageBox(Constants.save + "\\r\\n Document No: " + (Txtdocno.Text));
+                    loder("Last saved Document no. : " + Txtdocno.Text);
+                    txtDNAccode.Text = "";
+                    lblDNacname.Text = "";
+                    Txtdocno.Text = "";
+                    TxtdocDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                    Session["tempDNData"] = null;
+                    btnSave.Visible = false;
+                    GrdDN.DataBind();
                 }
                 catch
                 {

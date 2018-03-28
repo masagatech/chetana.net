@@ -52,7 +52,8 @@ public partial class UserControls_HelpDesk : System.Web.UI.UserControl
             BindStatus();
             BindSeverity();
             BindInqType();
-            Cust_AutoCompleteExtender.ContextKey = "EmpSuper" + "!" + Session["UserName"].ToString();
+          //  Cust_AutoCompleteExtender.ContextKey = "EmpSuper"+"!" + Session["UserName"].ToString();
+Cust_AutoCompleteExtender.ContextKey = "customerWithMob";
             string grp = "Ticket";
             ddlExlation.DataSource = ObjDAL.Get_MasterOfMaster_ByGroup_ForDropdown(grp, "DropDown");
             ddlExlation.DataBind();

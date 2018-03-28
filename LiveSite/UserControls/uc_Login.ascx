@@ -36,8 +36,9 @@
                             Company</th>
                         <td>
                             <asp:DropDownList ID="ddlChetanaCompanyName" runat="server">
-                                <asp:ListItem Selected="True" Value="cppl">Chetana Book Depot</asp:ListItem>
+                                <asp:ListItem Selected="True" Value="cppl">Chetana Book Depo</asp:ListItem>
                                 <asp:ListItem Value="cspl">Chetana Stationery</asp:ListItem>
+				<asp:ListItem Value="llp">LLP</asp:ListItem>
                             </asp:DropDownList>
                         </td>
                     </tr>

@@ -37,8 +37,9 @@ public partial class UserControls_TrialBalanceReport : System.Web.UI.Page
         //Response.Write(strFY);
         txtFromDate.Focus();
 
-        if (Page.IsPostBack)
+        if (!Page.IsPostBack)
         {
+	     setdefaultdate();	
             //BindData();
         }
         BindData();
@@ -106,7 +107,7 @@ public partial class UserControls_TrialBalanceReport : System.Web.UI.Page
                     rd.SetParameterValue("IsPrint", Convert.ToBoolean(IsPrint.Checked));
                   
                     cristTrialBalance.ReportSource = rd;
-                    btntransfer.Visible = true;
+                    //btntransfer.Visible = true;
                 }
                 else
                 {
@@ -127,7 +128,7 @@ public partial class UserControls_TrialBalanceReport : System.Web.UI.Page
                     rd.SetParameterValue("IsPrint", Convert.ToBoolean(IsPrint.Checked));
                   //  rd.SetParameterValue("IsDebit_Credit", Isdebit);
                     cristTrialBalance.ReportSource = rd;
-                    btntransfer.Visible = true;
+                    //	btntransfer.Visible = true;
                 }
                 else
                 {
@@ -147,4 +148,12 @@ public partial class UserControls_TrialBalanceReport : System.Web.UI.Page
     //        DDLCustomer.Enabled = true;
     //    }
     //}
+
+public void setdefaultdate()
+    {
+        txtFromDate.Text = Session["FromDate"].ToString();
+        txtToDate.Text = Session["ToDate"].ToString();
+        //DateTime.Now.ToString("dd/MM/yyyy");
+
+    }
 }

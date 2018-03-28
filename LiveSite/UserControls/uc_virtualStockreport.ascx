@@ -201,6 +201,13 @@
                 </ItemTemplate>
                 <HeaderStyle Width="80px" />
             </asp:TemplateField>
+	    <asp:TemplateField HeaderStyle-Width="80px" HeaderStyle-BorderColor="Green" ItemStyle-BorderColor="Green"
+                HeaderText="Spe. CN" ItemStyle-HorizontalAlign="right">
+                <ItemTemplate>
+                    <asp:Label ID="lblSpeCN" runat="server" Text='<%#Eval("SpeCN") %>'></asp:Label>
+                </ItemTemplate>
+                <HeaderStyle Width="80px" />
+            </asp:TemplateField>
             <asp:TemplateField HeaderStyle-Width="80px" HeaderStyle-BorderColor="Green" ItemStyle-BorderColor="Green"
                 HeaderText="Cnf CN" ItemStyle-HorizontalAlign="right">
                 <ItemTemplate>
@@ -208,13 +215,7 @@
                 </ItemTemplate>
                 <HeaderStyle Width="80px" />
             </asp:TemplateField>
-             <asp:TemplateField HeaderStyle-Width="80px" HeaderStyle-BorderColor="Green" ItemStyle-BorderColor="Green"
-                HeaderText="Spe. CN" ItemStyle-HorizontalAlign="right">
-                <ItemTemplate>
-                    <asp:Label ID="lblSpeCN" runat="server" Text='<%#Eval("SpeCN") %>'></asp:Label>
-                </ItemTemplate>
-                <HeaderStyle Width="80px" />
-            </asp:TemplateField>
+	    
             <%-- <asp:TemplateField HeaderStyle-Width="80px" HeaderText="Can. Qty" 
                 ItemStyle-HorizontalAlign="right">
                 <ItemTemplate>
@@ -222,7 +223,7 @@
                 </ItemTemplate>
                 <HeaderStyle Width="80px" />
             </asp:TemplateField>--%>
-            <asp:TemplateField HeaderStyle-Width="80px" HeaderStyle-BorderColor="red" ItemStyle-BorderColor="red"
+            <asp:TemplateField HeaderStyle-Width="80px" HeaderStyle-BorderColor="red" ItemStyle-BorderColor="Red"
                 HeaderText="Available Qty" ItemStyle-HorizontalAlign="right">
                 <ItemTemplate>
                     <asp:Label ID="lblavailable" runat="server" Text='<%#Eval("Balance QTY") %>'></asp:Label>

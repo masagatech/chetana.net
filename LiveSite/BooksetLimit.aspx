@@ -4,7 +4,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">
-       
         .panelDetail
         {
             border: 1px solid #9C9C9C;
@@ -39,7 +38,7 @@
                 <table>
                     <tr>
                         <td>
-                            <asp:Label runat="server" ID="lblmrcode">M.R Code</asp:Label>
+                            <asp:Label ID="lblmrcode">M.R Code</asp:Label>
                             <asp:TextBox ID="txtMRCode" runat="server" CssClass="inp-form" OnTextChanged="txtMRCode_TextChanged" onfocus="FocusIn()" AutoPostBack="true" style="width: 250px" TabIndex="1"></asp:TextBox>
                             <ajaxCt:AutoCompleteExtender ID="Title_Get" runat="server" CompletionListCssClass="AutoExtender" CompletionListItemCssClass="AutoExtenderList"
                                 CompletionListHighlightedItemCssClass="AutoExtenderHighlight" Enabled="True"

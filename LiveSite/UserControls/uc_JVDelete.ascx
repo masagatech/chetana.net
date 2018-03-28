@@ -96,7 +96,6 @@
     </td>
     </tr>
     </table>
-       <asp:Label ID="lblAuditMsg" runat="server" Font-Bold="True" ForeColor="Maroon"></asp:Label>
     </div>
     
 <%--   <asp:UpdatePanel ID="upGridData" runat="server">

@@ -96,24 +96,13 @@ public partial class UserControls_uc_JVDelete : System.Web.UI.UserControl
                     objjdel.JVDocNo = docno1;
                     objjdel.UpdatedBy = Session["UserName"].ToString();
                     objjdel.strFY = Convert.ToInt32(strFY);
-                    //AuditCutOffDate check
-                    int i;
-                    i = Global.Check_IsEditable("JVDel", Convert.ToInt32(JVMID1),Convert.ToInt32(strFY));
-                    if (i == 1)
-                    {
-
-                        objjdel.DeleteJV();
-                        MessageBox("Record Deleted Successfully " + (Txtdocno.Text));
-                        //MessageBox("Record saved successfully");
-                        GrdJV.DataBind();
-                        btnDelete.Visible = false;
-                        Txtdocno.Text = "";
-                        Txtdocno.Focus();
-                    }
-                    else
-                    {
-                        MessageBox("You cannot delete JV with date less than CutOffDate:" + HttpContext.Current.Session["AuditCutOffDate"].ToString());
-                    }
+                    objjdel.DeleteJV();
+                    MessageBox("Record Deleted Successfully " + (Txtdocno.Text));
+                    //MessageBox("Record saved successfully");
+                    GrdJV.DataBind();
+                    btnDelete.Visible = false;
+                    Txtdocno.Text = "";
+                    Txtdocno.Focus();
                 }
              catch
                 {
@@ -159,16 +148,6 @@ public partial class UserControls_uc_JVDelete : System.Web.UI.UserControl
             //GrdJV.DataBind();
             Txtdocno.Focus();
         }
-        bool i = Global.ValidateDate(TxtdocDate.Text.ToString());
-        if (i == true)
-        { }
-        else
-        {
-            btnDelete.Visible = false;
-            //btnaddEntry.Visible = false;
-            lblAuditMsg.Text = "You cannot Edit JV with date less than Audit CutOffDate:" + Session["AuditCutOffDate"].ToString();
-        }
-
     }
     #endregion
 

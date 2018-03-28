@@ -78,7 +78,7 @@ public partial class Additional_Disburse : System.Web.UI.Page
 
             else
             {
-               
+
                 btnUpdate.Visible = true;
             }
         }
@@ -183,28 +183,51 @@ public partial class Additional_Disburse : System.Web.UI.Page
     }
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
-          CustomerDetails obj=new CustomerDetails();
-
-         foreach(GridViewRow row in gdGeneral.Rows)
-         {
-             CheckBox chkschedules = (CheckBox)row.FindControl("chkIsActive1");
-              obj.CustCode = ((Label)row.FindControl("lblCode")).Text;
-
-
-              if (chkschedules.Checked)
-              {
-                  obj.ADDITIONALAMT = Convert.ToDecimal(((TextBox)row.FindControl("txtAmount")).Text);
-
-              }
-              else
-              {
-                  obj.ADDITIONALAMT =0;
-              }
-             
-              obj.Updateamount();
-          }
-          ShowDetails();
-          MessageBox("Record updated sucessfully...");      
-
+        int OutNo=0;
+        // We were using CustomerDetails but no more using it. 
+        //CustomerDetails obj=new CustomerDetails();
+        //BankPayment obj = new BankPayment();
+        Other_Z.OtherBAL ObjBal = new Other_Z.OtherBAL();
+        Other_Z.OtherBAL.SaveBankPay obj = new Other_Z.OtherBAL.SaveBankPay();
+        foreach (GridViewRow row in gdGeneral.Rows)
+        {
+            if (Convert.ToDecimal(((TextBox)row.FindControl("txtAmount")).Text) > 0)
+            {
+                try
+                {
+                    obj.BankPaymentID = 0;
+                    obj.BankCode = "";
+                    obj.Documentno = 0;
+                    obj.Serialno = 1;
+                    obj.DocumentDate = DateTime.Now;
+                    obj.AccountCode = ((Label)row.FindControl("lblCode")).Text;
+                    obj.PersonInCharge = "";
+                    obj.ReportCode = "";
+                    obj.Cash_Cheque_DD = "";
+                    obj.Cheque_DD_NO = "";
+                    // obj.Type = txtType.Text.Trim();
+                    obj.Type = "";
+                    obj.Amount = Convert.ToDecimal(((TextBox)row.FindControl("txtAmount")).Text);
+                    obj.DrawnOn = "";
+                    obj.Remarks = "debit";
+                    obj.IsActive = true;
+                    obj.CreatedBy = Session["UserName"].ToString();
+                    obj.UpdatedBy = "";
+                    obj.strFY = Convert.ToInt32(strFY);
+                    obj.Paymode = "AddcomisionDebit";
+                    obj.IsChequeBounce = false;
+                    //When Remarks = "debit", in sp we will insert value in Amount field to AddComDebit column in column
+                    ObjBal.SaveBankPayment(obj,out OutNo);
+                }
+                catch (Exception ex)
+                {
+                    
+                    throw;
+                }
+                
+            }
+        }
+        ShowDetails();
+        MessageBox("Record updated sucessfully..." + OutNo.ToString());
     }
 }

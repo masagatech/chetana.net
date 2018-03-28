@@ -42,8 +42,6 @@ public partial class BankPayment_CheckList : System.Web.UI.Page
                 strChetanaCompanyName = Session["ChetanaCompanyName"].ToString();
                 strFY = Session["FY"].ToString();
                 HidFY.Value = Session["FY"].ToString();
-                txtFromDate.Text = "01/04/201" + strFY + "";
-                txttoDate.Text = "31/03/201" + Convert.ToInt32(Convert.ToInt32(strFY) + 1) + "";
             }
             else
             {
@@ -53,7 +51,7 @@ public partial class BankPayment_CheckList : System.Web.UI.Page
 
         }
 
-        if (Page.IsPostBack)
+        if (!Page.IsPostBack)
         {
             //SetView();
             // BindBankRDetails();
@@ -61,7 +59,7 @@ public partial class BankPayment_CheckList : System.Web.UI.Page
             //
             Session["Data"] = null;
             txtbankcoder.Focus();
-	        FillReport((DataView)Session["Data"]);
+	    //FillReport((DataView)Session["Data"]);
         }
         else
         {
@@ -74,7 +72,7 @@ public partial class BankPayment_CheckList : System.Web.UI.Page
     #region Print Method
     private void PrindFunction()
     {
-	    Session["Data"] = null;
+	Session["Data"] = null;
         string BnkCode = txtbankcoder.Text.Trim();
 
         frdate = txtFromDate.Text.Split('/')[2] + "/" + txtFromDate.Text.Split('/')[1] + "/" + txtFromDate.Text.Split('/')[0];

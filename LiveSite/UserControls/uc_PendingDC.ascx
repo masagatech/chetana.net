@@ -290,8 +290,9 @@
                                         ToolTip="click to print" OnClick="btnPrint_Click" />
                                     <asp:Button ID="btnDocWice" CssClass="submitbtn"
                                             Width="100px" runat="server" Text="Print Without %" OnClick="btnDocWice_Click" />
-                                    <asp:Button ID="btnEmail" Visible="true"  runat="server" Text="Email" CssClass="submitbtn"
+					 <asp:Button ID="btnEmail" Visible="true"  runat="server" Text="Email" CssClass="submitbtn"
                                      ToolTip="Click to EMail"   onclick="btnEmail_Click" />
+                                    
                                 </td>
                             </tr>
                             <tr>
@@ -377,7 +378,7 @@
             </asp:UpdatePanel>
         </td>
         <td width="20%" valign="top">
-          
+         
         </td>
          
     </tr>

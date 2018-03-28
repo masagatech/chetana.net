@@ -34,7 +34,6 @@
             <asp:Button ID="btn_Save" CssClass="submitbtn" TabIndex="15" runat="server" Text="Save"
                 Width="80px" OnClick="btn_Save_Click" ValidationGroup="bnkpmt" />
         </div>
-        <asp:Label ID="lblAuditMsg" runat="server" Font-Bold="True" ForeColor="Maroon"></asp:Label>
         <br />
         <asp:Panel ID="Pnldate" CssClass="panelDetails" runat="server" Width="860px">
             <table>
@@ -419,8 +418,7 @@
         <asp:Panel ID="PnlBankPDetails" runat="server">
             <asp:GridView ID="GrdBankPDetails" runat="server" AutoGenerateColumns="False" CellPadding="4"
                 CssClass="product-table" ForeColor="#333333" PageSize="10" Width="900px" OnRowDeleting="GrdBankPDetails_RowDeleting"
-                OnRowEditing="GrdBankPDetails_RowEditing" 
-                onselectedindexchanged="GrdBankPDetails_SelectedIndexChanged">
+                OnRowEditing="GrdBankPDetails_RowEditing">
                 <Columns>
                     <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Document Date"
                         ItemStyle-HorizontalAlign="Center">

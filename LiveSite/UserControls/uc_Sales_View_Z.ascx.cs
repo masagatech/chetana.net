@@ -47,10 +47,17 @@ public partial class UserControls_Salaes_View_Z : System.Web.UI.UserControl
             ddlSDZone.DataSource = Masters.Get_AreaZone_Zone_SuperZone(0, "SDZone");
             ddlSDZone.DataBind();
             ddlSDZone.Focus();
-            ddlSDZone.Items.Insert(0, new ListItem("-- Select SDZone --", "0"));
+            //ddlSDZone.Items.Insert(0, new ListItem("-- Select SDZone --", "0"));
             DDLSuperZone.Items.Insert(0, new ListItem("-- Select SuperZone --", "0"));
             DDLZone.Items.Insert(0, new ListItem("-- Select Zone --", "0"));
             setddl(Session["zoneLevel"].ToString(), Session["zoneId"].ToString());
+        }
+	 if (IsPostBack)
+        {
+            if (DDLSuperZone.SelectedValue != "0" && DDLZone.SelectedValue != "0" && txtFromDate.Text != "" && txttoDate.Text != "")
+            {
+                ShowDetails();
+            }
         }
 
     }
@@ -269,5 +276,6 @@ public partial class UserControls_Salaes_View_Z : System.Web.UI.UserControl
             }
         }
     }
+
 
 }

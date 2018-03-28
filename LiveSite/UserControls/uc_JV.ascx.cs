@@ -149,27 +149,16 @@ public partial class UserControls_uc_JV : System.Web.UI.UserControl
                     objjvm.Isactive = true;
                     objjvm.CreatedBy = Session["UserName"].ToString();
                     objjvm.strFY = Convert.ToInt32(strFY);
-
-                    //Validate date against Audit CutOffDate
-
-                    bool i = Global.ValidateDate(TxtdocDate.Text.ToString());
-                    if (i == true)
-                    {
-                        objjvm.Save(out DocNo, out JVMID);
-                        Txtdocno.Text = Convert.ToString(DocNo);
-                        SaveJVDetails(JVMID);
-                        MessageBox(Constants.save + "\\r\\n Document No: " + (Txtdocno.Text));
-                        loder("Last saved Document no. : " + Txtdocno.Text);
-                        Txtdocno.Text = "";
-                        TxtdocDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
-                        Session["tempJVData"] = null;
-                        btnSave.Visible = false;
-                        GrdJV.DataBind();
-                    }
-                    else
-                    {
-                        MessageBox("You cannot create DC with Order Date less than CutOffDate:" + HttpContext.Current.Session["AuditCutOffDate"].ToString() + " and should in current financial year.");
-                    }
+                    objjvm.Save(out DocNo, out JVMID);
+                    Txtdocno.Text = Convert.ToString(DocNo);
+                    SaveJVDetails(JVMID);
+                    MessageBox(Constants.save + "\\r\\n Document No: " + (Txtdocno.Text));
+                    loder("Last saved Document no. : " + Txtdocno.Text);
+                    Txtdocno.Text = "";
+                    TxtdocDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                    Session["tempJVData"] = null;
+                    btnSave.Visible = false;
+                    GrdJV.DataBind();
                 }
                 catch
                 {

@@ -390,7 +390,7 @@ public partial class Token_Register_Edit : System.Web.UI.Page
         if (CustCode != "")
         {
             DataSet ds = ObjBAL.Token_Register_Validation(CustCode, Convert.ToInt32(txtKycNo.Text == "" ? 0 : Convert.ToInt32(txtKycNo.Text)), Convert.ToInt32(strFY), "", "");
-            if (ds.Tables[0].Rows[0][0].ToString() == "BlackList")
+	    if (ds.Tables[0].Rows[0][0].ToString() == "BlackList")
             {
                 MessageBox("This customer is black list");
                 txtCustomerName.Focus();

@@ -40,15 +40,14 @@ public partial class UserControls_uc_BankPayment : System.Web.UI.UserControl
                 strChetanaCompanyName = Session["ChetanaCompanyName"].ToString();
                 strFY = Session["FY"].ToString();
                 HidFY.Value = Session["FY"].ToString();
+
                 if (Session["PayMode"] != null)
                 {
-                    string PayMode = Session["PayMode"].ToString();
-                    txtAccode.Text = PayMode.Split('+')[0].ToString();
-                    lblaccname.Text = PayMode.Split('+')[1].ToString();
-                    txtAmt.Text = PayMode.Split('+')[2].ToString();
-                    Session["PayMode"] = null;
+                    txtAccode.Text = Session["PayMode"].ToString().Split('+')[0].ToString();
+                    lblaccname.Text = Session["PayMode"].ToString().Split('+')[1].ToString();
+                    txtAmt.Text = Session["PayMode"].ToString().Split('+')[2].ToString();
                 }
-                
+
             }
             else
             {
@@ -88,47 +87,33 @@ public partial class UserControls_uc_BankPayment : System.Web.UI.UserControl
             //write 
             if (LblBankPID.Text != "" || LblBankPID.Text != "0")
             {
-               
-                //AuditCutOffDate check
-                    int i;
-                    i = Global.Check_IsEditable("Bank_Payment", Convert.ToInt32(LblBankPID.Text),Convert.ToInt32(strFY));
-                    if (i == 1)
-                    {
-                        try
-                        {
-                            DeleteModule objDelete = new DeleteModule();
-                            objDelete.ID = LblBankPID.Text.Trim();
-                            objDelete.FY = Convert.ToInt32(HidFY.Value);
-                            objDelete.Is_Restore = false;
-                            objDelete.Created_BY = Session["UserName"].ToString();
-                            objDelete.Module = "BankPayment";
-                            objDelete.Save();
-                            MessageBox("Record successfully deleted");
+                try
+                {
+                    DeleteModule objDelete = new DeleteModule();
+                    objDelete.ID = LblBankPID.Text.Trim();
+                    objDelete.FY = Convert.ToInt32(HidFY.Value);
+                    objDelete.Is_Restore = false;
+                    objDelete.Created_BY = Session["UserName"].ToString();
+                    objDelete.Module = "BankPayment";
+                    objDelete.Save();
+                    MessageBox("Record successfully deleted");
 
-                            //Reset Form
-                            pageName.InnerHtml = "View / Edit Bank Payment";
-                            PnlAddBankP.Visible = false;
-                            Pnldate.Visible = true;
-                            PnlBankPDetails.Visible = false;
+                    //Reset Form
+                    pageName.InnerHtml = "View / Edit Bank Payment";
+                    PnlAddBankP.Visible = false;
+                    Pnldate.Visible = true;
+                    PnlBankPDetails.Visible = false;
 
-                            btn_Save.Visible = false;
-                            btnDelete.Visible = false;
-                            filter.Visible = true;
+                    btn_Save.Visible = false;
+                    btnDelete.Visible = false;
+                    filter.Visible = true;
 
-                        }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox("Record not deleted due to : " + ex.Message.ToString());
 
-                        catch (Exception ex)
-                        {
-                            MessageBox("Record not deleted due to : " + ex.Message.ToString());
-
-                        }
-                    }
-                    else
-                    {
-                        MessageBox("You cannot delete Bank Payment Entry of Date less than CutOffDate:" + HttpContext.Current.Session["AuditCutOffDate"].ToString());
-
-
-                    }
+                }
 
             }
         }
@@ -141,7 +126,10 @@ public partial class UserControls_uc_BankPayment : System.Web.UI.UserControl
         ddt = Convert.ToDateTime(docdate);
         string BankCode = txtbankcode.Text.Trim();
 
-        BankPayment obBnkpay = new BankPayment();
+        //BankPayment obBnkpay = new BankPayment();
+        Other_Z.OtherBAL.SaveBankPay obBnkpay = new Other_Z.OtherBAL.SaveBankPay();
+        Other_Z.OtherBAL ObjBal = new Other_Z.OtherBAL();
+        
         // txtdocno.Text = BankPayment.Get_BankPaymentDocNo(BankCode);
 
         // txtdocDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
@@ -153,7 +141,7 @@ public partial class UserControls_uc_BankPayment : System.Web.UI.UserControl
                 obBnkpay.BankPaymentID = Convert.ToInt32(LblBankPID.Text);
                 obBnkpay.BankCode = txtbankcode.Text.Trim();
                 // obBnkpay.DocumentNo = 0;
-                obBnkpay.SerialNo = 1;
+                obBnkpay.Serialno = 1;
                 obBnkpay.DocumentDate = ddt;
                 obBnkpay.AccountCode = txtAccode.Text.Trim(); ;
                 obBnkpay.PersonInCharge = txtperson.Text.Trim();
@@ -164,93 +152,52 @@ public partial class UserControls_uc_BankPayment : System.Web.UI.UserControl
                 obBnkpay.Amount = Convert.ToDecimal(txtAmt.Text.Trim());
                 obBnkpay.DrawnOn = txtDrawnon.Text.Trim();
                 obBnkpay.Remarks = txtRemark.Text.Trim();
-                obBnkpay.Isactive = true;
+                obBnkpay.IsActive = true;
                 obBnkpay.IsChequeBounce = CheckActive.Checked;
                
                 obBnkpay.CreatedBy = Session["UserName"].ToString();
                 obBnkpay.strFY = Convert.ToInt32(strFY);
                 if (Session["url"] != null)
                 {
-                  //obBnkpay.Paymode = "Addcomision";
+                    obBnkpay.Paymode = "Addcomision";
                 }
                 else
                 {
-               // obBnkpay.Paymode = "";
+                    obBnkpay.Paymode = "";
                 }
+                //obBnkpay.Save(out DocNo);
+                ObjBal.SaveBankPayment(obBnkpay, out DocNo);
+                txtdocno.Text = Convert.ToString(DocNo);
+                // MessageBox("Record saved successfully");
+                MessageBox(Constants.save + "\\r\\n Document No: " + (txtdocno.Text));
+                loder("Last saved Document no. : " + txtdocno.Text);
+                GrdBankPDetails.DataBind();
 
-               //Chech Document date against Audit CutOffDate 
+                txtbankcode.Text = "";
+                lblbankname.Text = "";
+                txtdocno.Text = "";
+                txtdocDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                // txtsrno.Text = "";
+                txtAccode.Text = "";
+                lblaccname.Text = "";
+                txtperson.Text = "";
+                txtreportcode.Text = "";
+                lblacname.Text = "";
+                DDLCCDD.SelectedIndex = 0;
+                //txtType.Text = "";
+                txtCCDDNo.Text = "";
+                txtAmt.Text = "";
+                txtDrawnon.Text = "";
+                lblDrawnonname.Text = "";
+                txtRemark.Text = "";
+                Session["url"] = null;
+                CheckActive.Checked = false;
+                lblCustOS.Text = "";
+                btn_Save.Text = "Save";
+                PnlAddBankP.Visible = true;
+                Pnldate.Visible = false;
+                PnlBankPDetails.Visible = false;
 
-                int flag = 1;
-                string strMsg = null;
-                if (btn_Save.Text == "Save")
-                {
-                    bool i = Global.ValidateDate(txtdocDate.Text.ToString());
-                    if (i == true)
-                    {
-                        flag = 1;
-                    }
-                    else
-                    {
-                        flag = 0;
-                        strMsg = "You cannot Create Bank Payment Entry of Date less than CutOffDate:" + HttpContext.Current.Session["AuditCutOffDate"].ToString();
-
-                    }
-                }
-                if (btn_Save.Text == "Update")
-                {
-                    int i;
-                    i = Global.Check_IsEditable("Bank_Payment", Convert.ToInt32(LblBankPID.Text),Convert.ToInt32(strFY));
-                    if (i == 1)
-                    {
-                        flag = 1;
-                    }
-                    else
-                    {
-                        flag = 0;
-                        strMsg = "You cannot Edit Bank Payment Entry of Date less than CutOffDate:" + HttpContext.Current.Session["AuditCutOffDate"].ToString();
-
-                    }
-                }
-
-                
-                if (flag  == 1)
-                {
-                    obBnkpay.Save(out DocNo);
-                    txtdocno.Text = Convert.ToString(DocNo);
-                    // MessageBox("Record saved successfully");
-                    MessageBox(Constants.save + "\\r\\n Document No: " + (txtdocno.Text));
-                    loder("Last saved Document no. : " + txtdocno.Text);
-                    GrdBankPDetails.DataBind();
-
-                    txtbankcode.Text = "";
-                    lblbankname.Text = "";
-                    txtdocno.Text = "";
-                    txtdocDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
-                    // txtsrno.Text = "";
-                    txtAccode.Text = "";
-                    lblaccname.Text = "";
-                    txtperson.Text = "";
-                    txtreportcode.Text = "";
-                    lblacname.Text = "";
-                    DDLCCDD.SelectedIndex = 0;
-                    //txtType.Text = "";
-                    txtCCDDNo.Text = "";
-                    txtAmt.Text = "";
-                    txtDrawnon.Text = "";
-                    lblDrawnonname.Text = "";
-                    txtRemark.Text = "";
-                    Session["url"] = null;
-                    CheckActive.Checked = false;
-                    lblCustOS.Text = "";
-                    btn_Save.Text = "Save";
-                    PnlAddBankP.Visible = true;
-                    Pnldate.Visible = false;
-                    PnlBankPDetails.Visible = false;
-                }
-                else
-                {
-                    MessageBox("You cannot Create/Edit/Delete Bank Payment Entry of Date less than CutOffDate:" + HttpContext.Current.Session["AuditCutOffDate"].ToString());
-                }
             }
             catch
             {
@@ -346,9 +293,17 @@ public partial class UserControls_uc_BankPayment : System.Web.UI.UserControl
             {
                 txtAccode.Text = Accode;
                 lblaccname.Text = Convert.ToString(dt1.Rows[0]["AC_NAME"]);
+ if(Accode != "SCB-M")
+	      {
                 lblCustOS.Visible = true;
                lblCustOS.Text = Convert.ToString(DCMaster.Get_Name(Accode, flag).Tables[1].Rows[0]["Closin_Bal"]);
-                   
+               }
+else
+{
+lblCustOS.Visible = true;
+               lblCustOS.Text = "-";
+}
+    
                 txtperson.Focus();
 
             }
@@ -538,19 +493,6 @@ public partial class UserControls_uc_BankPayment : System.Web.UI.UserControl
         catch
         {
         }
-        //Check agaist CutOffDate
-                    bool i = Global.ValidateDate(txtdocDate.Text.ToString());
-                    if (i == true)
-                    {
-
-                    }
-                    else
-                    {
-                        btnDelete.Visible = false;
-                        btn_Save.Visible = false;
-                        lblAuditMsg.Text = "You cannot Edit Bank Payment Entry of Date less than CutOffDate:" + HttpContext.Current.Session["AuditCutOffDate"].ToString();
-                    }
-
     }
 
     protected void GrdBankPDetails_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -709,10 +651,6 @@ public partial class UserControls_uc_BankPayment : System.Web.UI.UserControl
             PnlBankPDetails.Visible = false;
             MessageBox("Records Not Available ");
         }
-    }
-    protected void GrdBankPDetails_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
     }
 }
 

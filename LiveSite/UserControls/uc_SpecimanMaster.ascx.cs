@@ -101,8 +101,8 @@ public partial class UserControls_SpecimanMaster : System.Web.UI.UserControl
     protected void btnaddbk_Click(object sender, EventArgs e)
     {
 
-    }
-
+    }	
+	
     protected void btnaddBooks_Click(object sender, EventArgs e)
     {
         if (ViewState["srate"].ToString() == "")
@@ -223,7 +223,7 @@ public partial class UserControls_SpecimanMaster : System.Web.UI.UserControl
 
     protected void btn_Save_Click(object sender, EventArgs e)
     {
-        try
+	 try
         {
             if (grdBookDetails.Rows.Count == 0)
             {
@@ -313,7 +313,8 @@ public partial class UserControls_SpecimanMaster : System.Web.UI.UserControl
                     }
                     else
                     {
-                        MessageBox("Out of Limit Book Set " + DDLSelectSet.SelectedItem + "\n Total Limit" + dt.Rows[0][1] + "\n Remaining Qty" + dt.Rows[0][2]);
+                        //MessageBox("Out of Limit Book Set " + DDLSelectSet.SelectedItem);
+			MessageBox("Out of Limit Book Set" + DDLSelectSet.SelectedItem +"  "+" Total Limit(" + dt.Rows[0][1] +")"+"  "+" Remaining Limit(" + dt.Rows[0][2]+")");
                         txtsetqty.Text = "";
                         txtsetqty.Focus();
                         return;

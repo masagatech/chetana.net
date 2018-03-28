@@ -5,6 +5,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <uc1:uc_EditDC ID="uc_EditDC" runat="server" />
+    <uc1:uc_EditDC ID="uc_EditDC1" runat="server" />
 </asp:Content>
 

@@ -171,7 +171,7 @@ public partial class UserControls_CNSpecimanMaster : System.Web.UI.UserControl
                         int QtyValidate = Convert.ToInt32(dt1.Rows[0]["InvQty"]);
                         if (Convert.ToInt32(txtqty.Text) < QtyValidate)
                         {
-                            MessageBox("Please enter valid quntity");
+                           // MessageBox("Please enter valid quntity");
                             txtqty.Focus();
                             return;
                         }

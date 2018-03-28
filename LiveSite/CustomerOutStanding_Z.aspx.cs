@@ -18,7 +18,6 @@ public partial class CustomerOutStanding_Z : System.Web.UI.Page
     #region Variables
     string strChetanaCompanyName = "cppl";
     string strFY;
-    
     string CustCode = "";
     #endregion
     protected void Page_Load(object sender, EventArgs e)
@@ -29,8 +28,6 @@ public partial class CustomerOutStanding_Z : System.Web.UI.Page
             {
                 strChetanaCompanyName = Session["ChetanaCompanyName"].ToString();
                 strFY = Session["FY"].ToString();
-                txtFrom.Text = "01/04/201" + strFY;
-                txtTo.Text = "31/03/201"+Convert.ToInt32(Convert.ToInt32(strFY)+1);
             }
             else
             {
@@ -258,7 +255,7 @@ public partial class CustomerOutStanding_Z : System.Web.UI.Page
 
             DataSet ds = new DataSet();
             ds = Idv.Chetana.BAL.Specimen.Idv_Chetana_Customer_ZoneDate_Report(Convert.ToInt32(ddlCustmore.SelectedValue.ToString()), (txtFrom.Text.Split('/')[1] + "/" + txtFrom.Text.Split('/')[0] + "/" + txtFrom.Text.Split('/')[2]), (txtTo.Text.Split('/')[1] + "/" + txtTo.Text.Split('/')[0] + "/" + txtTo.Text.Split('/')[2]), Convert.ToInt32(strFY),
-           Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), txtcustomer.Text.ToString().Split(':')[0].Trim(), rdbselectnull.SelectedValue.ToString());
+           Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), txtcustomer.Text.ToString().Split(':')[0].Trim(), rdbselectnull.SelectedValue.ToString()+ "!" + (txtTo.Text.Split('/')[1] + "/" + txtTo.Text.Split('/')[0] + "/" + txtTo.Text.Split('/')[2]));
             //DataSet ds2 = new DataSet();
             // ds2 = Idv.Chetana.BAL.Specimen.Idv_Chetana_Get_CustomerDetailsForReport(Convert.ToInt32(ddlCustmore.SelectedValue.ToString()));
             DataView dv = new DataView(ds.Tables[0]);
@@ -274,7 +271,7 @@ public partial class CustomerOutStanding_Z : System.Web.UI.Page
         {
             DataSet ds1 = new DataSet();
             ds1 = Idv.Chetana.BAL.Specimen.Idv_Chetana_Customer_Summary_Report(Convert.ToInt32(ddlCustmore.SelectedValue.ToString()), (txtFrom.Text.Split('/')[1] + "/" + txtFrom.Text.Split('/')[0] + "/" + txtFrom.Text.Split('/')[2]), (txtTo.Text.Split('/')[1] + "/" + txtTo.Text.Split('/')[0] + "/" + txtTo.Text.Split('/')[2]), Convert.ToInt32(strFY),
-           Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), txtcustomer.Text.ToString().Split(':')[0].Trim(), 0, "c", rdbselectnull.SelectedValue.ToString());
+           Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), txtcustomer.Text.ToString().Split(':')[0].Trim(), 0, "c", rdbselectnull.SelectedValue.ToString()+ "!" + (txtTo.Text.Split('/')[1] + "/" + txtTo.Text.Split('/')[0] + "/" + txtTo.Text.Split('/')[2]));
             //  DataSet ds2 = new DataSet();
             // ds2 = Idv.Chetana.BAL.Specimen.Idv_Chetana_Get_CustomerDetailsForReport(Convert.ToInt32(ddlCustmore.SelectedValue.ToString()));
             DataView dv = new DataView(ds1.Tables[0]);

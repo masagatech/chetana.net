@@ -142,8 +142,7 @@ public partial class AdditionalCommission : System.Web.UI.Page
     }
     public void Bind_DDL_Customer()
     {
-        Other_Z.OtherBAL ObjDal = new Other_Z.OtherBAL();
-        ddlCustmore.DataSource = ObjDal.Idv_Chetana_Get_ZoneCustomerAdditionalCommissionOtherZ(Convert.ToInt32(DDLZone.SelectedValue.ToString()));
+        ddlCustmore.DataSource = Masters.Idv_Chetana_Get_ZoneCustomerAdditionalCommission(Convert.ToInt32(DDLZone.SelectedValue.ToString()));
         ddlCustmore.DataBind();
         ddlCustmore.Items.Insert(0, new ListItem("-Select Customer-", "0"));
     }

@@ -25,6 +25,7 @@ public partial class G_GetPass_OutstationSpeciman : System.Web.UI.Page
     string strChetanaCompanyName = "cppl";
     string strFY;
     string UserName = string.Empty;
+   
     #endregion
 
     #region Page Load Event
@@ -105,21 +106,19 @@ public partial class G_GetPass_OutstationSpeciman : System.Web.UI.Page
 
 
     #region Save Speciman Details Method
-
-   
     int SpecPrint = 0;
     private void SaveDetails()
     {
         try
         {
 
-            string OrderDate = txtSpecDate.Text.Split('/')[1] + "/" + txtSpecDate.Text.Split('/')[0] + "/" + txtSpecDate.Text.Split('/')[2];
+            string OrderDate = txtSpecDate.Text.Split('/')[0] + "/" + txtSpecDate.Text.Split('/')[1] + "/" + txtSpecDate.Text.Split('/')[2];
 
             if (txtLrDate.Text.Trim() == "")
             {
                 txtLrDate.Text = "01/01/1999";
             }
-            string LrDate = txtLrDate.Text.Split('/')[1] + "/" + txtLrDate.Text.Split('/')[0] + "/" + txtLrDate.Text.Split('/')[2];
+            string LrDate = txtLrDate.Text.Split('/')[0] + "/" + txtLrDate.Text.Split('/')[1] + "/" + txtLrDate.Text.Split('/')[2];
 
             int SpecNo;
             int SpecMax;
@@ -145,10 +144,10 @@ public partial class G_GetPass_OutstationSpeciman : System.Web.UI.Page
             MessageBox("Record save successfully Speciman No is  " + SpecMax.ToString());
             grdTemp.Visible = false;
             txtSpecimanNo.Text = SpecNo.ToString();
-            SpecPrint = SpecMax;
+	    SpecPrint = SpecMax;
             lblSpecId.Text = "0";
         }
-        catch (Exception ex)
+         catch (Exception ex)
         {
             MessageBox(ex.ToString());
             throw;
@@ -199,7 +198,17 @@ public partial class G_GetPass_OutstationSpeciman : System.Web.UI.Page
             nd.InnerText = Convert.ToInt32(((CheckBox)(row.FindControl("ChkDelivery"))).Checked).ToString();
             element.AppendChild(nd);
 
+
             node.AppendChild(element);
+            //sb.Append("<sbid>" + ((Label)(row.FindControl("lblSubID"))).Text.Trim() + "</sbid>");
+            //sb.Append("<dc>" + ((Label)(row.FindControl("lblDcNo"))).Text.Trim() + "</dc>");
+            //sb.Append("<blno>" + ((Label)(row.FindControl("lblBillNo"))).Text.Trim() + "</blno>");
+            //sb.Append("<empcd>" + ((Label)(row.FindControl("lblCustid"))).Text.Trim() + "</empcd>");
+            //sb.Append("<empnm>" + ((Label)(row.FindControl("lblCustName"))).Text.Trim() + "</empnm>");
+            //sb.Append("<area>" + ((Label)(row.FindControl("lblArea"))).Text.Trim() + "</area>");
+            //sb.Append("<nbdl>" + ((Label)(row.FindControl("lblNoOfBundles"))).Text.Trim() + "</nbdl>");
+            //sb.Append("<del>" + ((CheckBox)(row.FindControl("ChkDelivery"))).Checked.ToString() + "</del>");
+            //sb.Append("</item>");
         }
       
         return node.OuterXml.ToString();
@@ -234,9 +243,10 @@ public partial class G_GetPass_OutstationSpeciman : System.Web.UI.Page
             int FY = Convert.ToInt32(strFY);
             //Response.Redirect("GetPassOutStandingSpecimenReport.aspx?SpecNo=" + SpecNo);
             Page.ClientScript.RegisterStartupScript(
-            this.GetType(), "OpenWindow", "window.open('GetPassOutStandingSpecimenReport.aspx?SpecNo=" + SpecPrint + "');", true);
+            this.GetType(), "OpenWindow", "window.open('GetPassOutStandingSpecimenReport.aspx?SpecNo=" + Convert.ToInt32(txtSpecimanNo.Text) + "');", true);
             Clear();
         }
+
 
     }
     #endregion
@@ -411,7 +421,9 @@ public partial class G_GetPass_OutstationSpeciman : System.Web.UI.Page
         {
             if ((ds.Tables[0].Rows.Count > 0))
             {
+
                 MessageBox(ds.Tables[0].Rows[0][0].ToString());
+
             }
             else
             {

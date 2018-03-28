@@ -2,7 +2,7 @@
     CodeFile="CustomerOutStanding_Z.aspx.cs" Inherits="CustomerOutStanding_Z" Title="Customet OutStanding" %>
 
 <%@ Register TagPrefix="ajaxCt" Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" %>
-<%@ Register Assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
+<%@ Register Assembly="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
     Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -55,8 +55,7 @@
                                                 <asp:RequiredFieldValidator ID="RFVCust" runat="server" ErrorMessage="Require Customer Code"
                                                     ValidationGroup="S123" ControlToValidate="txtcustomer">.</asp:RequiredFieldValidator>
                                                 <asp:Label ID="lblCustName" CssClass="lbl-form" ForeColor="Blue" Font-Size="15px"
-                                                    runat="server"></asp:Label>
-                                            </ContentTemplate>
+                                                    runat="server"></asp:Label></ContentTemplate>
                                         </asp:UpdatePanel>
                                     </td>
                                 </tr>
@@ -203,17 +202,11 @@
         HasPageNavigationLinks="true" Height="1039px" Width="773px"/>--%>
         <asp:ValidationSummary ShowMessageBox="true" ShowSummary="false" ValidationGroup="AZone"
             runat="server" ID="ValidationSummary3" />
-        <%-- <CR:CrystalReportViewer ID="CustomerReportView" runat="server" AutoDataBind="true"
-            DisplayGroupTree="false" EnableDatabaseLogonPrompt="false" EnableDrillDown="false" HasPrintButton="true" HasExportButton="true"
-            EnableParameterPrompt="false" EnableTheming="false" HasDrillUpButton="false" HasCrystalLogo="False"
-            HasPageNavigationButtons="true" HasRefreshButton="true" HasSearchButton="True"
-            HasToggleGroupTreeButton="False" HasViewList="false" HasZoomFactorList="false"
-            Height="1039px" Width="773px" ShowAllPageIds="True" />--%>
         <CR:CrystalReportViewer ID="CustomerReportView" runat="server" AutoDataBind="true"
             EnableDrillDown="true" EnableParameterPrompt="false" EnableTheming="false" EnableToolTips="true"
             HasDrillUpButton="true" HasGotoPageButton="True" HasPageNavigationButtons="true"
             HasRefreshButton="true" HasSearchButton="false" HasToggleGroupTreeButton="true"
             HasZoomFactorList="false" DisplayGroupTree="False"
-            Height="1039px" Width="773px" ShowAllPageIds="true" />
+            Height="1039px" Width="773px" ShowAllPageIds="True" />
     </div>
 </asp:Content>

@@ -153,7 +153,7 @@
                 </ItemTemplate>
                
             </asp:TemplateField>
-             <asp:TemplateField HeaderStyle-Width="80px" HeaderStyle-BorderColor="Blue" ItemStyle-BorderColor="Blue" HeaderText="Spe. CN" ItemStyle-HorizontalAlign="right">
+ <asp:TemplateField HeaderStyle-Width="80px" HeaderStyle-BorderColor="Blue" ItemStyle-BorderColor="Blue" HeaderText="Spe. CN" ItemStyle-HorizontalAlign="right">
                 <ItemTemplate>
                     <asp:Label ID="lblSpeCn" runat="server" Text='<%#Eval("SpeCn") %>'></asp:Label>
                 </ItemTemplate>

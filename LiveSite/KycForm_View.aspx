@@ -39,7 +39,7 @@
                         ValidationGroup="V" ControlToValidate="txtTo">*</asp:RequiredFieldValidator>
                 </td>
                 <td>
-                    <asp:Button ID="btnGet" runat="server" Text="Get" Width="270%" CssClass="submitbtn" OnClick="btnGet_Click" ValidationGroup="V" />
+                    <asp:Button ID="btnGet" runat="server" Text="Get" CssClass="submitbtn" OnClick="btnGet_Click" ValidationGroup="V" />
                 </td>
                 <td>
                     <asp:ValidationSummary ID="validation" runat="server" ShowMessageBox="true" ShowSummary="false" ValidationGroup="V" />

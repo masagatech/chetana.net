@@ -20,7 +20,6 @@ public partial class DisburseAdditionalCommission : System.Web.UI.Page
     static DataView dv = null;
     string strChetanaCompanyName = "cppl";
     string strFY = "0";
-    Other_Z.OtherBAL ObjDAl = new Other_Z.OtherBAL();
     #endregion
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -100,27 +99,18 @@ public partial class DisburseAdditionalCommission : System.Web.UI.Page
 
     protected void DDLZone_SelectedIndexChanged(object sender, EventArgs e)
     {
-        try
+        if (DDLZone.SelectedIndex == 0)
         {
-            if (DDLZone.SelectedIndex == 0)
-            {
-                DDLZone.Focus();
-                ddlCustmore.Items.Clear();
-                Bind_DDL_ZoneCust();
-            }
-            else
-            {
-                Bind_DDL_Customer();
-                ddlCustmore.Focus();
-            }
+            DDLZone.Focus();
+            ddlCustmore.Items.Clear();
+            Bind_DDL_ZoneCust();
+        }
+        else
+        {
+            Bind_DDL_Customer();
+            ddlCustmore.Focus();
+        }
 
-        }
-        catch (Exception)
-        {
-            
-            throw;
-        }
-        
     }
     public void Bind_DDL_ZoneCust()
     {
@@ -131,7 +121,7 @@ public partial class DisburseAdditionalCommission : System.Web.UI.Page
     }
     public void Bind_DDL_Customer()
     {
-        ddlCustmore.DataSource = ObjDAl.Idv_Chetana_Get_ZoneCustomerAdditionalCommissionOtherZ(Convert.ToInt32(DDLZone.SelectedValue.ToString()));
+        ddlCustmore.DataSource = Masters.Idv_Chetana_Get_ZoneCustomerAdditionalCommission(Convert.ToInt32(DDLZone.SelectedValue.ToString()));
         ddlCustmore.DataBind();
         ddlCustmore.Items.Insert(0, new ListItem("-Select Customer-", "0"));
     }

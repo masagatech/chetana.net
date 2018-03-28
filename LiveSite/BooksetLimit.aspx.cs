@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 //Using Namesapce
 using System.Data;
 using System.Xml;
+using System.Configuration;
+using Idv.Chetana.BAL;
 
 public partial class SpecimanMaster : System.Web.UI.Page
 {
@@ -19,6 +21,20 @@ public partial class SpecimanMaster : System.Web.UI.Page
     #region Load Event
     protected void Page_Load(object sender, EventArgs e)
     {
+	  if (ConfigurationManager.AppSettings["access"].ToString() != ConfigurationManager.AppSettings["accessok"].ToString())
+        {
+            string page = Request.Url.Segments[Request.Url.Segments.Length - 1].ToString();
+            if (Session["Role"] != null)
+            {
+                if (!Other.Get_UserAccess(page, Session["Role"].ToString()))
+                {
+                    Response.Redirect("dashboard.aspx");
+                }
+
+            }
+        }
+
+
         if (Session["ChetanaCompanyName"] != null)
         {
 

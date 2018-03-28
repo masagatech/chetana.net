@@ -12,8 +12,6 @@
     </div>
 </div>
 <asp:Panel ID="PnlAdd" CssClass="panelDetails" runat="server" Width="922px" DefaultButton="btnaddEntry">
-<p>
-    &nbsp;</p>
     <table width="600px" cellpadding="0" cellspacing="0">
         <tr style="display: none">
             <td width="110px">
@@ -191,20 +189,17 @@
     </table>
 </asp:Panel>
 <p>
-    &nbsp;</p>
-<p>
-    &nbsp;</p>
+</p>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <asp:Panel ID="PnllGrdJv" runat="server" Width="900px">
             <asp:Panel ID="PnlAddEntry" runat="server">
-                <asp:Label ID="lblmsg1" runat="server" Font-Bold="True" ForeColor="Maroon"></asp:Label>
             </asp:Panel>
             <div class="actiontab" style="margin-bottom: 6px; width: 960px;">
                 <table align="right" width="0" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 6px;">
                     <tr>
                         <td align="right" width="80px">
-                            &nbsp;</td>
+                        </td>
                         <td align="right" width="80px">
                             <asp:Button ID="btnSave" CssClass="submitbtn" TabIndex="11" runat="server" Text="Save"
                                 Width="80px" OnClick="btnSave_Click" ValidationGroup="JVedit" />

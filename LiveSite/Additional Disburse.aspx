@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/NewChetana.master" AutoEventWireup="true" CodeFile="Additional Disburse.aspx.cs" Inherits="Additional_Disburse" %>
 
 <%@ Register TagPrefix="ajaxCt" Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" %>
-<%@ Register Assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
+<%@ Register Assembly="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
     Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -85,11 +85,11 @@
                         <asp:GridView ID="gdGeneral" AlternatingRowStyle-CssClass="alt" CssClass="product-table"
                             AutoGenerateColumns="false" ShowFooter="true" runat="server"  >
                             <Columns>
-                                <asp:TemplateField HeaderText="Is Active" HeaderStyle-Width="30px" ItemStyle-HorizontalAlign="Center">
+                                <%--<asp:TemplateField HeaderText="Is Active" HeaderStyle-Width="30px" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:CheckBox ID="chkIsActive1" runat="server" Enabled="true" />
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
                                 <asp:TemplateField HeaderText="Sr. No." HeaderStyle-Width="50px">
                                     <ItemTemplate>
                                         <%#Container.DataItemIndex+1 %>
@@ -143,7 +143,7 @@
                                 </asp:TemplateField>
                              <asp:TemplateField HeaderText="Amount" ItemStyle-Width="70px">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txtAmount" Style="width: 70px;" runat="server" Text='<%#Eval("Additionalamt")%>'></asp:TextBox>
+                                        <asp:TextBox ID="txtAmount" Style="width: 70px;" runat="server" onkeypress="return CheckNumericWithDot(event)" Text='<%#Eval("Additionalamt","{0:0.00}")%>'></asp:TextBox>
                                     </ItemTemplate>
                                     <FooterTemplate>
                                         <asp:Label ID="lblBPODId11" runat="server" Text=""></asp:Label>

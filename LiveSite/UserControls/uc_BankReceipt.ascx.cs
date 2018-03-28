@@ -60,7 +60,11 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
             }
             //Response.Write(strFY);
 
+
         }
+
+		   //Test SMS directly
+                 //GetHtmlStringA( "9819882904", "1", "SMS-Test", "1");
 
         if (!Page.IsPostBack)
         {
@@ -95,8 +99,8 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
         BankReceipt obBnkrcpt = new BankReceipt();
         txtdocno.Text = BankReceipt.Get_BankPaymentDocNo(BankCode);
 
-        #region Xml Cash Grid Data Insert With XML Formate
-
+        #region Xml Cash Grid Data Insert With XML Formate 
+        
         if (PanelPopup.Visible == true)
         {
             string XMlData;
@@ -154,9 +158,9 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
                 partyName = lblaccname.Text.ToString();
                 Amount = txtAmt.Text.Trim();
                 docdate1 = txtdocDate.Text.ToString();
+                
 
-
-
+                
                 if (DocNo.ToString() == "-3")
                 {
                     MessageBox("Receipt No Already Used.");
@@ -167,12 +171,12 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
                 }
                 else
                 {
-                    txtdocno.Text = Convert.ToString(DocNo);
+                   txtdocno.Text = Convert.ToString(DocNo);
                     // MessageBox("Record saved successfully");
-                    MessageBox(Constants.save + "\\r\\n Document No: " + (txtdocno.Text));
+                    MessageBox(Constants.save + "\\r\\n Document No: " + (txtdocno.Text) );
                     loder("Last saved Document no. : " + txtdocno.Text);
 
-
+ 
                     GrdBankRDetails.DataBind();
 
 
@@ -202,23 +206,23 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
                     PnlBankRDetails.Visible = false;
                     PanelPopup.Visible = false;
                     btnCashEntry.Visible = false;
-                    ddlMonth.Visible = false;
+		    ddlMonth.Visible = false;
 
-                    if (lblPhone.Text != "")
-                    {
-                        Phone = lblPhone.Text;
-                    }
-                    if (Phone != null)
-                    {
-                        GetHtmlStringA(Phone, Convert.ToString(obBnkrcpt.SalesmanReceiptNo), AccountName, Amount);
-                    }
+if (lblPhone.Text != "")
+                {
+                    Phone = lblPhone.Text;
+                }
+                if (Phone != null)
+                {
+                    GetHtmlStringA( Phone, Convert.ToString(obBnkrcpt.SalesmanReceiptNo), AccountName,Amount);
+                }
 
                 }
 
-                BnkCode = txtbankcoder.Text.Trim();
-
+                 BnkCode = txtbankcoder.Text.Trim();
+              
                 //Response.Redirect("SendSms.aspx?Phone='8356029474'&DocNo=" + Convert.ToString(DocNo) + "&AccountName='" + AccountName + "'&Amount='" + Amount + "'&BnkCode='" + BnkCode + "'");
-
+                
             }
             catch
             {
@@ -228,14 +232,13 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
     }
     #endregion
 
-    #region Cash Amount milit Check
+	 #region Cash Amount milit Check
 
     private bool CheckAmountLimit()
     {
         bool flag = true;
         if (ConfigurationManager.AppSettings["accountEMP"].ToString().ToLower() != Session["UserName"].ToString())
         {
-
             if (Convert.ToBoolean(lblsplitdc.Text) == true)
             {
                 if (txtbankcode.Text == "c0101" && Convert.ToDecimal(txtAmt.Text) >= Convert.ToDecimal(lbllimit.Text))
@@ -252,9 +255,11 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
 
     #endregion
 
-    protected void txtAmt_TextChanged(object sender, EventArgs e)
+	
+protected void txtAmt_TextChanged(object sender, EventArgs e)
     {
-        if (txtbankcode.Text == "c0101")
+
+        if (txtbankcode.Text == "c0101" && lblsplitdc.Text != "")
         {
             CheckAmountLimit();
         }
@@ -263,7 +268,9 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
 
     #region Button Click
     protected void btnget_Click(object sender, EventArgs e)
-    {
+    { 
+    //Response.Write("Hello");
+
         string BnkCode = txtbankcoder.Text.Trim();
 
         frdate = txtFromDate.Text.Split('/')[2] + "/" + txtFromDate.Text.Split('/')[1] + "/" + txtFromDate.Text.Split('/')[0];
@@ -334,43 +341,43 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
     {
         try
         {
-            lblPhone.Text = "";
-
-            string Accode = txtAccode.Text.ToString().Split(':')[0].Trim();
-            string flag = txtAccode.Text.ToString().Split(':', '[', ']')[3].Trim();
-            DataTable dt1 = new DataTable();
-            dt1 = DCMaster.Get_Name(Accode, flag).Tables[0];
-            if (dt1.Rows.Count != 0)
+	lblPhone.Text = "";
+       
+         string Accode = txtAccode.Text.ToString().Split(':')[0].Trim();
+        string flag = txtAccode.Text.ToString().Split(':', '[', ']')[3].Trim();    
+        DataTable dt1 = new DataTable();
+        dt1 = DCMaster.Get_Name(Accode, flag).Tables[0];
+        if (dt1.Rows.Count != 0)
+        {
+            if (flag == "AC")
             {
-                if (flag == "AC")
+                txtAccode.Text = Accode;
+                lblaccname.Text = Convert.ToString(dt1.Rows[0]["AC_NAME"]);
+              //Added by Nilesh becuase its taking too much time to bring amount for this particular code
+              if(Accode != "c0101")
+	      {
+		lbllimit.Visible = false;
+	        lbldislimit.Visible = false;
+                lblCustOS.Visible = true;
+                lblCustOS.Text = Convert.ToString(DCMaster.Get_Name(Accode, flag).Tables[1].Rows[0]["Closin_Bal"]);
+              }   
+	      else
+              {
+lblCustOS.Visible = true;
+                lblCustOS.Text = "-";
+	     }
+                txtperson.Focus();
+            }
+            else
+                if (flag == "Cust")
                 {
                     txtAccode.Text = Accode;
-                    lblaccname.Text = Convert.ToString(dt1.Rows[0]["AC_NAME"]);
-                    //Added by Nilesh becuase its taking too much time to bring amount for this particular code
-                    if (Accode != "c0101")
-                    {
-                        lbllimit.Visible = true;
-                        lbldislimit.Visible = true;
-                        lblCustOS.Visible = true;
-                        lblCustOS.Text = Convert.ToString(DCMaster.Get_Name(Accode, flag).Tables[1].Rows[0]["Closin_Bal"]);
-                    }
-                    else
-                    {
-                        lblCustOS.Visible = true;
-                        lblCustOS.Text = "-";
-                    }
-                    txtperson.Focus();
-                }
-                else
-                    if (flag == "Cust")
-                    {
-                        txtAccode.Text = Accode;
-                        lblaccname.Text = Convert.ToString(dt1.Rows[0]["CustName"]);
-                        lblCustOS.Visible = true;
-                        lblCustOS.Text = Convert.ToString(DCMaster.Get_Name(Accode, flag).Tables[1].Rows[0]["Closin_Bal"]);
-                        DataSet ds = DCMaster.Get_Name(Accode, "Cust");
-                        lblPhone.Text = ds.Tables[0].Rows[0]["Phone1"].ToString();
-                        lblsplitdc.Text = ds.Tables[0].Rows[0]["isSplit"].ToString();
+                    lblaccname.Text = Convert.ToString(dt1.Rows[0]["CustName"]);
+                    lblCustOS.Visible = true;
+                    lblCustOS.Text = Convert.ToString(DCMaster.Get_Name(Accode, flag).Tables[1].Rows[0]["Closin_Bal"]);
+                    DataSet ds = DCMaster.Get_Name(Accode, "Cust");
+                    lblPhone.Text = ds.Tables[0].Rows[0]["Phone1"].ToString();
+		    lblsplitdc.Text = ds.Tables[0].Rows[0]["isSplit"].ToString();
                         if (Convert.ToBoolean(lblsplitdc.Text) == true)
                         {
                             lbllimit.Visible = true;
@@ -378,15 +385,15 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
                             lbllimit.Text = ds.Tables[0].Rows[0]["limit"].ToString();
                             lblsplitdc.Text = ds.Tables[0].Rows[0]["isSplit"].ToString();
                         }
-                        txtperson.Focus();
-                    }
-            }
-            else
-            {
-                lblaccname.Text = "No such Account code";
-                txtAccode.Focus();
-                txtAccode.Text = "";
-            }
+                    txtperson.Focus();
+                }
+        }
+        else
+        {
+            lblaccname.Text = "No such Account code";
+            txtAccode.Focus();
+            txtAccode.Text = "";
+        }
         }
         catch (Exception)
         {
@@ -496,12 +503,12 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
             if (DDLCCDD.SelectedItem.Text == "Cash")
             {
                 btnCashEntry.Visible = true;
-                ddlMonth.Visible = true;
+		ddlMonth.Visible = true;
             }
             else
             {
                 btnCashEntry.Visible = false;
-                ddlMonth.Visible = false;
+		ddlMonth.Visible = false;
                 PanelPopup.Visible = false;
             }
         }
@@ -530,7 +537,7 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
         btnDelete.Visible = true;
         filter.Visible = false;
         btn_Save.Text = "Update";
-        lblPhone.Text = "";
+	lblPhone.Text ="";
         PnlAddBankR.Visible = true;
         Pnldate.Visible = false;
         PnlBankRDetails.Visible = false;
@@ -541,7 +548,7 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
 
         try
         {
-
+            
             LblBankRID.Text = ((Label)GrdBankRDetails.Rows[e.NewEditIndex].FindControl("lblBankPID")).Text;
             txtbankcode.Text = ((Label)GrdBankRDetails.Rows[e.NewEditIndex].FindControl("lblBankCode")).Text;
             lblbankname.Text = ((Label)GrdBankRDetails.Rows[e.NewEditIndex].FindControl("lblBankName")).Text;
@@ -564,8 +571,8 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
             CheckActive.Checked = ((CheckBox)GrdBankRDetails.Rows[e.NewEditIndex].FindControl("chkisActive")).Checked;
             lblPhone.Text = ((Label)GrdBankRDetails.Rows[e.NewEditIndex].FindControl("lblPhone1")).Text;
             string IsEditable = ((Label)GrdBankRDetails.Rows[e.NewEditIndex].FindControl("lblIsEditable")).Text;
-
-
+           
+          
             if (IsEditable.ToLower() == "false")
             {
                 btn_Save.Visible = false;
@@ -577,9 +584,9 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
                 btnDelete.Visible = true;
                 btn_Save.Visible = true;
                 //LblEditLock.Visible = false;
-
+            
             }
-
+            
 
         }
         catch
@@ -666,7 +673,7 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
                     Pnldate.Visible = true;
                     PnlBankRDetails.Visible = false;
                     Pnld.Visible = true;
-                    pnldoc123.Visible = false;
+                    pnldoc123.Visible = false; 
                     btn_Save.Visible = false;
                     btnDelete.Visible = false;
                     filter.Visible = true;
@@ -735,7 +742,7 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
         string BnkCode = txtbankcoder.Text.Trim();
         DataTable dt = new DataTable();
         dt = Bank.Idev_Chetana_BankReceipt_Report(BnkCode, Convert.ToInt32(txtdoc123.Text.Trim().ToString()), strFY).Tables[0];
-        // Bank.Get_BankPaymentReport(BnkCode, Convert.ToInt32(txtdoc123.Text.Trim().ToString()), strFY).Tables[0];
+           // Bank.Get_BankPaymentReport(BnkCode, Convert.ToInt32(txtdoc123.Text.Trim().ToString()), strFY).Tables[0];
 
         if (dt.Rows.Count > 0)
         {
@@ -743,7 +750,7 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
             string page = Request.Url.Segments[Request.Url.Segments.Length - 1].ToString().ToLower();
             if (page != "bankreceipt.aspx")
             {
-                //  GrdBankRDetails.DataSource = dt;
+              //  GrdBankRDetails.DataSource = dt;
                 GrdBankRDetails.Columns[7].Visible = false;
             }
             GrdBankRDetails.DataBind();
@@ -764,24 +771,25 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
         {
             SMS_Client obj = new SMS_Client();
             //obj.MobileNo = "9819259579";
-            obj.MobileNo = Phone;
+              obj.MobileNo = Phone;
             //obj.MobileNo = "9762514468";
             //obj.MobileNo = "9987984488,9762514468";
-            // obj.Msg = ConfigurationManager.AppSettings["ackSMS"].ToString().Replace("@1", "").Replace("@2", "").Replace("@3", "") + "Rs" + Amount + "Credited in your a/c dated: " + docdate1 + " " + partyName + "-Chetana Book Depot";
-            if (txtCCDDNo.Text == "")
+           // obj.Msg = ConfigurationManager.AppSettings["ackSMS"].ToString().Replace("@1", "").Replace("@2", "").Replace("@3", "") + "Rs" + Amount + "Credited in your a/c dated: " + docdate1 + " " + partyName + "-Chetana Book Depot";
+            if (txtCCDDNo.Text== "")
             {
                 obj.Msg = ConfigurationManager.AppSettings["ackSMS"].ToString().Replace("@1", "").Replace("@2", "").Replace("@3", "") + "Dear Customer, Thank you for the Payment of Rs " + Amount + " Received aganist Receipet No. " + DocNo + " dated " + docdate1 + " Subject to Realisation of Cheque Chetana Book Depot";
             }
-            else
+            else 
             {
-                obj.Msg = ConfigurationManager.AppSettings["ackSMS"].ToString().Replace("@1", "").Replace("@2", "").Replace("@3", "") + "Dear Customer, Thank you for the Payment of Rs " + Amount + " Cheque No." + txtCCDDNo.Text + " Received aganist Receipet No. " + DocNo + " dated " + docdate1 + " Subject to Realisation of Cheque. Chetana Book Depot";
+                obj.Msg = ConfigurationManager.AppSettings["ackSMS"].ToString().Replace("@1", "").Replace("@2", "").Replace("@3", "") + "Dear Customer, Thank you for the Payment of Rs " + Amount + " Cheque No." + txtCCDDNo.Text+" Received aganist Receipet No. " + DocNo + " dated " + docdate1 + " Subject to Realisation of Cheque. Chetana Book Depot";
             }
 
-
+            //MessageBox(ConfigurationManager.AppSettings["BulkSmsusername"].ToString()); 
             HttpWebRequest request;
             HttpWebResponse response = null;
             Stream stream = null;
-            request = (HttpWebRequest)WebRequest.Create("" + ConfigurationManager.AppSettings["BulkSmsUrl"] + "?username=" + ConfigurationManager.AppSettings["BulkSmsusername"] + "&password=" + ConfigurationManager.AppSettings["BulkSmsPass"] + "&sendername=" + ConfigurationManager.AppSettings["BulkSmssendername"] + "&mobileno=" + obj.MobileNo + "&message=" + obj.Msg + "");
+           //MessageBox(ConfigurationManager.AppSettings["SMS_URL"]+"?username="+ConfigurationManager.AppSettings["SMS_USER"]+"&password="+ConfigurationManager.AppSettings["SMS_PWD"]+"&sendername="+ConfigurationManager.AppSettings["SMS_SNEDER"]+"&mobileno=" + obj.MobileNo + "&message=" + obj.Msg + "");
+            request = (HttpWebRequest)WebRequest.Create(""+ ConfigurationManager.AppSettings["SMS_URL"]+"?username="+ConfigurationManager.AppSettings["SMS_USER"]+"&password="+ConfigurationManager.AppSettings["SMS_PWD"]+"&sendername="+ConfigurationManager.AppSettings["SMS_SNEDER"]+"&mobileno=" + obj.MobileNo + "&message=" + obj.Msg + "");
             response = (HttpWebResponse)request.GetResponse();
             stream = response.GetResponseStream();
             StreamReader sr = new StreamReader(stream, System.Text.Encoding.Default);
@@ -797,17 +805,17 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
             }
             else if (sHtml == "Invalid mobile number.")
             { sHtml = "SMS Not Sent, Invalid mobile number."; }
-            else if (sHtml == "*Your Validity Is Expired. Please Update Your Validity.")
+            else if(sHtml == "*Your Validity Is Expired. Please Update Your Validity.")
             {
-                sHtml = "SMS Not Sent, Your Validity Is Expired. Please Update Your Validity.";
-
+                sHtml = "SMS Not Sent, Your Validity Is Expired. Please Update Your Validity."; 
+                
             }
-
-
-            //MessageBox(sHtml); 
+            
+                
+            MessageBox(sHtml); 
         }
         catch (Exception ex)
-        { MessageBox(ex.Message); }
+        { MessageBox(ex.Message.ToString() + "SMS ERROR"); }
     }
 
     private void GetFinancialYear()
@@ -823,12 +831,12 @@ public partial class UserControls_uc_BankReceipt : System.Web.UI.UserControl
         }
     }
 
-
+    
     #region Cash Entry Click Event
     protected void btn_CashEntry(object sender, EventArgs e)
     {
         Other_Z.OtherBAL ObjDal = new OtherBAL();
-        DataSet ds = ObjDal.idv_Chetana_Get_Bank_Cash_Entries(txtbankcode.Text, Convert.ToInt32(ddlMonth.SelectedValue.ToString()), Convert.ToInt32(Session["FY"]), Convert.ToDecimal("0.0"), "", "", "", "");
+        DataSet ds = ObjDal.idv_Chetana_Get_Bank_Cash_Entries(txtbankcode.Text, Convert.ToInt32(ddlMonth.SelectedValue.ToString()), Convert.ToInt32(Session["FY"]), Convert.ToDecimal("0.0"),"","","","");
         if (ds.Tables[0].Rows.Count > 0)
         {
             DataView d = new DataView(ds.Tables[0]);

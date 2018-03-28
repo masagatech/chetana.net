@@ -1,10 +1,10 @@
-﻿<%@ Page Title="User Mapping" Language="C#" MasterPageFile="~/MasterPages/NewChetana.master" AutoEventWireup="true" CodeFile="UserTicketMap.aspx.cs" Inherits="UserTicketMap" %>
+﻿<%@ Page Title="User Ticket Mapping" Language="C#" MasterPageFile="~/MasterPages/NewChetana.master" AutoEventWireup="true" CodeFile="UserTicketMap.aspx.cs" Inherits="UserTicketMap" %>
 
 <%@ Register TagPrefix="ajaxCt" Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-     <div class="section-header">
+<div class="section-header">
     <div class="title">
         <img src="Images/forms/ico-promotions.png" alt="Edit campaign details">
        User Ticket Mapping<a href="Campaigns.aspx" title="back to campaign list"></a>

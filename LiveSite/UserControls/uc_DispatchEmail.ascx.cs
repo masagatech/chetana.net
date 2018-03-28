@@ -2,32 +2,44 @@
 using System.Collections;
 using System.Configuration;
 using System.Data;
-using System.Linq;
+//using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
+//using System.Xml.Linq;
 using Idv.Chetana.BAL;
-using Idv.Chetana.Common;
-using System.Net.Mail;
 using System.Text;
-using System.IO;
-public partial class UserControls_uc_DispatchEmail : System.Web.UI.UserControl
+using System.Net.Mail;
+
+public partial class UserControls_ODC_uc_DispatchEmail : System.Web.UI.UserControl
 {
     #region Variables
 
-    string flag1;
+   string flag1;
     string strChetanaCompanyName = "cppl";
     string strFY;
     string UserName = string.Empty;
+    string CustName = string.Empty;
+    string DocumentNo = string.Empty;
+    string InvoiceNo = string.Empty;
+    
+    string EmailID = string.Empty;
+    string POD = string.Empty;
+    string DCNo;
+    string PODId;
+    string Trasporter;
+    string NO_OF_BUNDLES;
+    string LR_No;
+    string LR_Date;
+    int SCD;
+    String mToID;
 
     #endregion
     protected void Page_Load(object sender, EventArgs e)
     {
-        pnlDetailsForm.Visible = false;
         if (Session["ChetanaCompanyName"] != null)
         {
             if (Session["FY"] != null)
@@ -40,102 +52,273 @@ public partial class UserControls_uc_DispatchEmail : System.Web.UI.UserControl
             {
                 Session.Clear();
             }
-            //Response.Write(strFY);
+           
 
         }
 
+        if (!Page.IsPostBack)
+        {
+            onNotPostback();
+            lblDocNo.Text = "0";
+        }
+
+        
+    }
+    public void fillEditFormO()
+    {
+        ClearO();
+        DataSet ds = G_GetPass.GetDispatchEmail(Convert.ToInt32(txtDocIdEdit.Text.Trim()), "O", Convert.ToInt32(strFY));
+        gvOL.DataSource = ds;
+        gvOL.DataBind();
+        for(int i = 0; i <= ds.Tables[0].Rows.Count - 1;i++)
+        {
+            if (ds.Tables[0].Rows[i]["EmailID"].ToString() == "")
+            {
+                Save.Visible = false;
+            }
+            else
+            {
+                Save.Visible = true;
+            }
+        }
+    }
+
+    public void fillEditFormL()
+    {
+        ClearL();
+        DataSet ds = G_GetPass.GetDispatchEmail(Convert.ToInt32(txtDocIdEdit.Text.Trim()), "L", Convert.ToInt32(strFY));
+        DataTable dt = ds.Tables[0];
+            for(int i = 0; i <= ds.Tables[0].Rows.Count - 1;i++)
+        {
+//changed from table 0 to table 1 
+            if (ds.Tables[1].Rows[i]["EmailID"].ToString() == "")
+            {
+                Save.Visible = false;
+            }
+            else
+            {
+                Save.Visible = true;
+            }
+        }
+        filltempData(ds.Tables[1]);
+      
+    }
+    public void filltempData(DataTable dt)
+    {
+
+        Session["getpasstempdata"] = dt;
+        gvOL.DataSource = dt;
+        gvOL.DataBind();
+
+    }
+    public void onNotPostback()
+    {
+    }
+    public void ClearO()
+    {
+        lblDocNo.Text = "0";
+    }
+    public void ClearL()
+    {
+        lblDocNo.Text = "0";
+        Session["getpasstempdata"] = null;
     }
     protected void BtnGetDCDetails_Click(object sender, EventArgs e)
     {
-        //try
-        //{
-        //    pnlDetails.Visible = true;
-           
-        //    DataSet ds6 = new DataSet();
-        //    //ds6 = DCDetails.Idv_Get_DCDetails_By_DocNo(Convert.ToInt32(txtdocno.Text), "allbydocno");
-        //    grdconfirm.DataSource = G_GetPass.GetpassOnDocNo(Convert.ToInt32(txtDC.Text.Trim()), "O", Convert.ToInt32(strFY)).Tables[0];
-        //    grdconfirm.DataBind();
-
-        //    // pnlDetails.Visible = true;
-        //    grdconfirm.Visible = true;
-            
-        //}
-        //catch { }
-
-        pnlDetailsForm.Visible = true;
-        fillEditForm();
-        //fillEditGrid();
-    }
-    public void fillEditGrid()
-    {
-        pnlDetailsGrid.Visible = true;
-        DataTable dt = G_GetPass.GetpassOnDCNo(Convert.ToInt32(txtDC.Text.Trim()), rdoOL.SelectedValue.ToString(), Convert.ToInt32(strFY)).Tables[0];
-        grdOL.DataSource = dt;
-        grdOL.DataBind();
-        grdOL.Visible = true;
-    }
-    public void fillEditForm()
-    {
-        Clear();
-        DataTable dt = G_GetPass.GetpassOnDCNo(Convert.ToInt32(txtDC.Text.Trim()), rdoOL.SelectedValue.ToString(), Convert.ToInt32(strFY)).Tables[0];
-        if (dt.Rows.Count > 0)
+        pnlDetailsGridOL.Visible = true;
+        
+        if (rdoOL.SelectedValue == "O")
         {
-            string date = (Convert.ToDateTime(dt.Rows[0]["Doc_Date"].ToString())).ToString("dd/MM/yyyy");
-            string LRdate = (Convert.ToDateTime(dt.Rows[0]["LR_Date"].ToString())).ToString("dd/MM/yyyy");
-            txtDocNo.Text = dt.Rows[0]["Doc_No"].ToString();
-            lblDocNo.Text = dt.Rows[0]["Doc_ID"].ToString();
-            txtDcNo.Text = dt.Rows[0]["DC_No"].ToString();
-            txtBillNo.Text = dt.Rows[0]["Bill_Nos"].ToString();
-            lblclone.Text = dt.Rows[0]["Bill_Nos"].ToString();
-            txtcustomer.Text = dt.Rows[0]["CustomerName"].ToString();
-            lblCustID.Text = dt.Rows[0]["Cust_ID"].ToString();
-            txttransporter.Text = dt.Rows[0]["Trasporter"].ToString();
-            lblTransID.Text = dt.Rows[0]["Transporter_ID"].ToString();
-            txtNoOfBund.Text = dt.Rows[0]["No_Bundles"].ToString();
-            txtValOfGoods.Text = dt.Rows[0]["Value_Goods"].ToString();
-            txtSentBy.Text = dt.Rows[0]["Sent_By"].ToString();
-            txtLRNo.Text = dt.Rows[0]["LR_No"].ToString();
-            txtLrDate.Text = LRdate;
-            chIsDelivery.Checked = Convert.ToBoolean(dt.Rows[0]["Delivery"].ToString());
-            txtAmt.Text = dt.Rows[0]["Amount"].ToString();
-            rdoPaidStaus.SelectedValue = dt.Rows[0]["Pay_Paid"].ToString();
-            txtDocDate.Text = date; dt.Rows[0]["Amount"].ToString();
-            txtRemark.Text = dt.Rows[0]["Remark1"].ToString();
-            txtDocDate.Focus();
-
+            fillEditFormO();
         }
         else
         {
-            txtDC.Text = "";
-            txtDC.Focus();
+
+            fillEditFormL();
         }
     }
 
-    public void Clear()
+    protected void rdoOL_SelectedIndexChanged(object sender, EventArgs e)
     {
-        lblDocNo.Text = "0";
-        txtDocDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
-        txtDcNo.Text = "";
-        txtBillNo.Text = "";
-        txtcustomer.Text = "";
-        lblCustomer.Text = "";
-        txttransporter.Text = "";
-        lbltransporter.Text = "";
-        txtNoOfBund.Text = "";
-        txtValOfGoods.Text = "";
-        txtSentBy.Text = "";
-        txtLRNo.Text = "";
-        txtLrDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
-        txtAmt.Text = "";
-        chIsDelivery.Checked = false;
-        txtDocNo.Text = "---New---";
+
+        if (rdoOL.SelectedValue == "O")
+        {
+        
+        }
+        else
+        {
+           
+        }
+    }
+    protected void Save_Click(object sender, EventArgs e)
+    {
+        
+        try
+        {
+            CourierDetails _objCD = new CourierDetails();
+            _objCD.SaveDispatchEmailDetails(Convert.ToInt32(txtDocIdEdit.Text.Trim()), "O", Convert.ToInt32(strFY), Convert.ToString(Session["UserName"]), out SCD);
+           
+            SendEmailJob();
+
+        }
+        catch { }
     }
 
+    public void SendEmailJob()
+    { 
+     String ToId = "n.shah12@gmail.com";
+     for (int i = 0; i <= gvOL.Rows.Count - 1; i++)
+     {
+        
+             System.Web.UI.WebControls.Label Wb1 = (System.Web.UI.WebControls.Label)gvOL.Rows[i].Cells[3].Controls[1];
+              mToID = Wb1.Text;
+             System.Web.UI.WebControls.Label WBCourierId = (System.Web.UI.WebControls.Label)gvOL.Rows[i].Cells[1].Controls[1];
+             String mCourierID = WBCourierId.Text;
+             System.Web.UI.WebControls.Label WBDocumentNo = (System.Web.UI.WebControls.Label)gvOL.Rows[i].Cells[1].Controls[1];
+             String mDocumentNo = WBDocumentNo.Text;
+          
+             //DataSet DsMailLog = new DataSet();
+             //DsMailLog = CourierDetails.SendDispatchEmail(SCD, float.Parse(mDocumentNo), "DispatchEmail", "DispatchId", Convert.ToInt32(strFY), MFromID, MPwd, Convert.ToString(Session["UserName"]));
+             
+             if (mToID.Length > 0)
+             {
+                 SendEmail(mToID,mDocumentNo, i);
+
+             }
+        
+     }
     
-    protected void  btnEmail_Click(object sender, EventArgs e)
-    {
-        int dcid = Convert.ToInt32(txtDC.Text.Trim());
-        string rdid = rdoOL.SelectedValue.ToString();
-        Response.Redirect("SendEmail.aspx?dcid=" + dcid);
     }
+    public void SendEmail(string email, string mDocumentNo, int i)
+    {
+        
+        try
+        {
+             MailMessage msg = new MailMessage();
+           // msg.From = new MailAddress("wecare@chetanapublications.com");
+            
+            String MFromID = ConfigurationManager.AppSettings["FromMail"].ToString();
+             String MPwd = ConfigurationManager.AppSettings["Password"].ToString();
+
+             msg.From = new MailAddress(ConfigurationManager.AppSettings["FromMail"].ToString());
+            msg.To.Add(new MailAddress("accounts1@chetanapublications.com"));
+            msg.To.Add(new MailAddress(mToID));
+           
+            msg.Subject = "Chetana Book Depot";
+            msg.Body = MailBodyDesign(i).ToString();
+            msg.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = ConfigurationManager.AppSettings["SMTP"].ToString();
+            smtp.Port = Convert.ToInt32(ConfigurationManager.AppSettings["Port"].ToString()); 
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new System.Net.NetworkCredential(MFromID, MPwd);
+            smtp.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["Enablessl"].ToString());
+            try
+            {
+                smtp.Send(msg);
+                 DataSet DsMailLog = new DataSet();
+                DsMailLog = CourierDetails.SendDispatchEmail(SCD, float.Parse(mDocumentNo), "DispatchEmail", "DispatchId", Convert.ToInt32(strFY),
+                    MFromID, MPwd, Convert.ToString(Session["UserName"]));
+                MessageBox("Mail Sent successfully");
+             
+            }
+            catch (Exception ex)
+            {
+                MessageBox(ex.Message);
+            }
+
+           
+        }
+        catch (Exception ex)
+        {
+            MessageBox(ex.Message);
+        }
+    }
+         #region MailBody
+
+         public StringBuilder MailBodyDesign(int j)
+         {
+             int i = 0;
+             i = j;
+             System.Web.UI.WebControls.Label WbDocumentNo = (System.Web.UI.WebControls.Label)gvOL.Rows[i].Cells[0].Controls[1];
+             DocumentNo = WbDocumentNo.Text;
+                 System.Web.UI.WebControls.Label WbCourierID = (System.Web.UI.WebControls.Label)gvOL.Rows[i].Cells[1].Controls[1];
+                 DCNo = WbCourierID.Text;
+                 
+                 System.Web.UI.WebControls.Label WbInvoiceNo = (System.Web.UI.WebControls.Label)gvOL.Rows[i].Cells[3].Controls[1];
+                 InvoiceNo = WbInvoiceNo.Text;
+                 System.Web.UI.WebControls.Label WbCustName = (System.Web.UI.WebControls.Label)gvOL.Rows[i].Cells[2].Controls[1];
+                 CustName = WbCustName.Text;
+                 System.Web.UI.WebControls.Label WbEmailID = (System.Web.UI.WebControls.Label)gvOL.Rows[i].Cells[3].Controls[1];
+                 EmailID = WbEmailID.Text;
+                 System.Web.UI.WebControls.Label WbTrasporter = (System.Web.UI.WebControls.Label)gvOL.Rows[i].Cells[4].Controls[1];
+                 Trasporter = WbTrasporter.Text;
+                 System.Web.UI.WebControls.Label WbNO_OF_BUNDLES = (System.Web.UI.WebControls.Label)gvOL.Rows[i].Cells[5].Controls[1];
+                 NO_OF_BUNDLES = WbNO_OF_BUNDLES.Text;
+                 System.Web.UI.WebControls.Label WbLR_No = (System.Web.UI.WebControls.Label)gvOL.Rows[i].Cells[6].Controls[1];
+                 LR_No = WbLR_No.Text;
+                 System.Web.UI.WebControls.Label WbLR_Date = (System.Web.UI.WebControls.Label)gvOL.Rows[i].Cells[7].Controls[1];
+                 LR_Date = WbLR_Date.Text;
+             StringBuilder stBody = new StringBuilder();
+             stBody.Append(" <HTML>");
+             stBody.Append(" <body><table id=body_holder border=0 cellpadding=0 cellspacing=0 width=100%>");
+             stBody.Append(" <tbody><tr><td>");
+             stBody.Append(" <table bgcolor=#e1e7e8 border=0 cellpadding=0 cellspacing=0 width=100%> ");
+             stBody.Append(" <tbody><tr><td><table align=center border=0 cellpadding=0 cellspacing=0 width=600>");
+             stBody.Append(" <tbody>");
+             stBody.Append(" <tr><td style=margin: 0px; padding: 0px 10px; font-family: Tahoma'; font-size: 11px; color: rgb(70, 83, 85); text-align: left;>  </td>  ");
+             stBody.Append(" </tr></tbody></table>");
+             stBody.Append(" <table align=center border=0 cellpadding=0 cellspacing=0 width=600> ");
+             stBody.Append(" <tbody><tr><td valign=top><table border=0 cellpadding=0 cellspacing=0 width=100%>");
+             stBody.Append(" <tbody><tr><td style=padding: 0px 10px; valign=top> ");
+             stBody.Append(" <table style=font-family: Tahoma, 'Verdana';  border=0 cellpadding=10 cellspacing=0 width=100%> ");
+             stBody.Append(" <tbody>");
+             stBody.Append(" <tr><td></td></tr>");
+             stBody.Append(" <tr>  <td align=center  style=background-color:#8B7D6B;color:White;><u><h1>Chetana Book Depot</h1></u>");
+             stBody.Append(" 4TH  FLOOR, B WING, “BUILDING E”, TRADE LINK KAMALA CITY, ABOVE BOMBAY CANTEEN, LOWER PAREL, MUMBAI - 400013");
+             //stBody.Append(" PHONES : 4342 50 00.  DATE OF INCORP-, 5TH OCT.1989 Fax No : 2382 19 10<br/></td></tr> ");
+
+	stBody.Append("<br/></td></tr> ");
+
+             stBody.Append("<tr>");
+             stBody.Append(" <td colspan=2 align=center bgcolor=#d1d8db valign=top>");
+             stBody.Append(" <table cellpadding=5 cellspacing=5 >");
+             stBody.Append(" <tr>  <td align=left >");
+             stBody.Append(" <b>Dear Customer</b>,<br/>");
+             stBody.Append(" Thank you for your recent purchase.<br/>");
+             stBody.Append(" We are delighted to inform you that your order has been processed & dispatched <br/>");
+             stBody.Append(" by our team. <br/><br/> ");
+             stBody.Append(" Below are the details of dispatch. <br/></td></tr> ");
+             stBody.Append(" </table>");
+             stBody.Append(" <table cellpadding=5 cellspacing=5 >");
+             stBody.Append(" <tr>  <td align=left >");
+             stBody.Append(" <tr><td><b>Customer Name :</b></td><td>" + CustName + "</td></tr> ");
+             stBody.Append(" <tr><td><b> DC No :</b></td><td>" + DCNo + "</td></tr>");
+             //stBody.Append(" <tr><td><b>Document No :</b></td><td>" + DocumentNo + "</td></tr> ");
+             stBody.Append(" <tr><td><b>Trasporter :</b></td><td>" + Trasporter + "</td></tr> ");
+             stBody.Append(" <tr><td><b>No of Parcels :</b></td><td>" + NO_OF_BUNDLES + "</td></tr>");
+             stBody.Append(" <tr><td><b>LR No :</b></td><td>" + LR_No + "</td></tr> ");
+             stBody.Append(" <tr><td><b>LR Date :</b></td><td>" + LR_Date + "</td></tr> ");
+             stBody.Append(" </table>");
+             stBody.Append(" </td></tr></tbody></table><br/></td>");
+             stBody.Append(" </tr></tbody></table></td>");
+             stBody.Append(" </tr></tbody></table></td>");
+             stBody.Append(" </tr></tbody></table></td>");
+             stBody.Append(" </tr></tbody></table>");
+             stBody.Append(" </body>");
+             stBody.Append(" </body>");
+             stBody.Append(" </html>");
+
+             return stBody;
+
+         }
+
+         #endregion
+    #region MsgBox
+    public void MessageBox(string msg)
+    {
+        string jv = "alert('" + msg + "');";
+        ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "msg", jv, true);
+    }
+    #endregion
 }

@@ -175,7 +175,7 @@ public partial class UserControls_CustomerWiseAmountReport : System.Web.UI.Page
         ShowDetails();
     }
     public void ShowDetails()
-        {
+    {
         DataSet ds = new DataSet();
         ds = Idv.Chetana.BAL.Specimen.Idv_Chetana_Rep_CustomerWise_SalesReport(DDLCC.SelectedValue.ToString(), Convert.ToInt32(ddlCustmore.SelectedValue.ToString()), (txtFrom.Text.Split('/')[1] + "/" + txtFrom.Text.Split('/')[0] + "/" + txtFrom.Text.Split('/')[2]), (txtTo.Text.Split('/')[1] + "/" + txtTo.Text.Split('/')[0] + "/" + txtTo.Text.Split('/')[2]), Convert.ToInt32(strFY),
            Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()),Convert.ToInt32(txtpercent.Text));

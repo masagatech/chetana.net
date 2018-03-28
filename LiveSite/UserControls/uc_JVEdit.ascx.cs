@@ -385,18 +385,6 @@ public partial class UserControls_uc_JVEdit : System.Web.UI.UserControl
                 btnSave.Visible = false;
             }
 
-            bool i = Global.ValidateDate(TxtdocDate.Text.ToString());
-            if (i == true)
-            { }
-            else
-            {
-                btnSave.Visible = false;
-                btnaddEntry.Visible = false;
-             
-               lblmsg1.Text  = "You cannot Edit JV with date less than Audit CutOffDate:" + Session["AuditCutOffDate"].ToString();
-            }
-
-
         }
         else
         {
@@ -654,17 +642,7 @@ public partial class UserControls_uc_JVEdit : System.Web.UI.UserControl
                         objjvd.CreatedBy = Session["UserName"].ToString();
                     }
 
-                    //AuditCutOffDate check
-                    int i;
-                    i = Global.Check_IsEditable("JV", Convert.ToInt32(JVDID),Convert.ToInt32(strFY));
-                    if (i == 1)
-                    {
-                        objjvd.Save();
-                    }
-                    else
-                    {
-                        MessageBox("You cannot edit JV with date less than CutOffDate:" + HttpContext.Current.Session["AuditCutOffDate"].ToString());
-                    }
+                    objjvd.Save();
                 }
 
                 //objjvd.AccountCode  = txtAccode.Text.Trim();

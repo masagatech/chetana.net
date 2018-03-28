@@ -1,8 +1,8 @@
-﻿<%@ Page Title="CNF Railway Register" Language="C#" MasterPageFile="~/MasterPages/NewChetana.master" AutoEventWireup="true"
+﻿<%@ Page Title="CNF Dispatch Report" Language="C#" MasterPageFile="~/MasterPages/NewChetana.master" AutoEventWireup="true"
     CodeFile="CNFRailwayRegister.aspx.cs" Inherits="CNFRailwayRegister" %>
 
 <%@ Register TagPrefix="ajaxCt" Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" %>
-<%@ Register Assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
+<%@ Register Assembly="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
     Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -10,7 +10,7 @@
     <div class="section-header">
         <div class="title">
             <img src="Images/forms/ico-promotions.png" alt="Edit campaign details">
-            CnF Railway Register<a href="Campaigns.aspx" title="back to campaign list"></a>
+            CNF Dispatch Report<a href="Campaigns.aspx" title="back to campaign list"></a>
         </div>
         <div class="options">
         </div>

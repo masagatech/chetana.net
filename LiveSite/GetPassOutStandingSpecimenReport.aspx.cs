@@ -35,7 +35,7 @@ public partial class GetPassOutStandingSpecimenReport : System.Web.UI.Page
             if (FY != 0)
             {
                 OtherBAL ObjBAL = new OtherBAL();
-                DataSet ds = ObjBAL.Idv_Chetana_Get_Godown_Speciman_Head(Convert.ToInt32(Request.QueryString["SpecNo"].ToString()), FY, "SpcimanEdit");
+                DataSet ds = ObjBAL.Idv_Chetana_Get_Godown_Speciman_Head(Convert.ToInt32(Request.QueryString["SpecNo"].ToString()), FY, "SpecimanPrint");
                 ReportDocument rd = new ReportDocument();
                 rd.Load(Server.MapPath("~/Report/GetPassOutSpecimen.rpt"));
                 rd.SetDataSource(ds.Tables[0]);

@@ -93,7 +93,6 @@ public partial class CustomerTODReport : System.Web.UI.Page
         else
         {
             rd.Load(Server.MapPath("Report/TODReportNew.rpt"));
-            //rd.Load(Server.MapPath("Report/TODTest.rpt"));
         }
 
         rd.Database.Tables[0].SetDataSource(dv);

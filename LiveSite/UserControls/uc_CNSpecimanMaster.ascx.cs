@@ -88,8 +88,8 @@ public partial class UserControls_CNSpecimanMaster : System.Web.UI.UserControl
     }
 
     #endregion
-
-    #region Save And Print  Method
+	
+	#region Save And Print  Method
     private void Save(string Flag)
     {
         try
@@ -138,8 +138,8 @@ public partial class UserControls_CNSpecimanMaster : System.Web.UI.UserControl
                     Page.ClientScript.RegisterStartupScript(
                     this.GetType(), "OpenWindow", "window.open('CNSpecimanPrint.aspx?docno=" + insertno.ToString() + "');", true);
                 }
-                ClearForm();
-
+	                ClearForm();
+                
                 // _objSepciman.ChallanDate = Convert.ToDateTime(ChallanDate);
                 // string ordno = txtorder.Text.Trim();
                 //if (ordno == "")
@@ -242,6 +242,9 @@ public partial class UserControls_CNSpecimanMaster : System.Web.UI.UserControl
                         Session["tempBookData"] = fillTempBookData(bookcode.Trim(), "");
                         dt1 = (DataTable)Session["tempBookData"];
                         loder(bookname + " added successfully");
+                        txtbookqty.Text = "";
+                        txtbkcod.Text = "";
+
                     }
                     else
                     {
@@ -254,6 +257,8 @@ public partial class UserControls_CNSpecimanMaster : System.Web.UI.UserControl
                     Session["tempBookData"] = fillTempBookData(bookcode.Trim(), "");
                     dt1 = (DataTable)Session["tempBookData"];
                     loder(bookname + " added successfully");
+                    txtbookqty.Text = "";
+                    txtbkcod.Text = "";
                 }
                 grdBookDetails.DataSource = dt1;
                 grdBookDetails.DataBind();
@@ -309,18 +314,18 @@ public partial class UserControls_CNSpecimanMaster : System.Web.UI.UserControl
     #region Save Button Click Event
     protected void btn_Save_Click(object sender, EventArgs e)
     {
-        Save("save");
+	 Save("save");
     }
     #endregion
-
-    #region Save And Print
+	
+	 #region Save And Print
     protected void btn_PrintSave_Click(object sender, EventArgs e)
     {
         Save("print");
     }
     #endregion
 
-    #region Clear  Method
+	  #region Clear  Method
     private void ClearForm()
     {
         TxtEmpCode.Text = "";
@@ -975,14 +980,14 @@ public partial class UserControls_CNSpecimanMaster : System.Web.UI.UserControl
         {
             if (Request.QueryString["a"] == "a")
             {
-                pageName.InnerHtml = "Create D.C.";
+                //pageName.InnerHtml = "Create D.C.";
                 btn_Save.Visible = true;
                 btnEdit1.Visible = false;
             }
             else
                 if (Request.QueryString["a"] == "v")
                 {
-                    pageName.InnerHtml = "Edit  D.C.";
+                   // pageName.InnerHtml = "Edit  D.C.";
                     btn_Save.Visible = false;
                     btnEdit1.Visible = true;
                 }

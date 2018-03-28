@@ -177,6 +177,7 @@
                     <td width="110px">
                         <asp:Label ID="lblPhone" runat="server" Style="display: none;"></asp:Label>
                         <asp:Label ID="LblBankRID" runat="server" Style="display: none;"></asp:Label>
+			 
                         <asp:Label ID="Label1" CssClass="lbl-form" runat="server" Text="Bank Code"></asp:Label>
                         <font color="red">*</font>
                     </td>
@@ -246,8 +247,8 @@
                         <font color="red">*</font>
                     </td>
                     <td>
-                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                            <ContentTemplate>
+                        <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                            <ContentTemplate>--%>
                                 <asp:TextBox ID="txtAccode" Width="85px" CssClass="inp-form" TabIndex="5" autocomplete="off"
                                     runat="server" AutoPostBack="True" OnTextChanged="txtAccode_TextChanged"></asp:TextBox>
                                 <div id="div1" class="divauto350">
@@ -263,8 +264,8 @@
                                     ValidationGroup="bnkrct" ControlToValidate="txtAccode">.</asp:RequiredFieldValidator>
                                 <asp:Label ID="lblaccname" CssClass="lbl-form" ForeColor="Blue" Font-Size="15px"
                                     runat="server"></asp:Label>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
+                            <%--</ContentTemplate>
+                        </asp:UpdatePanel>--%>
                     </td>
                     <td></td>
                     <td>
@@ -288,7 +289,7 @@
 	            <td>
                 <asp:Label ID="lbllimit" runat="server" CssClass="lbl-form" Font-Size="10px" ForeColor="Blue"
                     Visible="False" Width="120px"></asp:Label>
-                 <asp:Label ID="lblsplitdc" runat="server" Text="" CssClass="lbl-form" Visible="False"></asp:Label>
+                 <asp:Label ID="lblsplitdc" runat="server" Text="" CssClass="lbl-form" Visible="false"></asp:Label>
             </td>
                 </tr>
                 <tr>

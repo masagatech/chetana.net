@@ -27,7 +27,7 @@ public partial class KycFormReport : System.Web.UI.Page
             
             KycFormPrintDocument();
         }
-        if (txtIsExport.Value == "yes")
+	if (txtIsExport.Value == "yes")
         {
             KycFormPrintDocument();
             txtIsExport.Value = "";
