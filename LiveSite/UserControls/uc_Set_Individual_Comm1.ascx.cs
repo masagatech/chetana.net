@@ -23,7 +23,7 @@ public partial class UserControls_uc_Set_Individual_Comm1 : System.Web.UI.UserCo
 {
     string strChetanaCompanyName = "cppl";
     string strFY;
-    
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["ChetanaCompanyName"] != null)
@@ -51,7 +51,7 @@ public partial class UserControls_uc_Set_Individual_Comm1 : System.Web.UI.UserCo
     }
 
 
-#region BindData
+    #region BindData
     protected void DDLSuperZone_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (DDLSuperZone.SelectedIndex == 0)
@@ -80,14 +80,14 @@ public partial class UserControls_uc_Set_Individual_Comm1 : System.Web.UI.UserCo
         DDLZone.DataBind();
         DDLZone.Items.Insert(0, new ListItem("-Select Zone-", "0"));
     }
-#endregion
+    #endregion
 
     public void GetData(int i)
     {
 
         DataSet ds = new DataSet();
 
-        ds = OtherClass.Idv_Chetana_Get_Global_Commission(0, 0,Convert.ToInt32(strFY));
+        ds = OtherClass.Idv_Chetana_Get_Global_Commission(0, 0, 0, Convert.ToInt32(strFY));
 
         if (i == 0)
         {
@@ -129,24 +129,24 @@ public partial class UserControls_uc_Set_Individual_Comm1 : System.Web.UI.UserCo
     }
 
 
-   public int GetAutoId()
-   {
-       DataSet ds = new DataSet();
-       int AId;
-       ds = OtherClass.Idv_Chetana_GetAutoId();
-       if (ds.Tables[0].Rows.Count > 0)
-       {
-           DataTable tbl = ds.Tables[0];
-           DataRow dr = tbl.Rows[0];
-           AId = Convert.ToInt32(dr[0].ToString());
-       }
-       else
-       {
-           AId = 0;
-       }
-       AId = AId + 1;
-       return AId;
-   }
+    public int GetAutoId()
+    {
+        DataSet ds = new DataSet();
+        int AId;
+        ds = OtherClass.Idv_Chetana_GetAutoId();
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            DataTable tbl = ds.Tables[0];
+            DataRow dr = tbl.Rows[0];
+            AId = Convert.ToInt32(dr[0].ToString());
+        }
+        else
+        {
+            AId = 0;
+        }
+        AId = AId + 1;
+        return AId;
+    }
     protected void btnSave_Click(object sender, EventArgs e)
     {
         XmlDocument doc = new XmlDocument();		//Object cmlDocument
@@ -160,7 +160,7 @@ public partial class UserControls_uc_Set_Individual_Comm1 : System.Web.UI.UserCo
             nd = doc.CreateElement("Id");
             nd.InnerText = Convert.ToString(GetAutoId());
             element.AppendChild(nd);
-             
+
             nd = doc.CreateElement("DisFrm");
             nd.InnerText = ((TextBox)item.FindControl("TxtDisF")).Text.Trim();
             element.AppendChild(nd);
@@ -190,7 +190,7 @@ public partial class UserControls_uc_Set_Individual_Comm1 : System.Web.UI.UserCo
             {
                 nd.InnerText = "True";
             }
-            else 
+            else
             {
                 nd.InnerText = "False";
             }
@@ -200,7 +200,11 @@ public partial class UserControls_uc_Set_Individual_Comm1 : System.Web.UI.UserCo
 
         }
 
-        OtherClass.Idv_Chetana_Save_Update_Commission(Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), Convert.ToInt32(strFY), node.OuterXml.ToString(), flag);
+        Int32 sdzoneid = 0;
+        Int32 szoneid = Convert.ToInt32(DDLSuperZone.SelectedValue.ToString());
+        Int32 zoneid = Convert.ToInt32(DDLZone.SelectedValue.ToString());
+
+        OtherClass.Idv_Chetana_Save_Update_Commission(sdzoneid, szoneid, zoneid, Convert.ToInt32(strFY), node.OuterXml.ToString(), flag);
         MessageBox("Record saved successfully...");
         //DDLSuperZone.Text = DDLSuperZone.Items[0].ToString();
         PnllGrdComm.Visible = false;
@@ -215,7 +219,12 @@ public partial class UserControls_uc_Set_Individual_Comm1 : System.Web.UI.UserCo
         {
             PnllGrdComm.Visible = true;
             DataSet ds = new DataSet();
-            ds = OtherClass.Idv_Chetana_Get_Global_Commission(Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), Convert.ToInt32(strFY));
+
+            Int32 sdzoneid = 0;
+            Int32 szoneid = Convert.ToInt32(DDLSuperZone.SelectedValue.ToString());
+            Int32 zoneid = Convert.ToInt32(DDLZone.SelectedValue.ToString());
+
+            ds = OtherClass.Idv_Chetana_Get_Global_Commission(sdzoneid, szoneid, zoneid, Convert.ToInt32(strFY));
 
             if (ds.Tables[1].Rows.Count > 0)
             {
@@ -233,5 +242,5 @@ public partial class UserControls_uc_Set_Individual_Comm1 : System.Web.UI.UserCo
             }
         }
     }
-    }
+}
 

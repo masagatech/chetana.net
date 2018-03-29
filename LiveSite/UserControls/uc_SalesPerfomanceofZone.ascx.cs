@@ -35,21 +35,17 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
     DataTable dtAll;
 
     #endregion
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        
-            if (Session["FY"] != null)
-            {
-                
-                strFY = Session["FY"].ToString();
-            }
-            else
-            {
-                Session.Clear();
-            }
-            //Response.Write(strFY);
-
-       
+        if (Session["FY"] != null)
+        {
+            strFY = Session["FY"].ToString();
+        }
+        else
+        {
+            Session.Clear();
+        }
 
         if (!Page.IsPostBack)
         {
@@ -62,8 +58,8 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
             DDLsuperzone.Focus();
             setdefaultdate();
         }
-      
     }
+
     public void setdefaultdate()
     {
         txtfromDate.Text = Session["FromDate"].ToString();
@@ -97,8 +93,8 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
             grdcustomer.DataBind();
             grdcustomer.Focus();
             dtAll.Merge(dtcustomer);
-          //  grdzonedetail.DataSource = Other.Dashboard.Get_Report_SalesPerformance_OnCustomer(Convert.ToInt32(empid), Convert.ToInt32(strFY), fdate, tdate).Tables[1];
-         //   grdzonedetail.DataBind();
+            //  grdzonedetail.DataSource = Other.Dashboard.Get_Report_SalesPerformance_OnCustomer(Convert.ToInt32(empid), Convert.ToInt32(strFY), fdate, tdate).Tables[1];
+            //   grdzonedetail.DataBind();
             DataTable dtbookSet = new DataTable();
             dtbookSet = Other.Dashboard.Get_Report_SalesPerformanceForBookSet(Convert.ToInt32(zoneid), Convert.ToInt32(strFY), fdate, tdate).Tables[0];
             GrdBookset.DataSource = dtbookSet;
@@ -134,7 +130,7 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
         //grdemployee.SelectedRow.BackColor  ;
         //grdcustomer.DataSource = Other.Dashboard.Get_Report_SalesPerformance_OnCustomer(Convert.ToInt32(empid), Convert.ToInt32(strFY), fdate, tdate).Tables[0];
         //grdcustomer.DataBind();
-        
+
         //if (grdcustomer.Rows.Count > 0)
         //{
         //    lblgrdcustomer.Text = ((Label)grdemployee.Rows[e.NewEditIndex].FindControl("lblempcode")).Text;
@@ -168,13 +164,13 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
     public void Bind_DDL_SuperZone()
     {
         //DDLsuperzone.DataSource = SuperZone.GetSuperzonemaster();
-        DDLsuperzone.DataSource  = Masters.Get_AreaZone_Zone_SuperZone(Convert.ToInt32(ddlSDZone.SelectedValue.ToString()), "SuperZone1");
+        DDLsuperzone.DataSource = Masters.Get_AreaZone_Zone_SuperZone(Convert.ToInt32(ddlSDZone.SelectedValue.ToString()), "SuperZone1");
         DDLsuperzone.DataBind();
         DDLsuperzone.Items.Insert(0, new ListItem("-- Select SuperZone --", "0"));
-      
+
     }
 
-     
+
 
 
     protected void grdcustomer_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -248,7 +244,7 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
     {
         if (e.Row.RowType == DataControlRowType.Header)
         {
-            billamt = openbalance = cnamt = recdamt = totalbalance = otherdebitAmount =  0;
+            billamt = openbalance = cnamt = recdamt = totalbalance = otherdebitAmount = 0;
         }
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
@@ -264,7 +260,7 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
             totalbalance = totalbalance + Convert.ToDecimal(lblbalance.Text.Trim());
             lblotherdebitAmt = (Label)e.Row.FindControl("lblOtherAmount");
             otherdebitAmount = otherdebitAmount + Convert.ToDecimal(lblotherdebitAmt.Text.Trim());
-            
+
         }
         if (e.Row.RowType == DataControlRowType.Footer)
         {
@@ -345,7 +341,7 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
             thirtyfive = thirtyfive + Convert.ToInt32(lblthirtyfive.Text.Trim());
             forty = forty + Convert.ToInt32(lblforty.Text.Trim());
             zero = zero + Convert.ToInt32(lblzero.Text.Trim());
-            
+
         }
         if (e.Row.RowType == DataControlRowType.Footer)
         {
@@ -355,14 +351,14 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
             Label lbltotalthirtyfive = (Label)e.Row.FindControl("lbltotalthirtyfive");
             Label lbltotalforty = (Label)e.Row.FindControl("lbltotalforty");
             Label lbltotalzero = (Label)e.Row.FindControl("lbltotalzero");
-            
+
             lbltotaltwenty.Text = twenty.ToString().Trim();
             lbltotaltwentyfive.Text = twentyfive.ToString().Trim();
             lbltotalthirty.Text = thirty.ToString().Trim();
             lbltotalthirtyfive.Text = thirtyfive.ToString().Trim();
             lbltotalforty.Text = forty.ToString().Trim();
             lbltotalzero.Text = zero.ToString().Trim();
-            
+
 
         }
     }
@@ -393,8 +389,8 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
             string To = txtToDate.Text.Split('/')[1] + "/" + txtToDate.Text.Split('/')[0] + "/" + txtToDate.Text.Split('/')[2];
             fdate = Convert.ToDateTime(from);
             tdate = Convert.ToDateTime(To);
-                ShowDetails();
-           
+            ShowDetails();
+
         }
         else
         {
@@ -424,18 +420,18 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
             grdnoofparty.DataBind();
             dtAll = ds.Tables[0];
 
-           // grdtargetdetail.DataSource = Other.Dashboard.Get_Report_SalesPerformance(0, Convert.ToInt32(DDLsuperzone.SelectedValue), Convert.ToInt32(strFY));
-           // grdtargetdetail.DataBind();
+            // grdtargetdetail.DataSource = Other.Dashboard.Get_Report_SalesPerformance(0, Convert.ToInt32(DDLsuperzone.SelectedValue), Convert.ToInt32(strFY));
+            // grdtargetdetail.DataBind();
 
 
             ds = Other.Dashboard.Get_Report_SalesPerformanceForDiscountParties(Convert.ToInt32(DDLsuperzone.SelectedValue), Convert.ToInt32(strFY), fdate, tdate);
-           
+
             GrdDiscount.DataSource = ds.Tables[0];
             GrdDiscount.DataBind();
             dtAll.Merge(ds.Tables[0]);
             DataTable dt = new DataTable();
             DataSet dsparties = new DataSet();
-           // ds = Other.Dashboard.Get_Report_SalesPerformanceForDiscountParties(Convert.ToInt32(DDLsuperzone.SelectedValue), Convert.ToInt32(strFY), fdate, tdate);
+            // ds = Other.Dashboard.Get_Report_SalesPerformanceForDiscountParties(Convert.ToInt32(DDLsuperzone.SelectedValue), Convert.ToInt32(strFY), fdate, tdate);
             if (ds.Tables.Count > 1)
             {
                 if (ds.Tables[1].Rows.Count > 0)
@@ -461,14 +457,14 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
 
                 grdadddiscount.DataSource = dt;
                 grdadddiscount.DataBind();
-                 dtAll.Merge(dt);
+                dtAll.Merge(dt);
             }
             else
             {
                 grdadddiscount.DataBind();
             }
-          //  grdadddiscount.Columns[0].Visible = false;
-           
+            //  grdadddiscount.Columns[0].Visible = false;
+
             grdemployee.DataBind();
             grdcustomer.DataBind();
 
@@ -484,7 +480,7 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
 
     #region Summary
 
-    
+
     public void ShowDetails1()
     {
 
@@ -511,7 +507,7 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
             grdemployee.DataBind();
             grdcustomer.DataBind();
             //grdtargetdetail.DataBind();
-           // grdadddiscount.DataSource = null;
+            // grdadddiscount.DataSource = null;
             grdadddiscount.DataBind();
 
         }
@@ -584,7 +580,7 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
     //        }
     //        Response.Write("\n");
     //        tab = "";
-            
+
 
     //    }
     //}
@@ -792,6 +788,6 @@ public partial class UserControls_uc_SalesPerfomanceofZone : System.Web.UI.UserC
     }
     protected void grdadddiscount_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-       
+
     }
 }

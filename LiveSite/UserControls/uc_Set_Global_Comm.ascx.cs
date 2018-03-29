@@ -18,6 +18,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using Others;
 using System.IO;
 #endregion
+
 public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
 {
     string strChetanaCompanyName = "cppl";
@@ -28,7 +29,7 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
     string Ttarto;
     string Tscomm;
     string Tzcomm;
-    Boolean  TIsActive;
+    Boolean TIsActive;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -43,8 +44,6 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
             {
                 Session.Clear();
             }
-            //Response.Write(strFY);
-
         }
 
         if (!Page.IsPostBack)
@@ -53,15 +52,14 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
             Session["tempCommData"] = null;
             GetData();
         }
-        
     }
 
     public void GetData()
     {
         DataSet ds = new DataSet();
         DataTable tbl;
-        ds = OtherClass.Idv_Chetana_Get_Global_Commission(0, 0,Convert.ToInt32(strFY));
-        
+        ds = OtherClass.Idv_Chetana_Get_Global_Commission(0, 0, 0, Convert.ToInt32(strFY));
+
         if (ds.Tables[0].Rows.Count > 0)
         {
             Session["tempCommData"] = ds.Tables[0];
@@ -76,15 +74,19 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
         {
             MessageBox("Kindly SET COMMISSION...");
         }
-        
+
     }
+
     #region MsgBox
+
     public void MessageBox(string msg)
     {
         string jv = "alert('" + msg + "');";
         ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "msg", jv, true);
     }
+
     #endregion
+
     protected void chkActive_CheckedChanged(object sender, EventArgs e)
     {
 
@@ -94,65 +96,68 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
     protected void btnadd_Click(object sender, EventArgs e)
     {
         //Add record
-        if (txtDisFrm.Text != "" || txtDisTo.Text != "" || txtTarFrm.Text != "" || txtTarTo.Text != "" || txtCommSZone.Text != "" || txtCommZone.Text != "")
+
+        if (txtDisFrm.Text != "" || txtDisTo.Text != "" || txtTarFrm.Text != "" || txtTarTo.Text != "" || txtCommSZone.Text != "" || txtCommSDZone.Text != "" || txtCommZone.Text != "")
         {
-        
-        XmlDocument doc = new XmlDocument();		//Object cmlDocument
-        XmlElement nd;
-        XmlNode node = doc.CreateElement("Root");	//Root Note
-        int flag = 1;
+            XmlDocument doc = new XmlDocument();		//Object cmlDocument
+            XmlElement nd;
+            XmlNode node = doc.CreateElement("Root");	//Root Note
+            int flag = 1;
 
-        XmlNode element = doc.CreateElement("Items");
-        nd = doc.CreateElement("Id");
-        nd.InnerText = Convert.ToString(GetAutoId());
-        element.AppendChild(nd);
-        
-        nd = doc.CreateElement("DisFrm");
-        nd.InnerText = txtDisFrm.Text.Trim();
-        element.AppendChild(nd);
+            XmlNode element = doc.CreateElement("Items");
+            nd = doc.CreateElement("Id");
+            nd.InnerText = Convert.ToString(GetAutoId());
+            element.AppendChild(nd);
 
-        nd = doc.CreateElement("DisTo");
-        nd.InnerText = txtDisTo.Text.Trim();
-        element.AppendChild(nd);
+            nd = doc.CreateElement("DisFrm");
+            nd.InnerText = txtDisFrm.Text.Trim();
+            element.AppendChild(nd);
 
-        nd = doc.CreateElement("tarfrm");
-        nd.InnerText = txtTarFrm.Text.Trim();
-        element.AppendChild(nd);
+            nd = doc.CreateElement("DisTo");
+            nd.InnerText = txtDisTo.Text.Trim();
+            element.AppendChild(nd);
 
-        nd = doc.CreateElement("tarto");
-        nd.InnerText = txtTarTo.Text.Trim();
-        element.AppendChild(nd);
+            nd = doc.CreateElement("tarfrm");
+            nd.InnerText = txtTarFrm.Text.Trim();
+            element.AppendChild(nd);
 
-        nd = doc.CreateElement("commz");
-        nd.InnerText = txtCommZone.Text.Trim();
-        element.AppendChild(nd);
+            nd = doc.CreateElement("tarto");
+            nd.InnerText = txtTarTo.Text.Trim();
+            element.AppendChild(nd);
 
-        nd = doc.CreateElement("comms");
-        nd.InnerText = txtCommSZone.Text.Trim();
-        element.AppendChild(nd);
+            nd = doc.CreateElement("commz");
+            nd.InnerText = txtCommZone.Text.Trim();
+            element.AppendChild(nd);
 
-        nd = doc.CreateElement("a");
-        if (chkActive.Checked)
-        {
-            nd.InnerText = "True";
-        }
-        else
-        {
-            nd.InnerText = "False";
-        }
+            nd = doc.CreateElement("comms");
+            nd.InnerText = txtCommSZone.Text.Trim();
+            element.AppendChild(nd);
 
-        element.AppendChild(nd);
+            nd = doc.CreateElement("commsdz");
+            nd.InnerText = txtCommSDZone.Text.Trim();
+            element.AppendChild(nd);
 
+            nd = doc.CreateElement("a");
 
-        nd = doc.CreateElement("cnper");
-        nd.InnerText = txtcnper.Text.Trim();
-        element.AppendChild(nd);
-        
-        
-        node.AppendChild(element);
+            if (chkActive.Checked)
+            {
+                nd.InnerText = "True";
+            }
+            else
+            {
+                nd.InnerText = "False";
+            }
 
-        OtherClass.Idv_Chetana_Save_Update_Commission(0, 0, Convert.ToInt32(strFY), node.OuterXml.ToString(), flag);
-        MessageBox("Records saved successfully...");
+            element.AppendChild(nd);
+
+            nd = doc.CreateElement("cnper");
+            nd.InnerText = txtcnper.Text.Trim();
+            element.AppendChild(nd);
+
+            node.AppendChild(element);
+
+            OtherClass.Idv_Chetana_Save_Update_Commission(0, 0, 0, Convert.ToInt32(strFY), node.OuterXml.ToString(), flag);
+            MessageBox("Records saved successfully...");
         }
         else
         {
@@ -165,18 +170,19 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
         txtTarTo.Text = "";
         txtCommZone.Text = "";
         txtCommSZone.Text = "";
+        txtCommSDZone.Text = "";
         txtDisFrm.Focus();
 
         GetData();
-  
     }
 
-   public int GetAutoId()
+    public int GetAutoId()
     {
         DataSet ds = new DataSet();
         int AId;
-        ds=OtherClass.Idv_Chetana_GetAutoId();
-        if (ds.Tables[0].Rows.Count> 0)
+        ds = OtherClass.Idv_Chetana_GetAutoId();
+
+        if (ds.Tables[0].Rows.Count > 0)
         {
             DataTable tbl = ds.Tables[0];
             DataRow dr = tbl.Rows[0];
@@ -186,8 +192,8 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
         {
             AId = 0;
         }
+
         AId = AId + 1;
         return AId;
     }
-
 }

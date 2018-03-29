@@ -18,10 +18,12 @@ using CrystalDecisions.CrystalReports.Engine;
 using Others;
 using System.IO;
 #endregion
+
 public partial class UserControls_uc_View_Global_Comm : System.Web.UI.UserControl
 {
     string strChetanaCompanyName = "cppl";
     string strFY;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["ChetanaCompanyName"] != null)
@@ -35,28 +37,27 @@ public partial class UserControls_uc_View_Global_Comm : System.Web.UI.UserContro
             {
                 Session.Clear();
             }
-            //Response.Write(strFY);
-
         }
 
         if (!Page.IsPostBack)
         {
-           
             Session["tempCommData"] = null;
             GetData();
         }
-       
     }
+
     public void GetData()
     {
         DataSet ds = new DataSet();
         DataTable tbl;
-        ds = OtherClass.Idv_Chetana_Get_Global_Commission(0, 0, Convert.ToInt32(strFY));
+
+        ds = OtherClass.Idv_Chetana_Get_Global_Commission(0, 0, 0, Convert.ToInt32(strFY));
 
         if (ds.Tables[0].Rows.Count > 0)
         {
             GrdComm.DataSource = ds.Tables[0];
             GrdComm.DataBind();
+
             tbl = ds.Tables[0];
             DataRow dr = tbl.Rows[0];
             txtcnper.Text = dr["CNPer"].ToString() == "" ? "0.00" : Convert.ToDecimal(dr["CNPer"]).ToString("0.00");
@@ -65,13 +66,15 @@ public partial class UserControls_uc_View_Global_Comm : System.Web.UI.UserContro
         {
             MessageBox("Kindly SET COMMISSION...");
         }
-        //btnSave.Visible = true;
     }
+
     #region MsgBox
+
     public void MessageBox(string msg)
     {
         string jv = "alert('" + msg + "');";
         ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "msg", jv, true);
     }
+
     #endregion
 }

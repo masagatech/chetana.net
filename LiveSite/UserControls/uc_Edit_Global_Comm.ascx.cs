@@ -18,6 +18,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using Others;
 using System.IO;
 #endregion
+
 public partial class UserControls_uc_Edit_Global_Comm : System.Web.UI.UserControl
 {
     string strChetanaCompanyName = "cppl";
@@ -28,7 +29,9 @@ public partial class UserControls_uc_Edit_Global_Comm : System.Web.UI.UserContro
     string Ttarto;
     string Tscomm;
     string Tzcomm;
+    string Tsdzcomm;
     Boolean TIsActive;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["ChetanaCompanyName"] != null)
@@ -42,8 +45,6 @@ public partial class UserControls_uc_Edit_Global_Comm : System.Web.UI.UserContro
             {
                 Session.Clear();
             }
-            //Response.Write(strFY);
-
         }
 
         if (!Page.IsPostBack)
@@ -51,21 +52,24 @@ public partial class UserControls_uc_Edit_Global_Comm : System.Web.UI.UserContro
             Session["tempCommData"] = null;
             GetData();
         }
-
     }
+
     #region MsgBox
+
     public void MessageBox(string msg)
     {
         string jv = "alert('" + msg + "');";
         ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "msg", jv, true);
     }
+
     #endregion
+
     public void GetData()
     {
         DataSet ds = new DataSet();
         DataTable tbl;
 
-        ds = OtherClass.Idv_Chetana_Get_Global_Commission(0, 0, Convert.ToInt32(strFY));
+        ds = OtherClass.Idv_Chetana_Get_Global_Commission(0, 0, 0, Convert.ToInt32(strFY));
 
         if (ds.Tables[0].Rows.Count > 0)
         {
@@ -79,16 +83,15 @@ public partial class UserControls_uc_Edit_Global_Comm : System.Web.UI.UserContro
         {
             MessageBox("Kindly SET COMMISSION...");
         }
-        //btnSave.Visible = true;
     }
 
     public DataTable fillTempData()
     {
         DataTable dt = new DataTable();
         int Aid = Convert.ToInt32(GetAutoId());
+
         if (Session["tempCommData"] == null)
         {
-
             dt.Columns.Add("AutoId");
             dt.Columns.Add("Superzoneid");
             dt.Columns.Add("Zoneid");
@@ -98,22 +101,26 @@ public partial class UserControls_uc_Edit_Global_Comm : System.Web.UI.UserContro
             dt.Columns.Add("targperto");
             dt.Columns.Add("zoneprcent");
             dt.Columns.Add("superzoneprcent");
+            dt.Columns.Add("sdzonepercent");
             dt.Columns.Add("IsActive");
-            dt.Rows.Add(Aid, 0, 0, Tdisfrm, Tdisto, Ttarfrm, Ttarto, Tzcomm, Tscomm, TIsActive);
-         }
 
+            dt.Rows.Add(Aid, 0, 0, Tdisfrm, Tdisto, Ttarfrm, Ttarto, Tzcomm, Tscomm, Tsdzcomm, TIsActive);
+        }
         else
         {
             dt = (DataTable)Session["tempCommData"];
-            dt.Rows.Add(Aid, 0, 0, Tdisfrm, Tdisto, Ttarfrm, Ttarto, Tzcomm, Tscomm, TIsActive);
+            dt.Rows.Add(Aid, 0, 0, Tdisfrm, Tdisto, Ttarfrm, Ttarto, Tzcomm, Tscomm, Tsdzcomm, TIsActive);
         }
+
         return dt;
     }
+
     public int GetAutoId()
     {
         DataSet ds = new DataSet();
         int AId;
         ds = OtherClass.Idv_Chetana_GetAutoId();
+
         if (ds.Tables[0].Rows.Count > 0)
         {
             DataTable tbl = ds.Tables[0];
@@ -124,10 +131,10 @@ public partial class UserControls_uc_Edit_Global_Comm : System.Web.UI.UserContro
         {
             AId = 0;
         }
+
         AId = AId + 1;
         return AId;
     }
-
 
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
@@ -135,14 +142,15 @@ public partial class UserControls_uc_Edit_Global_Comm : System.Web.UI.UserContro
         XmlElement nd;
         XmlNode node = doc.CreateElement("Root");	//Root Note
         int flag = 0;
+
         foreach (GridViewRow item in GrdComm.Rows)
         {
             XmlNode element = doc.CreateElement("Items");
- 
+
             nd = doc.CreateElement("Id");
             nd.InnerText = ((Label)item.FindControl("lbl1")).Text.Trim();
             element.AppendChild(nd);
- 
+
             nd = doc.CreateElement("DisFrm");
             nd.InnerText = ((TextBox)item.FindControl("TxtDisF")).Text.Trim();
             element.AppendChild(nd);
@@ -167,8 +175,12 @@ public partial class UserControls_uc_Edit_Global_Comm : System.Web.UI.UserContro
             nd.InnerText = ((TextBox)item.FindControl("txtscomm")).Text.Trim();
             element.AppendChild(nd);
 
+            nd = doc.CreateElement("commsdz");
+            nd.InnerText = ((TextBox)item.FindControl("txtsdzcomm")).Text.Trim();
+            element.AppendChild(nd);
 
             nd = doc.CreateElement("a");
+
             if (((CheckBox)item.FindControl("chkActive")).Checked)
             {
                 nd.InnerText = "True";
@@ -177,20 +189,18 @@ public partial class UserControls_uc_Edit_Global_Comm : System.Web.UI.UserContro
             {
                 nd.InnerText = "False";
             }
+
             element.AppendChild(nd);
 
             nd = doc.CreateElement("cnper");
             nd.InnerText = txtcnper.Text.Trim();
-            element.AppendChild(nd);
-        
-        
-            node.AppendChild(element);
 
+            element.AppendChild(nd);
+            node.AppendChild(element);
         }
 
-        OtherClass.Idv_Chetana_Save_Update_Commission(0, 0, Convert.ToInt32(strFY), node.OuterXml.ToString(), flag);
+        OtherClass.Idv_Chetana_Save_Update_Commission(0, 0, 0, Convert.ToInt32(strFY), node.OuterXml.ToString(), flag);
         MessageBox("Records updated successfully...");
         GetData();
-
     }
 }

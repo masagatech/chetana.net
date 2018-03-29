@@ -21,3 +21,11 @@ E:\Working\Other\bin\Debug\Other.pdb
 E:\Working\Other\obj\Debug\ResolveAssemblyReference.cache
 E:\Working\Other\obj\Debug\Other.dll
 E:\Working\Other\obj\Debug\Other.pdb
+F:\Work\Vivek Work\Chetana\chetana.net\Other\obj\Debug\Others.csprojResolveAssemblyReference.cache
+F:\Work\Vivek Work\Chetana\chetana.net\Other\obj\Debug\Other.dll
+F:\Work\Vivek Work\Chetana\chetana.net\Other\bin\Debug\Other.dll
+F:\Work\Vivek Work\Chetana\chetana.net\Other\bin\Debug\Other.pdb
+F:\Work\Vivek Work\Chetana\chetana.net\Other\bin\Debug\Idv.Chetana.Common.dll
+F:\Work\Vivek Work\Chetana\chetana.net\Other\bin\Debug\Idv.Chetana.DAL.dll
+F:\Work\Vivek Work\Chetana\chetana.net\Other\bin\Debug\Idv.Chetana.DAL.pdb
+F:\Work\Vivek Work\Chetana\chetana.net\Other\obj\Debug\Other.pdb

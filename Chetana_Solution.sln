@@ -1,14 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtherNewClass", "OtherNewClass\OtherNewClass.csproj", "{D8C3772B-EA41-430C-B10E-EA31717CD5EE}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "LiveSite", "LiveSite\", "{57BB7C2C-F5C4-45AE-9FA7-7D07362DED8D}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
-		ProjectReferences = "{bd597fcd-9f3b-4e99-bd29-862eac6c859e}|Other_Z.dll;{83cd6a9a-1a9b-4ffe-8330-b029b64a2d5a}|CnF_Other_Z.dll;"
+		ProjectReferences = "{bd597fcd-9f3b-4e99-bd29-862eac6c859e}|Other_Z.dll;{83cd6a9a-1a9b-4ffe-8330-b029b64a2d5a}|CnF_Other_Z.dll;{53ed2ab6-d7a0-48a5-8991-809cf30ced1d}|Other.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/LiveSite"
 		Debug.AspNetCompiler.PhysicalPath = "LiveSite\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\LiveSite\"
@@ -29,6 +27,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Other_Z", "Other_Z\Other_Z.csproj", "{BD597FCD-9F3B-4E99-BD29-862EAC6C859E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CnF_Other_Z", "CnF_Other_Z\CnF_Other_Z.csproj", "{83CD6A9A-1A9B-4FFE-8330-B029B64A2D5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Others", "Other\Others.csproj", "{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +80,16 @@ Global
 		{83CD6A9A-1A9B-4FFE-8330-B029B64A2D5A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{83CD6A9A-1A9B-4FFE-8330-B029B64A2D5A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{83CD6A9A-1A9B-4FFE-8330-B029B64A2D5A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Release|.NET.ActiveCfg = Release|Any CPU
+		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{53ED2AB6-D7A0-48A5-8991-809CF30CED1D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

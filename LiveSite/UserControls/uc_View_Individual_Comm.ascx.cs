@@ -18,13 +18,14 @@ using CrystalDecisions.CrystalReports.Engine;
 using Others;
 using System.IO;
 #endregion
+
 public partial class UserControls_uc_View_Individual_Comm : System.Web.UI.UserControl
 {
     string strChetanaCompanyName = "cppl";
     string strFY;
+
     protected void Page_Load(object sender, EventArgs e)
     {
-
         if (Session["ChetanaCompanyName"] != null)
         {
             if (Session["FY"] != null)
@@ -36,8 +37,6 @@ public partial class UserControls_uc_View_Individual_Comm : System.Web.UI.UserCo
             {
                 Session.Clear();
             }
-            //Response.Write(strFY);
-
         }
 
         if (!Page.IsPostBack)
@@ -46,8 +45,8 @@ public partial class UserControls_uc_View_Individual_Comm : System.Web.UI.UserCo
             Session["tempCommData"] = null;
             PnllGrdComm.Visible = false;
         }
-
     }
+
     #region BindData
     protected void DDLSuperZone_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -88,11 +87,13 @@ public partial class UserControls_uc_View_Individual_Comm : System.Web.UI.UserCo
     #endregion
 
     #region GetAutoId
+
     public int GetAutoId()
     {
         DataSet ds = new DataSet();
         int AId;
         ds = OtherClass.Idv_Chetana_GetAutoId();
+
         if (ds.Tables[0].Rows.Count > 0)
         {
             DataTable tbl = ds.Tables[0];
@@ -103,11 +104,13 @@ public partial class UserControls_uc_View_Individual_Comm : System.Web.UI.UserCo
         {
             AId = 0;
         }
+
         AId = AId + 1;
         return AId;
     }
 
     #endregion
+
     protected void btnget_Click(object sender, EventArgs e)
     {
         if (Convert.ToInt32(DDLSuperZone.SelectedValue) <= 0)
@@ -119,7 +122,7 @@ public partial class UserControls_uc_View_Individual_Comm : System.Web.UI.UserCo
             PnllGrdComm.Visible = true;
             DataSet ds = new DataSet();
             DataTable tbl;
-            ds = OtherClass.Idv_Chetana_Get_Global_Commission(Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), Convert.ToInt32(strFY));
+            ds = OtherClass.Idv_Chetana_Get_Global_Commission(0, Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), Convert.ToInt32(strFY));
 
             if (ds.Tables[1].Rows.Count > 0)
             {
@@ -153,7 +156,7 @@ public partial class UserControls_uc_View_Individual_Comm : System.Web.UI.UserCo
         //    PnllGrdComm.Visible = true;
         //    DataSet ds = new DataSet();
         //    DataTable tbl;
-        //    ds = OtherClass.Idv_Chetana_Get_Global_Commission(Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), Convert.ToInt32(strFY));
+        //    ds = OtherClass.Idv_Chetana_Get_Global_Commission(0, Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()), Convert.ToInt32(strFY));
 
         //    if (ds.Tables[1].Rows.Count > 0)
         //    {

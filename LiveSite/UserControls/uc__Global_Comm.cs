@@ -28,7 +28,7 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
     string Ttarto;
     string Tscomm;
     string Tzcomm;
-    Boolean  TIsActive;
+    Boolean TIsActive;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -54,7 +54,7 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
             Session["tempCommData"] = null;
             GetData();
         }
-        
+
     }
 
     #region SetView
@@ -70,7 +70,7 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
                     pageName.InnerHtml = "Set Global Commission";
                     btnSave.Text = "Save";
                     btnSave.Visible = false;
-                    PnlAdd.Visible=true;
+                    PnlAdd.Visible = true;
                     PnllGrdComm.Visible = true;
 
                 }
@@ -97,19 +97,19 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
                     pageName.InnerHtml = "Edit Global Commission";
                     btnSave.Text = "Update";
                     btnSave.Visible = true;
-                    PnlAdd.Visible =false;
+                    PnlAdd.Visible = false;
                     PnllGrdComm.Visible = true;
                 }
 
-           else
-                if (Request.QueryString["a"] == "v")
-                {
-                    pageName.InnerHtml = "View Global Commission";
-                    btnSave.Visible = false;
-                    PnlAdd.Visible = false;
-                    PnllGrdComm.Visible = true;
-                    btnadd.Visible = false;
-                }
+                else
+                    if (Request.QueryString["a"] == "v")
+                    {
+                        pageName.InnerHtml = "View Global Commission";
+                        btnSave.Visible = false;
+                        PnlAdd.Visible = false;
+                        PnllGrdComm.Visible = true;
+                        btnadd.Visible = false;
+                    }
         }
         else
         {
@@ -123,8 +123,8 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
     {
         DataSet ds = new DataSet();
 
-        ds = OtherClass.Idv_Chetana_Get_Global_Commission(0, 0,Convert.ToInt32(strFY));
-        
+        ds = OtherClass.Idv_Chetana_Get_Global_Commission(0, 0, 0, Convert.ToInt32(strFY));
+
         if (ds.Tables[0].Rows.Count > 0)
         {
             GrdComm.DataSource = ds.Tables[0];
@@ -162,11 +162,11 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
             Tzcomm = txtCommZone.Text.Trim();
             if (chkActive.Checked)
             {
-                TIsActive =true ;
+                TIsActive = true;
             }
             else
             {
-                TIsActive = false ;
+                TIsActive = false;
             }
             DataTable dt1 = new DataTable();
             if (Session["tempCommData"] != null)
@@ -182,7 +182,7 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
             }
             GrdComm.DataSource = dt1;
             GrdComm.DataBind();
-            txtDisFrm.Text="";
+            txtDisFrm.Text = "";
             txtDisTo.Text = "";
             txtTarFrm.Text = "";
             txtTarTo.Text = "";
@@ -196,11 +196,11 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
         }
     }
 
-    public DataTable  fillTempData()
+    public DataTable fillTempData()
     {
         DataTable dt = new DataTable();
-        int Aid=Convert.ToInt32(GetAutoId());
-        if(Session["tempCommData"] == null)
+        int Aid = Convert.ToInt32(GetAutoId());
+        if (Session["tempCommData"] == null)
         {
 
             dt.Columns.Add("AutoId");
@@ -213,15 +213,15 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
             dt.Columns.Add("zoneprcent");
             dt.Columns.Add("superzoneprcent");
             dt.Columns.Add("IsActive");
-            dt.Rows.Add(Aid,0,0,Tdisfrm, Tdisto, Ttarfrm, Ttarto, Tzcomm, Tscomm, TIsActive);
+            dt.Rows.Add(Aid, 0, 0, Tdisfrm, Tdisto, Ttarfrm, Ttarto, Tzcomm, Tscomm, TIsActive);
             btnSave.Visible = true;
-        
+
         }
 
         else
         {
             dt = (DataTable)Session["tempCommData"];
-            dt.Rows.Add(Aid,0,0,Tdisfrm, Tdisto, Ttarfrm, Ttarto, Tzcomm, Tscomm, TIsActive);
+            dt.Rows.Add(Aid, 0, 0, Tdisfrm, Tdisto, Ttarfrm, Ttarto, Tzcomm, Tscomm, TIsActive);
             //btnSave.Visible = true;
         }
         return dt;
@@ -231,8 +231,8 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
     {
         DataSet ds = new DataSet();
         int AId;
-        ds=OtherClass.Idv_Chetana_GetAutoId();
-        if (ds.Tables[0].Rows.Count> 0)
+        ds = OtherClass.Idv_Chetana_GetAutoId();
+        if (ds.Tables[0].Rows.Count > 0)
         {
             DataTable tbl = ds.Tables[0];
             DataRow dr = tbl.Rows[0];
@@ -326,9 +326,9 @@ public partial class UserControls_uc_Set_Comm : System.Web.UI.UserControl
             element.AppendChild(nd);
             node.AppendChild(element);
 
-          }
+        }
 
-        OtherClass.Idv_Chetana_InserXML(0, 0,Convert.ToInt32(strFY), node.OuterXml.ToString(),flag );
+        OtherClass.Idv_Chetana_InserXML(0, 0, Convert.ToInt32(strFY), node.OuterXml.ToString(), flag);
         MessageBox("Records saved successfully...");
         GetData();
     }

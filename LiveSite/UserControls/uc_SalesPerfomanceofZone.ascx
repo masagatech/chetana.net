@@ -1,8 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="uc_SalesPerfomanceofZone.ascx.cs"
     Inherits="UserControls_uc_SalesPerfomanceofZone" %>
+
 <%@ Register TagPrefix="ajaxCt" Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" %>
 <%@ Register Assembly="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
     Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
+
 <div class="section-header">
     <div class="title">
         <img src="Images/forms/ico-promotions.png" alt="Edit campaign details" />
@@ -11,17 +13,18 @@
     <div class="options">
     </div>
 </div>
+
 <asp:Panel ID="Pnl1" CssClass="panelDetails" runat="server" Width="862px">
     <table>
         <tr>
-             <td>
-        <asp:DropDownList  CssClass="ddl-form"  ID="ddlSDZone" width="250px" DataTextField="SDZoneName"
-                     DataValueField="SDZoneId"  AutoPostBack="true" runat="server"  TabIndex = "1"
-                OnSelectedIndexChanged="ddlSDZone_SelectedIndexChanged">
+            <td>
+                <asp:DropDownList CssClass="ddl-form" ID="ddlSDZone" Width="250px" DataTextField="SDZoneName"
+                    DataValueField="SDZoneId" AutoPostBack="true" runat="server" TabIndex="1"
+                    OnSelectedIndexChanged="ddlSDZone_SelectedIndexChanged">
                 </asp:DropDownList>
-                  <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Require Super Duper Zone " InitialValue="0"
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Require Super Duper Zone " InitialValue="0"
                     ValidationGroup="S" ControlToValidate="ddlSDZone">.</asp:RequiredFieldValidator>
-        </td>
+            </td>
             <td width="100px">
                 <asp:Label ID="Label3" runat="server" Text="Superzone" CssClass="lbl-form"></asp:Label>
             </td>
@@ -161,7 +164,6 @@
                             <asp:Label ID="lblTargetAchieved" runat="server" Style="display: none" Text='<%#Eval("TargetAchieved","{0:0.00}")%>'></asp:Label>
                             <asp:Label ID="lblTargetdifference" Style="text-align: right; display: none" runat="server"
                                 Text='<%#Eval("Targetdifference","{0:0.00}")%>'></asp:Label>--%>
-                            
                         </ItemTemplate>
                         <FooterTemplate>
                             <asp:Label ID="lbltotalbal" Font-Bold="true" runat="server"></asp:Label>
@@ -247,7 +249,7 @@
                             <asp:Label ID="lbltotalthirty" Font-Bold="true" runat="server"></asp:Label>
                         </FooterTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField  HeaderText="35 %" ItemStyle-HorizontalAlign="Right"
+                    <asp:TemplateField HeaderText="35 %" ItemStyle-HorizontalAlign="Right"
                         FooterStyle-HorizontalAlign="Right">
                         <ItemTemplate>
                             <asp:Label ID="lblthirtyfive" Style="text-align: right;" runat="server" Text='<%#Eval("35")%>'></asp:Label>
@@ -256,7 +258,7 @@
                             <asp:Label ID="lbltotalthirtyfive" Font-Bold="true" runat="server"></asp:Label>
                         </FooterTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField  HeaderText="40 %" ItemStyle-HorizontalAlign="Right"
+                    <asp:TemplateField HeaderText="40 %" ItemStyle-HorizontalAlign="Right"
                         FooterStyle-HorizontalAlign="Right">
                         <ItemTemplate>
                             <asp:Label ID="lblforty" Style="text-align: right;" runat="server" Text='<%#Eval("40")%>'></asp:Label>
@@ -483,7 +485,7 @@
             </asp:GridView>
         </td>
         <td valign="top">
-       <%--     <asp:GridView ID="grdzonedetail" CssClass="product-table" AutoGenerateColumns="False"
+            <%--     <asp:GridView ID="grdzonedetail" CssClass="product-table" AutoGenerateColumns="False"
                 TabIndex="21" Width="500px" runat="server" AlternatingRowStyle-CssClass="alt"
                 ShowFooter="false" OnRowDataBound="grdzonedetail_RowDataBound">
                 <Columns>
@@ -541,11 +543,11 @@
     Height="50px" Width="350px" EnableDrillDown="true" HasDrillUpButton="True" />--%>
 
 
-    <cr:crystalreportviewer id="salesperformance" runat="server" 
-            AutoDataBind="true"  enabledatabaselogonprompt="false" 
-            enabledrilldown="false" enableparameterprompt="false" 
-            enabletheming="false" hasdrillupbutton="false" 
-            haspagenavigationbuttons="true" hasrefreshbutton="true" 
-            hassearchbutton="false"  
-            haszoomfactorlist="false" height="1039px" width="773px" 
-            ShowAllPageIds="True" />
+<CR:CrystalReportViewer ID="salesperformance" runat="server"
+    AutoDataBind="true" EnableDatabaseLogonPrompt="false"
+    EnableDrillDown="false" EnableParameterPrompt="false"
+    EnableTheming="false" HasDrillUpButton="false"
+    HasPageNavigationButtons="true" HasRefreshButton="true"
+    HasSearchButton="false"
+    HasZoomFactorList="false" Height="1039px" Width="773px"
+    ShowAllPageIds="True" />

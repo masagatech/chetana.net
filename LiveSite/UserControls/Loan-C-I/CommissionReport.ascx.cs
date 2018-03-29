@@ -17,10 +17,13 @@ using Others;
 public partial class UserControls_Loan_C_I_CommissionReport : System.Web.UI.UserControl
 {
     #region Variables
+
     string strChetanaCompanyName = "cppl";
     string strFY;
     string CustCode = "";
+
     #endregion
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -33,6 +36,7 @@ public partial class UserControls_Loan_C_I_CommissionReport : System.Web.UI.User
                 txtTo.Text = "31/03/" + Session["FY_Text"].ToString().Split('-')[1];
             }
         }
+
         if (Session["ChetanaCompanyName"] != null)
         {
             if (Session["FY"] != null)
@@ -44,16 +48,12 @@ public partial class UserControls_Loan_C_I_CommissionReport : System.Web.UI.User
             {
                 Session.Clear();
             }
-            //Response.Write(strFY);
-            
-
         }
 
         if (Session["DataFillCommission"] != null)
         {
             ShowDetails(0);
         }
-
     }
 
     protected void DDLSuperZone_SelectedIndexChanged(object sender, EventArgs e)
@@ -62,7 +62,6 @@ public partial class UserControls_Loan_C_I_CommissionReport : System.Web.UI.User
         {
             DDLSuperZone.Focus();
             DDLZone.Items.Clear();
-
         }
         else
         {
@@ -78,12 +77,14 @@ public partial class UserControls_Loan_C_I_CommissionReport : System.Web.UI.User
         DDLSuperZone.Items.Insert(0, new ListItem("-Select SuperZone-", "0"));
         DDLZone.Items.Insert(0, new ListItem("< Select SuperZone -", "0"));
     }
+
     public void Bind_DDL_Zone()
     {
         DDLZone.DataSource = Masters.Get_AreaZone_Zone_SuperZone(Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), "Zone");
         DDLZone.DataBind();
         DDLZone.Items.Insert(0, new ListItem("-Select Zone-", "0"));
     }
+
     protected void btnget_Click(object sender, EventArgs e)
     {
         ShowDetails(1);
@@ -91,8 +92,6 @@ public partial class UserControls_Loan_C_I_CommissionReport : System.Web.UI.User
 
     public void ShowDetails(int Showata)
     {
-        
-
         DataSet ds = new DataSet();
 
         if (RdbtnSelect.SelectedValue == "Commission_Report")
@@ -107,35 +106,39 @@ public partial class UserControls_Loan_C_I_CommissionReport : System.Web.UI.User
                 ds = LoanPartyMaster.Report_Commision(Convert.ToInt32(DDLSuperZone.SelectedValue.ToString()), Convert.ToInt32(DDLZone.SelectedValue.ToString()),
                           (txtFrom.Text.Split('/')[1] + "/" + txtFrom.Text.Split('/')[0] + "/" + txtFrom.Text.Split('/')[2]), (txtTo.Text.Split('/')[1] + "/" + txtTo.Text.Split('/')[0] + "/" + txtTo.Text.Split('/')[2]), Convert.ToInt32(strFY));
                 Session["DataFillCommission"] = ds;
-
-
             }
+
             ds = (DataSet)Session["DataFillCommission"];
 
             //DataSet ds2 = new DataSet();
-            // ds2 = Idv.Chetana.BAL.Specimen.Idv_Chetana_Get_CustomerDetailsForReport(Convert.ToInt32(ddlCustmore.SelectedValue.ToString()));
+            //ds2 = Idv.Chetana.BAL.Specimen.Idv_Chetana_Get_CustomerDetailsForReport(Convert.ToInt32(ddlCustmore.SelectedValue.ToString()));
+
             ReportDocument rd = new ReportDocument();
             rd.Load(Server.MapPath("~/Report/CommissionReport.rpt"));
-            //if (ds.Tables[1].Rows.Count > 0)
-            {
-                rd.Database.Tables[0].SetDataSource(ds.Tables[0]);
-                //rd.Database.Tables[1].SetDataSource(ds.Tables[1]);
-                // rd.Database.Tables[1].SetDataSource(dv2);
-                //rd.SetDataSource(ds);
 
-            }
-            //else
-           //{
-                //if (Showata == 1)
-               // {
-                   // MessageBox("Target yet not set to selected Zone");
-             // }
+            //if (ds.Tables[1].Rows.Count > 0)
+            //{
+
+            rd.Database.Tables[0].SetDataSource(ds.Tables[0]);
+
+            //rd.Database.Tables[1].SetDataSource(ds.Tables[1]);
+            //rd.Database.Tables[1].SetDataSource(dv2);
+            //rd.SetDataSource(ds);
             //}
+            //else
+            //{
+            //    if (Showata == 1)
+            //    {
+            //        MessageBox("Target yet not set to selected Zone");
+            //    }
+            //}
+
             CustomerReportView.ReportSource = rd;
         }
         else
         {
-            int szone=0;
+            int szone = 0;
+
             if (DDLSuperZone.SelectedIndex == 0)
             {
                 szone = 0;
@@ -145,16 +148,14 @@ public partial class UserControls_Loan_C_I_CommissionReport : System.Web.UI.User
                 szone = Convert.ToInt32(DDLSuperZone.SelectedValue.ToString());
             }
 
-
             ds = OtherClass.Idv_Chetana_Report_Comm(szone, 0,
                       (txtFrom.Text.Split('/')[1] + "/" + txtFrom.Text.Split('/')[0] + "/" + txtFrom.Text.Split('/')[2]), (txtTo.Text.Split('/')[1] + "/" + txtTo.Text.Split('/')[0] + "/" + txtTo.Text.Split('/')[2]), Convert.ToInt32(strFY));
 
             ReportDocument rd = new ReportDocument();
             rd.Load(Server.MapPath("~/Report/CommissionReport_Summary.rpt"));
-            
+
             if (ds.Tables[0].Rows.Count > 0)
             {
-                
                 rd.SetDataSource(ds.Tables[0]);
                 rd.SetParameterValue("FDate", txtFrom.Text.Split('/')[1] + "/" + txtFrom.Text.Split('/')[0] + "/" + txtFrom.Text.Split('/')[2]);
                 rd.SetParameterValue("TDate", txtTo.Text.Split('/')[1] + "/" + txtTo.Text.Split('/')[0] + "/" + txtTo.Text.Split('/')[2]);
@@ -166,8 +167,8 @@ public partial class UserControls_Loan_C_I_CommissionReport : System.Web.UI.User
                     MessageBox("Target yet not set to selected Zone");
                 }
             }
-            CustomerReportView.ReportSource = rd;
 
+            CustomerReportView.ReportSource = rd;
         }
     }
 
@@ -183,10 +184,10 @@ public partial class UserControls_Loan_C_I_CommissionReport : System.Web.UI.User
     {
         string jv = "autosloder('" + msg + "'," + timetohid + ");";
         ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "msg", jv, true);
-
     }
 
     #endregion
+
     protected void RdbtnSelect_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (RdbtnSelect.SelectedValue == "Commission_Report")
@@ -195,6 +196,7 @@ public partial class UserControls_Loan_C_I_CommissionReport : System.Web.UI.User
             DDLZone.Visible = true;
             lblzone.Visible = true;
         }
+
         if (RdbtnSelect.SelectedValue == "Commission_Summary")
         {
             DDLZone.Visible = false;
