@@ -218,7 +218,6 @@
     <Columns>
         <asp:TemplateField HeaderText="Code" ItemStyle-HorizontalAlign="left">
             <ItemTemplate>
-           
                 <asp:Label ID="lblCode" runat="server" Text='<%#Eval("Code") %>'></asp:Label>
             </ItemTemplate>
         </asp:TemplateField>

@@ -19,6 +19,7 @@ public partial class BoardWiseReport : System.Web.UI.Page
     string strChetanaCompanyName;
     string strFY;
     #endregion
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["ChetanaCompanyName"] != "")
@@ -51,7 +52,6 @@ public partial class BoardWiseReport : System.Web.UI.Page
         }  
     }
 
-  
     #region GetData
 
     protected void btnget_Click(object sender, EventArgs e)
@@ -64,6 +64,7 @@ public partial class BoardWiseReport : System.Web.UI.Page
        
     }
     #endregion
+
     #region Selected Index Changed
     protected void DDLSuperZone_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -96,6 +97,7 @@ public partial class BoardWiseReport : System.Web.UI.Page
         }
     }
     #endregion
+
     #region Bind Data
     #region MsgBox
     public void MessageBox(string msg)

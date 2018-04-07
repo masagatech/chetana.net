@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-//Add Refrences 2 Dll File
 using Idv.Chetana.DAL;
 using System.Data;
 using System.Data.SqlClient;
-
 
 namespace Other_Z
 {
     public class OtherBAL : DataServiceBase
     {
         #region Idv_Chetana_Token_Register Property
+
         public class Token_Register_Property
         {
             public int TokenNo { get; set; }

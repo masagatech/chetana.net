@@ -1,4 +1,5 @@
 ﻿#region NameSpaces
+
 using System;
 using System.Collections;
 using System.Configuration;
@@ -15,7 +16,9 @@ using System.Web.Services;
 using Idv.Chetana.BAL;
 using Idv.Chetana.Common;
 using Others;
+
 #endregion
+
 public partial class UserControls_uc_Login : System.Web.UI.UserControl
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -51,15 +54,13 @@ public partial class UserControls_uc_Login : System.Web.UI.UserControl
             ddlFinancialYear.DataSource = dt;
             ddlFinancialYear.DataBind();
         }
-
-
     }
+
     protected void btnlogin_Click(object sender, EventArgs e)
     {
-        //try
+        try
         {
-
-        if (ddlChetanaCompanyName.SelectedValue.ToLower().Trim() == "cppl")
+            if (ddlChetanaCompanyName.SelectedValue.ToLower().Trim() == "cppl")
             {
                 Login();
             }
@@ -67,18 +68,16 @@ public partial class UserControls_uc_Login : System.Web.UI.UserControl
             {
                 Response.Redirect(RedirectLogin(ConfigurationManager.AppSettings["chStationaryUrl"].ToString()));
             }
-		else if (ddlChetanaCompanyName.SelectedValue.ToLower().Trim() == "llp")
+            else if (ddlChetanaCompanyName.SelectedValue.ToLower().Trim() == "llp")
             {
-                Response.Redirect(RedirectLogin(ConfigurationManager.AppSettings		["llpUrl"].ToString()));
+                Response.Redirect(RedirectLogin(ConfigurationManager.AppSettings["llpUrl"].ToString()));
             }
-
         }
-        //catch (Exception ex)
-        //{
-        //    lblMsg.Visible = true;
-        //    lblMsg.Text = ex.InnerException.ToString();
-
-        //}
+        catch (Exception ex)
+        {
+            lblMsg.Visible = true;
+            lblMsg.Text = ex.Message.ToString();
+        }
     }
 
     public string RedirectLogin(string RedirectUrl)
@@ -89,36 +88,35 @@ public partial class UserControls_uc_Login : System.Web.UI.UserControl
         string companyname;
         string Yearid;
         string Qr = "";
+
         userid = ED.EncryptData(txtuser.Text.Trim());
         Password = ED.EncryptData(txtpwd.Text.Trim());
         Year = ED.EncryptData(ddlFinancialYear.SelectedItem.Text.Trim());
         Yearid = ED.EncryptData(ddlFinancialYear.SelectedValue.Trim());
         companyname = ED.EncryptData(ddlChetanaCompanyName.SelectedValue.ToLower());
-        //userid = txtuser.Text.Trim();
-        //Year = ddlFinancialYear.SelectedValue.Trim();
-        //Password = txtpwd.Text.Trim();
         Qr = "?resu=" + Server.UrlEncode(userid) + "&dwsp=" + Server.UrlEncode(Password) + "&cmp=" + Server.UrlEncode(companyname) + "&rea=" + Server.UrlEncode(Year) + "&reai=" + Server.UrlEncode(Yearid);
-        return RedirectUrl + Qr;
 
-        //txtuser.Text = Request.QueryString["userid"];
+        return RedirectUrl + Qr;
     }
 
     private void SetLogoutTime()
     {
         int outLoginLogId = 0;
         string ipaddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
         if (ipaddress == "" || ipaddress == null)
         {
             ipaddress = Request.ServerVariables["REMOTE_ADDR"];
         }
+
         LoginLog objLoginLog = new LoginLog();
         objLoginLog.LoginLogId = 0;
         objLoginLog.LoginTime = DateTime.Now;
         objLoginLog.LoginPesonId = Session["UserName"].ToString();
         objLoginLog.IpAddress = ipaddress;
         objLoginLog.Save(out outLoginLogId);
-        Session["LoginId"] = outLoginLogId.ToString();
 
+        Session["LoginId"] = outLoginLogId.ToString();
     }
 
     public void Login()
@@ -127,6 +125,7 @@ public partial class UserControls_uc_Login : System.Web.UI.UserControl
         {
             lblErrMsg.Visible = false;
             string Auth = UserLoginDetails.Get_UserLogin(txtuser.Text.Trim(), txtpwd.Text.Trim());
+
             if (Auth != "0")
             {
                 Session["UserName"] = txtuser.Text.Trim();
@@ -137,13 +136,15 @@ public partial class UserControls_uc_Login : System.Web.UI.UserControl
                 Session["FromDate"] = "01/04/" + ddlFinancialYear.SelectedItem.Text.Trim().Substring(0, 4);
                 Session["ToDate"] = "31/03/" + ddlFinancialYear.SelectedItem.Text.Trim().Substring(5, 4);
                 fillSessionZones(Session["UserName"].ToString());
+
                 SetLogoutTime();
                 dostoreSelectYear();
-                
-                //Get initial data
+
+                // Get initial data
                 Session["AuditCutOffDate"] = null;
-                
-                DataSet ds = OtherClass.GetInitialData("","","","","","init", Convert.ToInt32(Session["FY"]));
+
+                DataSet ds = OtherClass.GetInitialData("", "", "", "", "", "init", Convert.ToInt32(Session["FY"]));
+
                 if (ds != null)
                 {
                     if (ds.Tables[0].Rows.Count > 0)
@@ -175,6 +176,7 @@ public partial class UserControls_uc_Login : System.Web.UI.UserControl
         {
             lblErrMsg.Visible = false;
             string Auth = UserLoginDetails.Get_UserLogin(userid, Password);
+
             if (Auth != "0")
             {
                 Session["UserName"] = userid;
@@ -207,6 +209,7 @@ public partial class UserControls_uc_Login : System.Web.UI.UserControl
     {
         DataTable dt = new DataTable();
         dt = UserLoginDetails.Get_UserLoginDetails(EmpCode);
+
         if (dt.Rows.Count > 0)
         {
             Session["zoneLevel"] = dt.Rows[0][0].ToString();
@@ -223,17 +226,18 @@ public partial class UserControls_uc_Login : System.Web.UI.UserControl
         try
         {
             HttpCookie cookie = Request.Cookies["FinancialYear"];
+
             if (cookie == null)
             {
                 cookie = new HttpCookie("FinancialYear");
             }
+
             cookie["year"] = ddlFinancialYear.SelectedValue.ToString();
             cookie.Expires = DateTime.Now.AddYears(1);
             Response.Cookies.Add(cookie);
         }
         catch (Exception ex)
         {
-
 
         }
 
@@ -244,6 +248,7 @@ public partial class UserControls_uc_Login : System.Web.UI.UserControl
         try
         {
             HttpCookie cookie = Request.Cookies["FinancialYear"];
+
             if (cookie != null)
             {
                 ddlFinancialYear.SelectedValue = cookie["year"].ToString();

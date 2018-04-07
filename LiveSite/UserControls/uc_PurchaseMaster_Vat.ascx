@@ -144,8 +144,7 @@
                             Text="Amount"></asp:Label>
                         <asp:Label ID="lblDisc0" runat="server" CssClass="lbl-form" Text="Remark"></asp:Label>
                     </td>
-                    <td>
-                    </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <%--<asp:UpdatePanel ID="UpdatePanel3" runat="server">
@@ -301,23 +300,23 @@
                         <asp:Label ID="lblSubTotal" runat="server" Text="0"></asp:Label>
                     </td>
                 </tr>
-               <tr>
+                <tr>
                     <td>
                         <asp:Label ID="lblvat" runat="server" Visible="false" Text="VAT (%)"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="txtPercentage" Visible="false" AutoPostBack="true" Style="text-align:right;" 
-                            ontextchanged="txtPercentage_TextChanged" onkeypress="return CheckNumericWithDot(event)"></asp:TextBox>
-                        
+                        <asp:TextBox runat="server" ID="txtPercentage" Visible="false" AutoPostBack="true" Style="text-align: right;"
+                            OnTextChanged="txtPercentage_TextChanged" onkeypress="return CheckNumericWithDot(event)"></asp:TextBox>
+
                     </td>
-                </tr> 
+                </tr>
                 <tr>
                     <td>
                         <asp:Label ID="lblVatper" runat="server" Text="VAT Amt"></asp:Label>
                     </td>
                     <td>
-                       <asp:TextBox runat="server" ID="txtVatAmt"  AutoPostBack="true"  onkeypress="return CheckNumericWithDot(event)"
-                        Text="0" style="text-align:right" ontextchanged="txtVatAmt_TextChanged"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txtVatAmt" AutoPostBack="true" onkeypress="return CheckNumericWithDot(event)"
+                            Text="0" Style="text-align: right" OnTextChanged="txtVatAmt_TextChanged"></asp:TextBox>
                         <asp:Label ID="lblVatAmt" runat="server" Text="0" Visible="false"></asp:Label>
                     </td>
                 </tr>
@@ -380,8 +379,7 @@
             <td>
                 <asp:TextBox ID="txtinvoice" CssClass="inp-form" TabIndex="3" runat="server"></asp:TextBox>
             </td>
-            <td>
-            </td>
+            <td></td>
             <td>
                 <asp:Button ID="btnget" runat="server" TabIndex="4" CssClass="submitbtn" Text="Get"
                     Width="80px" ValidationGroup="date" OnClick="btnget_Click" />
@@ -484,11 +482,11 @@
 
 <script type="text/javascript">
 
-    shortcut.add("Ctrl+S", function() {
+    shortcut.add("Ctrl+S", function () {
         document.getElementById('ctl00_ContentPlaceHolder1_uc_PurchaseMaster1_btn_Save').click();
     });
 
-    shortcut.add("Ctrl+F", function() {
+    shortcut.add("Ctrl+F", function () {
         document.getElementById('filterdata').focus();
     });
 

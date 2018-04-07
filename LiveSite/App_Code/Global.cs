@@ -7,51 +7,38 @@ using System.Data;
 using System.Data.SqlClient;
 using Others;
 
-
-/// <summary>
-/// Summary description for Global
-/// </summary>
 public class Global
 {
     public Global()
     {
-        //
-        // TODO: Add constructor logic here
-        //
+
     }
 
-    /// <summary>
-    /// Pass Doocument No.
-    /// </summary>
-    /// <param name="DocNo"></param>
-    /// <returns></returns>
+    //public static int Check_IsEditable(string Case, int DocNo, int FY)
+    //{
+    //    try
+    //    {
+    //        int i;
 
-    public static int Check_IsEditable(string Case,int DocNo,int FY)
-    {
-        try
-        {
-            int i;
-            DataSet ds = new DataSet();
-            ds = OtherClass.Get_IsEditable(Case, DocNo,FY);
-            DataTable dt = ds.Tables[0];
-            DataRow dr = dt.Rows[0];
-            i = Convert.ToInt32(dr[0].ToString());
-            return i;
+    //        DataSet ds = new DataSet();
+    //        ds = OtherClass.Get_IsEditable(Case, DocNo, FY);
+    //        DataTable dt = ds.Tables[0];
+    //        DataRow dr = dt.Rows[0];
+    //        i = Convert.ToInt32(dr[0].ToString());
+    //        return i;
 
-        }
-        catch (Exception ex)
-        {
-            return 0;
-        }
-    }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return 0;
+    //    }
+    //}
 
-    /// <summary>
-    /// Pass date in form of  dd/MM/yyyy
-    /// </summary>
-    /// <param name="CheckDate"></param>
-    /// <returns></returns>
-    /// 
-   
+    //public static bool Check_IsEditable(char p, int docNo)
+    //{
+    //    throw new NotImplementedException();
+    //}
+
     public static bool ValidateDate(string CheckDate)
     {
 
@@ -97,11 +84,5 @@ public class Global
 
 
         return false;
-    }
-
-
-    public static bool Check_IsEditable(char p, int docNo)
-    {
-        throw new NotImplementedException();
     }
 }

@@ -45,3 +45,12 @@ D:\Working\Chetana_Solution - 14-10-2016\chetana.net\OtherNewClass\bin\Debug\Oth
 D:\Working\Chetana_Solution - 14-10-2016\chetana.net\OtherNewClass\obj\Debug\OtherNewClass.csprojResolveAssemblyReference.cache
 D:\Working\Chetana_Solution - 14-10-2016\chetana.net\OtherNewClass\obj\Debug\OtherNewClass.dll
 D:\Working\Chetana_Solution - 14-10-2016\chetana.net\OtherNewClass\obj\Debug\OtherNewClass.pdb
+F:\Work\Vivek Work\Chetana\chetana.net\OtherNewClass\bin\Debug\OtherNewClass.dll
+F:\Work\Vivek Work\Chetana\chetana.net\OtherNewClass\bin\Debug\OtherNewClass.pdb
+F:\Work\Vivek Work\Chetana\chetana.net\OtherNewClass\bin\Debug\Idv.Chetana.DAL.dll
+F:\Work\Vivek Work\Chetana\chetana.net\OtherNewClass\bin\Debug\Idv.Chetana.Common.dll
+F:\Work\Vivek Work\Chetana\chetana.net\OtherNewClass\bin\Debug\Idv.Chetana.DAL.pdb
+F:\Work\Vivek Work\Chetana\chetana.net\OtherNewClass\bin\Debug\Idv.Chetana.Common.pdb
+F:\Work\Vivek Work\Chetana\chetana.net\OtherNewClass\obj\Debug\OtherNewClass.csprojResolveAssemblyReference.cache
+F:\Work\Vivek Work\Chetana\chetana.net\OtherNewClass\obj\Debug\OtherNewClass.dll
+F:\Work\Vivek Work\Chetana\chetana.net\OtherNewClass\obj\Debug\OtherNewClass.pdb

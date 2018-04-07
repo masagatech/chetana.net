@@ -72,3 +72,11 @@ F:\Projects\chetana.net\Other_Z\bin\Debug\Idv.Chetana.DAL.pdb
 F:\Projects\chetana.net\Other_Z\obj\Debug\Other_Z.csprojResolveAssemblyReference.cache
 F:\Projects\chetana.net\Other_Z\obj\Debug\Other_Z.dll
 F:\Projects\chetana.net\Other_Z\obj\Debug\Other_Z.pdb
+F:\Work\Vivek Work\Chetana\chetana.net\Other_Z\bin\Debug\Other_Z.dll
+F:\Work\Vivek Work\Chetana\chetana.net\Other_Z\bin\Debug\Other_Z.pdb
+F:\Work\Vivek Work\Chetana\chetana.net\Other_Z\bin\Debug\Idv.Chetana.DAL.pdb
+F:\Work\Vivek Work\Chetana\chetana.net\Other_Z\obj\Debug\Other_Z.csprojResolveAssemblyReference.cache
+F:\Work\Vivek Work\Chetana\chetana.net\Other_Z\obj\Debug\Other_Z.dll
+F:\Work\Vivek Work\Chetana\chetana.net\Other_Z\obj\Debug\Other_Z.pdb
+F:\Work\Vivek Work\Chetana\chetana.net\Other_Z\bin\Debug\Idv.Chetana.Common.dll
+F:\Work\Vivek Work\Chetana\chetana.net\Other_Z\bin\Debug\Idv.Chetana.Common.pdb

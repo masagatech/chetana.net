@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.377</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6807FCDE-2E08-4930-A202-AF6710191154}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <AssemblyName>Idv.Chetana.BAL</AssemblyName>
+    <OutputType>Library</OutputType>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="System.Data" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="Idv\Chetana\BAL\ReturnBook.cs" />
+    <Compile Include="Idv\Chetana\BAL\DCReturnBook.cs" />
+    <Compile Include="Idv\Chetana\BAL\PettyCash.cs" />
+    <Compile Include="Idv\Chetana\BAL\PettyCashExpence.cs" />
+    <Compile Include="Idv\Chetana\BAL\Company.cs" />
+    <Compile Include="Idv\Chetana\BAL\Menumaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\MainMenu.cs" />
+    <Compile Include="Idv\Chetana\BAL\MenuHead.cs" />
+    <Compile Include="Idv\Chetana\BAL\Menusub.cs" />
+    <Compile Include="Idv\Chetana\BAL\InquiryDetail.cs" />
+    <Compile Include="Idv\Chetana\BAL\Specimen_AllotQty_To_Customer.cs" />
+    <Compile Include="Idv\Chetana\BAL\Other.cs" />
+    <Compile Include="Idv\Chetana\BAL\Yearmaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\LedgerCN.cs" />
+    <Compile Include="Idv\Chetana\BAL\DeleteModule.cs" />
+    <Compile Include="Idv\Chetana\BAL\CustCategory.cs" />
+    <Compile Include="Idv\Chetana\BAL\Bank.cs" />
+    <Compile Include="Idv\Chetana\BAL\ExcelReader.cs" />
+    <Compile Include="Idv\Chetana\BAL\Books.cs" />
+    <Compile Include="Idv\Chetana\BAL\UpdateBooksStock.cs" />
+    <Compile Include="Idv\Chetana\BAL\StockUpdate.cs" />
+    <Compile Include="Idv\Chetana\BAL\BookVirtualStock.cs" />
+    <Compile Include="Idv\Chetana\BAL\Destination.cs" />
+    <Compile Include="Idv\Chetana\BAL\_FacultyMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\TOD.cs" />
+    <Compile Include="Idv\Chetana\BAL\TeamMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\Miscellaneous.cs" />
+    <Compile Include="Idv\Chetana\BAL\CMS.cs" />
+    <Compile Include="Idv\Chetana\BAL\TargetMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\Scheme.cs" />
+    <Compile Include="Idv\Chetana\BAL\LeadgerDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\AccountLeadgerDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\InvoiceDeliveryStatus.cs" />
+    <Compile Include="Idv\Chetana\BAL\PettyCashEntry.cs" />
+    <Compile Include="Idv\Chetana\BAL\DCMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\DCDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\DCConfirmQtyDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\DCtoGodown.cs" />
+    <Compile Include="Idv\Chetana\BAL\ActualInvoiceDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\BookKind.cs" />
+    <Compile Include="Idv\Chetana\BAL\SchoolTarget.cs" />
+    <Compile Include="Idv\Chetana\BAL\Report.cs" />
+    <Compile Include="Idv\Chetana\BAL\Other_G.cs" />
+    <Compile Include="Idv\Chetana\BAL\Masters.cs" />
+    <Compile Include="Idv\Chetana\BAL\AreaZoneMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\AreaMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\SuperZone.cs" />
+    <Compile Include="Idv\Chetana\BAL\SDZone.cs" />
+    <Compile Include="Idv\Chetana\BAL\ZoneMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\AreaEmployeeMapping.cs" />
+    <Compile Include="Idv\Chetana\BAL\ExpenseHead.cs" />
+    <Compile Include="Idv\Chetana\BAL\GroupMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\HelpDeskReports.cs" />
+    <Compile Include="Idv\Chetana\BAL\Customer_cs.cs" />
+    <Compile Include="Idv\Chetana\BAL\CustomerDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\CustomerToTransport.cs" />
+    <Compile Include="Idv\Chetana\BAL\UserLoginDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\LoginLog.cs" />
+    <Compile Include="Idv\Chetana\BAL\TeamMember.cs" />
+    <Compile Include="Idv\Chetana\BAL\SetofBooks.cs" />
+    <Compile Include="Idv\Chetana\BAL\Rolemaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\BookSetDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\PurchaseMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\PurchaseDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\VirtualStockMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\VirtualStockDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\OutwardMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\OutwardDetail.cs" />
+    <Compile Include="Idv\Chetana\BAL\Masterofmaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\InquiryBal.cs" />
+    <Compile Include="Idv\Chetana\BAL\Mappings.cs" />
+    <Compile Include="Idv\Chetana\BAL\ISeverityM.cs" />
+    <Compile Include="Idv\Chetana\BAL\G_Driver.cs" />
+    <Compile Include="Idv\Chetana\BAL\G_CN.cs" />
+    <Compile Include="Idv\Chetana\BAL\Employee.cs" />
+    <Compile Include="Idv\Chetana\BAL\DebitNote.cs" />
+    <Compile Include="Idv\Chetana\BAL\DNMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\DNDetail.cs" />
+    <Compile Include="Idv\Chetana\BAL\CreditNote.cs" />
+    <Compile Include="Idv\Chetana\BAL\ReceiptBook.cs" />
+    <Compile Include="Idv\Chetana\BAL\ReciptBookDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\Cheque_CashDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\Ledgerdetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\ReciptCancelBook.cs" />
+    <Compile Include="Idv\Chetana\BAL\LedgerPaymentdetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\ChequeBounceDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\BankReceiptPayment.cs" />
+    <Compile Include="Idv\Chetana\BAL\BankReceiptPaymentMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\BankPayment.cs" />
+    <Compile Include="Idv\Chetana\BAL\BankReceipt.cs" />
+    <Compile Include="Idv\Chetana\BAL\OpeningBalance.cs" />
+    <Compile Include="Idv\Chetana\BAL\AccountMain.cs" />
+    <Compile Include="Idv\Chetana\BAL\AccountMainGroup.cs" />
+    <Compile Include="Idv\Chetana\BAL\AccountSubGroup.cs" />
+    <Compile Include="Idv\Chetana\BAL\AccountGroupSub.cs" />
+    <Compile Include="Idv\Chetana\BAL\SectionMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\Market_Review.cs" />
+    <Compile Include="Idv\Chetana\BAL\BrokerMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\LoanPartyMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\InqBal.cs" />
+    <Compile Include="Idv\Chetana\BAL\helpdesk.cs" />
+    <Compile Include="Idv\Chetana\BAL\G_GetPass.cs" />
+    <Compile Include="Idv\Chetana\BAL\G_GetPassSub.cs" />
+    <Compile Include="Idv\Chetana\BAL\CourierDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\JVMaster.cs" />
+    <Compile Include="Idv\Chetana\BAL\JVDetail.cs" />
+    <Compile Include="Idv\Chetana\BAL\mailsend.cs" />
+    <Compile Include="Idv\Chetana\BAL\G_Vehicle.cs" />
+    <Compile Include="Idv\Chetana\BAL\Specimen.cs" />
+    <Compile Include="Idv\Chetana\BAL\SpecimanDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\SpecimenConfirmQtyDetails.cs" />
+    <Compile Include="Idv\Chetana\BAL\SpecimentoGodown.cs" />
+    <Compile Include="Idv\Chetana\BAL\SetDDLVisibility.cs" />
+    <Compile Include="Idv\Chetana\BAL\Month_Target.cs" />
+    <Compile Include="Idv\Chetana\BAL\booktype_Custmer_discount_Mapping.cs" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Idv.Chetana.Common\Idv.Chetana.Common.csproj">
+      <Project>{62227f78-1044-4987-9c5e-975653574e5c}</Project>
+      <Name>Idv.Chetana.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Idv.Chetana.DAL\Idv.Chetana.DAL.csproj">
+      <Project>{3a3883d2-711b-4743-9aed-b963beaf4a23}</Project>
+      <Name>Idv.Chetana.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

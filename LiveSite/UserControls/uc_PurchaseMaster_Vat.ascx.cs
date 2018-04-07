@@ -26,6 +26,7 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
     static decimal amount2;
     int VoucherNo;
     int DocNo;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["ChetanaCompanyName"] != null)
@@ -74,6 +75,7 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
             lblSubTotal.Text = "0";
         }
     }
+
     #region Bind vat ddl
 
     public void fillddlVat()
@@ -85,7 +87,6 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
         //ddlvatText.DataBind();
     }
 
-
     #endregion
 
     #region MessageBox
@@ -96,7 +97,6 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
         ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "msg", jv, true);
 
     }
-
 
     public void loder(string msg)
     {
@@ -113,6 +113,7 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
     }
 
     #endregion
+
     #region MsgBox
 
     public void MessageBox(string msg)
@@ -120,6 +121,7 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
         string jv = "alert('" + msg + "');";
         ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "msg", jv, true);
     }
+
     #endregion
 
     protected void btn_Save_Click(object sender, EventArgs e)
@@ -170,6 +172,7 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
             }
         }
     }
+
     public void SaveDetails(int DocNo)
     {
         try
@@ -201,6 +204,7 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
         catch
         { }
     }
+
     protected void btnAdd_Click(object sender, EventArgs e)
     {
         try
@@ -223,7 +227,6 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
     }
 
     #region Methods
-
 
     public void Enter()
     {
@@ -291,6 +294,7 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
         txtCode.Focus();
 
     }
+
     public DataTable fillExpense()
     {
         string remark = "";
@@ -348,6 +352,7 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
 
         return dt;
     }
+
     public void SetView()
     {
         if (Request.QueryString["a"] != null)
@@ -379,7 +384,6 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
     #endregion
 
     #region GridView_Events
-
 
     Label lblAmt;
     Label lbltamount;
@@ -436,6 +440,7 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
             lblGrandTot.Text = (amount2 + Convert.ToDecimal(txtVatAmt.Text)).ToString();
         }
     }
+
     protected void gvPurchasing_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
         DataTable dt1 = new DataTable();
@@ -455,6 +460,7 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
     string inv = "";
     string inv2 = "";
     string stl1 = "red", stl2 = "", stl3 = "";
+
     protected void grdpurchaseDetails_RowDataBound(object sender, GridViewRowEventArgs e)
     {
 
@@ -490,7 +496,9 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
 
         }
     }
+
     #endregion
+
     protected void btnget_Click(object sender, EventArgs e)
     {
         try
@@ -557,6 +565,7 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
         }
 
     }
+
     protected void txtInvoiceNo_TextChanged(object sender, EventArgs e)
     {
         try
@@ -658,9 +667,8 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
             txtSupplier.Text = "";
         }
     }
+
     #endregion
-
-
 
     protected void ddlmsoms_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -672,6 +680,7 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
             gvPurchasing.DataBind();
         }
     }
+
     protected void ddlVat_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (Session["tempdata"] != null)
@@ -682,6 +691,7 @@ public partial class UserControls_uc_PurchaseMaster_Vat : System.Web.UI.UserCont
             gvPurchasing.DataBind();
         }
     }
+
     protected void txtPercentage_TextChanged(object sender, EventArgs e)
     {
         this.SetVatAmount();

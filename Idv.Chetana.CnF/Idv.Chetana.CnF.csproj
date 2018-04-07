@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.377</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{49FB1763-1BD7-43D1-9E42-FF3609A5FDE3}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <AssemblyName>Idv.Chetana.CnF</AssemblyName>
+    <OutputType>Library</OutputType>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="System.Data" />
+    <Reference Include="System" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="Idv\Chetana\CnF\Class1.cs" />
+    <Compile Include="Idv\Chetana\CnF\CnFCustomer.cs" />
+    <Compile Include="Idv\Chetana\CnF\CnFInvoice.cs" />
+    <Compile Include="Idv\Chetana\CnF\CnFLogin.cs" />
+    <Compile Include="Idv\Chetana\CnF\C_CreditNote.cs" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Idv.Chetana.Common\Idv.Chetana.Common.csproj">
+      <Project>{62227f78-1044-4987-9c5e-975653574e5c}</Project>
+      <Name>Idv.Chetana.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Idv.Chetana.DAL\Idv.Chetana.DAL.csproj">
+      <Project>{3a3883d2-711b-4743-9aed-b963beaf4a23}</Project>
+      <Name>Idv.Chetana.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

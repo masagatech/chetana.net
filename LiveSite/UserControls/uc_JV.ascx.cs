@@ -16,32 +16,33 @@ using Idv.Chetana.BAL;
 using Idv.Chetana.Common;
 
 #endregion
+
 public partial class UserControls_uc_JV : System.Web.UI.UserControl
 {
     #region Variables
-        string TJVDetailID = "0";
-        string TJVMasterID = "0";
-        string TAccountCode;
-        string TAccountName;
-        string TReportCode;
-        string TDebit;
-        string TCredit;
-        string TComment;
-        int DocNo;
-        int JVMID;
-        string docdate;
-        DateTime ddt;
-        static decimal Debit1;
-        static decimal Credit1;
+    string TJVDetailID = "0";
+    string TJVMasterID = "0";
+    string TAccountCode;
+    string TAccountName;
+    string TReportCode;
+    string TDebit;
+    string TCredit;
+    string TComment;
+    int DocNo;
+    int JVMID;
+    string docdate;
+    DateTime ddt;
+    static decimal Debit1;
+    static decimal Credit1;
 
-        decimal Dbt ;
-        decimal Cdt ;
-        decimal TDbt ;
-        decimal TCdt ;
-        int flag1 ;
+    decimal Dbt;
+    decimal Cdt;
+    decimal TDbt;
+    decimal TCdt;
+    int flag1;
 
-        string strChetanaCompanyName = "cppl";
-        string strFY;
+    string strChetanaCompanyName = "cppl";
+    string strFY;
     #endregion
 
     #region  Page_Load
@@ -129,8 +130,8 @@ public partial class UserControls_uc_JV : System.Web.UI.UserControl
         ddt = Convert.ToDateTime(docdate);
         flag1 = 0;
         getTotalCD();
-        if(flag1 == 1)
-       // if ((TDbt > 0) && (TCdt > 0 ) && (TDbt == TCdt))
+        if (flag1 == 1)
+        // if ((TDbt > 0) && (TCdt > 0 ) && (TDbt == TCdt))
         {
             if (Session["UserName"] != null)
             {
@@ -234,7 +235,7 @@ public partial class UserControls_uc_JV : System.Web.UI.UserControl
                 }
                 GrdJV.DataSource = dt1;
                 GrdJV.DataBind();
-               // TxtdocDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                // TxtdocDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
                 txtAccode.Text = "";
                 lblaccname.Text = "";
@@ -427,10 +428,10 @@ public partial class UserControls_uc_JV : System.Web.UI.UserControl
             //ADD DATA AS PER COLUMNS
         }
         else
-        {  
+        {
             dt = (DataTable)Session["tempJVData"];
             dt.Rows.Add(TJVDetailID, TJVMasterID, TAccountCode, TAccountName, TReportCode, TDebit, TCredit, TComment);
-           // btnSave.Visible = true;
+            // btnSave.Visible = true;
         }
         return dt;
         //if (dt.Rows.Count < 1)
@@ -453,41 +454,41 @@ public partial class UserControls_uc_JV : System.Web.UI.UserControl
         //        price = "0";
         //    }
         //    amt = Convert.ToDecimal(Qty) * Convert.ToDecimal(price);
-          //  int i = 0;
-            //if (dt.Rows.Count != 0)
-            //{
-                //if (i == 0)
-                //{
-                    //DataSet ds = DCMaster.Get_Discount_On_CusomerAND_Booktype(txtcustomer.Text.ToString(), row["BookCode"].ToString());
+        //  int i = 0;
+        //if (dt.Rows.Count != 0)
+        //{
+        //if (i == 0)
+        //{
+        //DataSet ds = DCMaster.Get_Discount_On_CusomerAND_Booktype(txtcustomer.Text.ToString(), row["BookCode"].ToString());
 
-                    //if (ds.Tables[0].Rows.Count > 0)
-                    //{
-                    //    discount = Convert.ToDecimal(ds.Tables[0].Rows[0][0]);
-                    //    Adddiscount = Convert.ToDecimal(ds.Tables[0].Rows[0][1]);
-                    //    Tdiscount = amt * (discount / 100);
-                    //    amt = amt - Tdiscount;
-                    //}
-                    //dt.Rows.Add(dcid, row["BookCode"].ToString(), row["BookName"].ToString(), row["Standard"].ToString(), row["Medium"].ToString(), rqty, Qty,
-                    //    String.Format("{0:0.00}", Convert.ToDecimal(row["SellingPrice"].ToString())), String.Format("{0:0.00}", Convert.ToDecimal(amt)),
-                    //    String.Format("{0:0.00}", Convert.ToDecimal(discount)), String.Format("{0:0.00}", Convert.ToDecimal(Adddiscount)), "");
-                //}
-           // }
-            //else
-            //{
-              //DataSet ds = DCMaster.Get_Discount_On_CusomerAND_Booktype(txtcustomer.Text.ToString(), row["BookCode"].ToString());
+        //if (ds.Tables[0].Rows.Count > 0)
+        //{
+        //    discount = Convert.ToDecimal(ds.Tables[0].Rows[0][0]);
+        //    Adddiscount = Convert.ToDecimal(ds.Tables[0].Rows[0][1]);
+        //    Tdiscount = amt * (discount / 100);
+        //    amt = amt - Tdiscount;
+        //}
+        //dt.Rows.Add(dcid, row["BookCode"].ToString(), row["BookName"].ToString(), row["Standard"].ToString(), row["Medium"].ToString(), rqty, Qty,
+        //    String.Format("{0:0.00}", Convert.ToDecimal(row["SellingPrice"].ToString())), String.Format("{0:0.00}", Convert.ToDecimal(amt)),
+        //    String.Format("{0:0.00}", Convert.ToDecimal(discount)), String.Format("{0:0.00}", Convert.ToDecimal(Adddiscount)), "");
+        //}
+        // }
+        //else
+        //{
+        //DataSet ds = DCMaster.Get_Discount_On_CusomerAND_Booktype(txtcustomer.Text.ToString(), row["BookCode"].ToString());
 
-                //if (ds.Tables[0].Rows.Count > 0)
-                //{
-                //    discount = Convert.ToDecimal(ds.Tables[0].Rows[0][0]);
-                //    Adddiscount = Convert.ToDecimal(ds.Tables[0].Rows[0][1]);
-                //    //  Totaldiscount = Convert.ToDecimal(ds.Tables[0].Rows[0][2]);
-                //    Tdiscount = amt * (discount / 100);
-                //    amt = amt - Tdiscount;
-                //}
-            //    dt.Rows.Add(dcid, row["BookCode"].ToString(), row["BookName"].ToString(), row["Standard"].ToString(), row["Medium"].ToString(), rqty, Qty,
-            //        String.Format("{0:0.00}", Convert.ToDecimal(row["SellingPrice"].ToString())), String.Format("{0:0.00}", Convert.ToDecimal(amt)),
-            //        String.Format("{0:0.00}", Convert.ToDecimal(discount)), String.Format("{0:0.00}", Convert.ToDecimal(Adddiscount)), "");
-            //}
+        //if (ds.Tables[0].Rows.Count > 0)
+        //{
+        //    discount = Convert.ToDecimal(ds.Tables[0].Rows[0][0]);
+        //    Adddiscount = Convert.ToDecimal(ds.Tables[0].Rows[0][1]);
+        //    //  Totaldiscount = Convert.ToDecimal(ds.Tables[0].Rows[0][2]);
+        //    Tdiscount = amt * (discount / 100);
+        //    amt = amt - Tdiscount;
+        //}
+        //    dt.Rows.Add(dcid, row["BookCode"].ToString(), row["BookName"].ToString(), row["Standard"].ToString(), row["Medium"].ToString(), rqty, Qty,
+        //        String.Format("{0:0.00}", Convert.ToDecimal(row["SellingPrice"].ToString())), String.Format("{0:0.00}", Convert.ToDecimal(amt)),
+        //        String.Format("{0:0.00}", Convert.ToDecimal(discount)), String.Format("{0:0.00}", Convert.ToDecimal(Adddiscount)), "");
+        //}
         //}
         //return dt;
     }
@@ -588,10 +589,9 @@ public partial class UserControls_uc_JV : System.Web.UI.UserControl
         }
         //return TDbt ;
         //return TCdt ;
-        return flag1 ;
+        return flag1;
     }
     #endregion
 
     #endregion
-    
 }
