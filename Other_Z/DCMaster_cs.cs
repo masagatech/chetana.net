@@ -81,7 +81,8 @@ namespace Other_Z
                 base.CreateParameter("@FY",SqlDbType.Int,prop._FinancialYearFrom),
                 base.CreateParameter("@DocNo", SqlDbType.Int, ParameterDirection.Output),
                 base.CreateParameter("@DocNewNo", SqlDbType.Int, ParameterDirection.Output),
-             });
+            });
+            
             DocNo = Convert.ToInt32(command.Parameters["@DocNo"].Value);
             DocNewNo = Convert.ToInt32(command.Parameters["@DocNewNo"].Value);
         }

@@ -11,6 +11,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using System.Xml;
 using Others;
 
 public partial class UserControls_uc_SupplierBill : System.Web.UI.UserControl
@@ -19,6 +20,22 @@ public partial class UserControls_uc_SupplierBill : System.Web.UI.UserControl
 
     string strCompany = "cppl";
     string strFY = "0";
+    string xmlstr;
+
+    public int SBillID
+    {
+        get
+        {
+            if (Request.QueryString["SBillID"] == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return Convert.ToInt32(Request.QueryString["SBillID"]);
+            }
+        }
+    }
 
     #endregion
 
@@ -42,6 +59,7 @@ public partial class UserControls_uc_SupplierBill : System.Web.UI.UserControl
         if (!IsPostBack)
         {
             ResetSupplierBillFields();
+            BindSupplierGrid();
             GetSupplierDetails();
         }
     }
@@ -65,7 +83,7 @@ public partial class UserControls_uc_SupplierBill : System.Web.UI.UserControl
                 supbillm.PurchaseCode = lblPurchaseCode.Text.Trim().ToString();
                 supbillm.PurchaseName = txtPurchaseName.Text.Trim().ToString();
 
-                supbillm.InvoiceNo = txtInvoiceNo.Text.Trim();
+                supbillm.InvoiceNo = Convert.ToInt32(txtInvoiceNo.Text.Trim());
                 supbillm.InvoiceDate = Convert.ToDateTime(txtInvoiceDate.Text.Trim());
 
                 supbillm.GSTPer = Convert.ToInt32(ddlGSTPer.SelectedValue.ToString());
@@ -73,6 +91,7 @@ public partial class UserControls_uc_SupplierBill : System.Web.UI.UserControl
                 supbillm.IsActive = Convert.ToBoolean(true);
                 supbillm.CreatedBy = Session["UserName"].ToString();
                 supbillm.FY = Convert.ToInt32(strFY);
+                supbillm.SBillDT = SaveSupplierDetails();
 
                 mDSet = supbillm.SaveSupplierBill();
 
@@ -87,17 +106,30 @@ public partial class UserControls_uc_SupplierBill : System.Web.UI.UserControl
                     }
                     else
                     {
-                        SBillID = Convert.ToInt32(mDSet.Tables[0].Rows[0]["SBillID"].ToString());
-                        SaveSupplierDetails(SBillID);
-
+                        SBillID = Convert.ToInt32(mDSet.Tables[0].Rows[0]["ID"].ToString());
                         message(Msg + " \\r\\n Bill ID:" + SBillID);
-                        Session["tempdata"] = null;
 
                         ResetSupplierBillFields();
-
                         Session["tempdata"] = null;
                         gvSupplierBill.DataBind();
                     }
+                }
+
+                if (Request.QueryString["SBillID"] == null)
+                {
+                    message("Saved Successfully !!!! \\r\\n Bill ID:" + SBillID);
+                    ResetSupplierBillFields();
+
+                    Session["tempdata"] = null;
+                    gvSupplierBill.DataBind();
+                }
+                else
+                {
+                    message("Updated Successfully !!!! \\r\\n Bill ID:" + SBillID);
+                    ResetSupplierBillFields();
+
+                    Session["tempdata"] = null;
+                    Response.Redirect("SupplierBill_View.aspx");
                 }
             }
             else
@@ -107,9 +139,20 @@ public partial class UserControls_uc_SupplierBill : System.Web.UI.UserControl
         }
     }
 
-    protected void btnAdd_Click(object sender, EventArgs e)
+    protected void btnAddEdit_Click(object sender, EventArgs e)
     {
         AddSupplierDetails();
+    }
+
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        lblSBillDID.Text = ((Label)((Button)sender).FindControl("lblSBillDID")).Text;
+        txtAccountName.Text = ((Label)((Button)sender).FindControl("lblAccountName")).Text;
+        txtQuantity.Text = ((Label)((Button)sender).FindControl("lblQuantity")).Text;
+        txtAmount.Text = ((Label)((Button)sender).FindControl("lblAmount")).Text;
+        txtRemark.Text = ((Label)((Button)sender).FindControl("lblRemark")).Text;
+
+        btnAddEdit.Text = "Update";
     }
 
     protected void btnDeleteAll_Click(object sender, EventArgs e)
@@ -134,7 +177,6 @@ public partial class UserControls_uc_SupplierBill : System.Web.UI.UserControl
         txtInvoiceDate.Text = System.DateTime.Now.ToString("dd/MM/yyyy");
 
         BindGSTPerDropDown("");
-        ddlGSTPer.SelectedValue = "0";
 
         lblSBillDID.Text = "0";
         txtAccountName.Text = "";
@@ -146,6 +188,7 @@ public partial class UserControls_uc_SupplierBill : System.Web.UI.UserControl
         lblGSTAmount.Text = "0";
         lblGrandTotal.Text = "0";
 
+        btnAddEdit.Text = "Add";
         divSuppDetails.Attributes["class"] = "hide";
     }
 
@@ -157,45 +200,79 @@ public partial class UserControls_uc_SupplierBill : System.Web.UI.UserControl
         ddlGSTPer.Items.Insert(0, new ListItem("-- Select GST Percentage --", "0"));
     }
 
-    public void SaveSupplierDetails(int _SBillID)
+    public string SaveSupplierDetails()
     {
         try
         {
-            if (Session["UserName"] != null)
+            XmlDocument doc = new XmlDocument();
+            XmlNode inode = doc.CreateElement("f");
+            XmlNode fnode = doc.CreateElement("r");
+
+            SupplierBill suppbilld = new SupplierBill();
+
+            foreach (GridViewRow gvrow in gvSupplierBill.Rows)
             {
-                SupplierBill suppbilld = new SupplierBill();
+                XmlNode element = doc.CreateElement("i");
 
-                foreach (GridViewRow gvrow in gvSupplierBill.Rows)
-                {
-                    int _SBillDID = Convert.ToInt32(((Label)gvrow.FindControl("lblSBillDID")).Text);
-                    string _AccountCode = ((Label)gvrow.FindControl("lblAccountCode")).Text.ToString();
-                    int _Quantity = Convert.ToInt32(((Label)gvrow.FindControl("lblQuantity")).Text);
-                    decimal _Amount = Convert.ToDecimal(((Label)gvrow.FindControl("lblAmount")).Text);
-                    string _Remark = ((Label)gvrow.FindControl("lblRemark")).Text;
+                int _SBillDID = Convert.ToInt32(((Label)gvrow.FindControl("lblSBillDID")).Text);
+                string _AccountCode = ((Label)gvrow.FindControl("lblAccountCode")).Text.ToString();
+                string _AccountName = ((Label)gvrow.FindControl("lblAccountName")).Text.ToString();
+                int _Quantity = Convert.ToInt32(((Label)gvrow.FindControl("lblQuantity")).Text);
+                decimal _Amount = Convert.ToDecimal(((Label)gvrow.FindControl("lblAmount")).Text);
+                string _Remark = ((Label)gvrow.FindControl("lblRemark")).Text;
 
-                    suppbilld.SBillDID = _SBillDID;
-                    suppbilld.SBillID = _SBillID;
-                    suppbilld.AccountCode = _AccountCode;
-                    suppbilld.Quantity = _Quantity;
-                    suppbilld.Amount = _Amount;
-                    suppbilld.Remark = _Remark;
-                    suppbilld.CreatedBy = Session["UserName"].ToString();
-                    suppbilld.UpdatedBy = Session["UserName"].ToString();
-                    suppbilld.IsActive = Convert.ToBoolean(true);
+                inode = doc.CreateElement("pmdid");
+                inode.InnerText = _SBillDID.ToString();
+                element.AppendChild(inode);
 
-                    suppbilld.SaveSupplierBillDetails();
-                }
+                inode = doc.CreateElement("accode");
+                inode.InnerText = _AccountCode.ToString();
+                element.AppendChild(inode);
+
+                inode = doc.CreateElement("acname");
+                inode.InnerText = _AccountName.ToString();
+                element.AppendChild(inode);
+
+                inode = doc.CreateElement("qty");
+                inode.InnerText = _Quantity.ToString();
+                element.AppendChild(inode);
+
+                inode = doc.CreateElement("rate");
+                inode.InnerText = _Amount.ToString();
+                element.AppendChild(inode);
+
+                inode = doc.CreateElement("per");
+                inode.InnerText = ddlGSTPer.SelectedItem.Text.ToString();
+                element.AppendChild(inode);
+
+                decimal amt = _Amount + (_Amount * Convert.ToDecimal(ddlGSTPer.SelectedItem.Text)) / 100;
+
+                inode = doc.CreateElement("amt");
+                inode.InnerText = amt.ToString();
+                element.AppendChild(inode);
+
+                inode = doc.CreateElement("remark");
+                inode.InnerText = _Remark.ToString();
+                element.AppendChild(inode);
+
+                inode = doc.CreateElement("crby");
+                inode.InnerText = Session["UserName"].ToString();
+                element.AppendChild(inode);
+
+                fnode.AppendChild(element);
             }
+
+            return xmlstr = fnode.OuterXml.ToString();
         }
-        catch
+        catch (Exception ex)
         {
+            throw ex;
         }
     }
 
     public void AddSupplierDetails()
     {
         DataTable mDTable = new DataTable();
-        DataTable tempGetData = new DataTable();
 
         int SuppDetailsID = lblSBillDID.Text == "" ? 0 : Convert.ToInt32(lblSBillDID.Text);
         string AccountCode = txtAccountName.Text.Trim().ToString().Split(':', '[', ']')[0].Trim();
@@ -218,7 +295,21 @@ public partial class UserControls_uc_SupplierBill : System.Web.UI.UserControl
             mDTable = (DataTable)Session["tempdata"];
         }
 
-        mDTable.Rows.Add(SuppDetailsID, AccountCode, AccountName, Quantity, Amount, Remark);
+        if (SBillID != 0)
+        {
+            DataRow[] drSuppRow = mDTable.Select("SBillDID = " + lblSBillDID.Text);
+
+            drSuppRow[0]["SBillDID"] = SuppDetailsID;
+            drSuppRow[0]["AccountCode"] = AccountCode;
+            drSuppRow[0]["AccountName"] = AccountName;
+            drSuppRow[0]["Quantity"] = Quantity;
+            drSuppRow[0]["Amount"] = Amount;
+            drSuppRow[0]["Remark"] = Remark;
+        }
+        else
+        {
+            mDTable.Rows.Add(SuppDetailsID, AccountCode, AccountName, Quantity, Amount, Remark);
+        }
 
         Session["tempdata"] = mDTable;
 
@@ -231,6 +322,44 @@ public partial class UserControls_uc_SupplierBill : System.Web.UI.UserControl
         txtQuantity.Text = "1";
         txtAmount.Text = "";
         txtRemark.Text = "";
+        btnAddEdit.Text = "Add";
+    }
+
+    public void BindSupplierGrid()
+    {
+        if (SBillID != 0)
+        {
+            divSuppDetails.Attributes["class"] = "show";
+
+            DataTable mEditDTable = new DataTable();
+            DataTable mSuppDTable = new DataTable();
+            SupplierBill sbillm = new SupplierBill();
+
+            // Summary
+
+            sbillm.Flag = "Edit";
+            sbillm.SBillID = SBillID;
+
+            mEditDTable = sbillm.GetSupplierDetails().Tables[0];
+            lblSBillID.Text = mEditDTable.Rows[0]["SBillID"].ToString();
+            lblSupplierCode.Text = mEditDTable.Rows[0]["SupplierCode"].ToString();
+            txtSupplierName.Text = mEditDTable.Rows[0]["SupplierName"].ToString();
+            lblPurchaseCode.Text = mEditDTable.Rows[0]["PurchaseCode"].ToString();
+            txtPurchaseName.Text = mEditDTable.Rows[0]["PurchaseName"].ToString();
+            txtInvoiceNo.Text = mEditDTable.Rows[0]["InvoiceNo"].ToString();
+            txtInvoiceDate.Text = mEditDTable.Rows[0]["InvoiceDate"].ToString();
+
+            BindGSTPerDropDown(lblSupplierCode.Text);
+            ddlGSTPer.SelectedValue = mEditDTable.Rows[0]["GSTPer"].ToString();
+
+            // Details
+
+            sbillm.Flag = "Details";
+            sbillm.SBillID = SBillID;
+
+            mSuppDTable = sbillm.GetSupplierDetails().Tables[0];
+            Session["tempdata"] = mSuppDTable;
+        }
     }
 
     public void GetSupplierDetails()
@@ -240,25 +369,10 @@ public partial class UserControls_uc_SupplierBill : System.Web.UI.UserControl
 
         gvSupplierBill.DataSource = mDTable;
         gvSupplierBill.DataBind();
-    }
 
-    public void SetView()
-    {
-        if (Request.QueryString["a"] != null)
+        if (lblSBillDID.Text == "0")
         {
-            if (Request.QueryString["a"] == "a")
-            {
-                btn_Save.Visible = true;
-                pnlpurch.Visible = true;
-                btnAdd.Visible = true;
-            }
-            else if (Request.QueryString["a"] == "v")
-            {
-                btn_Save.Visible = false;
-                pnlpurch.Visible = false;
-                btnAdd.Visible = false;
-                gvSupplierBill.Visible = false;
-            }
+
         }
     }
 
@@ -279,7 +393,7 @@ public partial class UserControls_uc_SupplierBill : System.Web.UI.UserControl
         {
             lblAmount = (Label)e.Row.FindControl("lblAmount");
 
-            Amount = Amount + Convert.ToInt32(lblAmount.Text);
+            Amount = Amount + Convert.ToDecimal(lblAmount.Text);
 
             lblTotalAmount.Text = Amount.ToString();
 

@@ -80,3 +80,4 @@ F:\Work\Vivek Work\Chetana\chetana.net\Other_Z\obj\Debug\Other_Z.dll
 F:\Work\Vivek Work\Chetana\chetana.net\Other_Z\obj\Debug\Other_Z.pdb
 F:\Work\Vivek Work\Chetana\chetana.net\Other_Z\bin\Debug\Idv.Chetana.Common.dll
 F:\Work\Vivek Work\Chetana\chetana.net\Other_Z\bin\Debug\Idv.Chetana.Common.pdb
+F:\Work\Vivek Work\Chetana\chetana.net\Other_Z\bin\Debug\Idv.Chetana.DAL.dll

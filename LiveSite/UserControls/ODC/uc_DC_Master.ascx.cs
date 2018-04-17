@@ -124,7 +124,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
 
     protected void btnaddBooks_Click(object sender, EventArgs e)
     {
-	 bool chklimit = true;
+        bool chklimit = true;
         if (Convert.ToBoolean(lblchksplitdc.Text) == true)
         {
             if (grdBookDetails.Rows.Count > 0)
@@ -132,112 +132,112 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
                 chklimit = SplitDCValidate();
             }
         }
-	if (chklimit == true)
+        if (chklimit == true)
         {
 
-        if (srate.Value == "")
-        {
-            MessageBox("Kindly select Customer");
-            txtcustomer.Focus();
-        }
-        else
-        {
-            if (txtDeliverydte.Text != "")
+            if (srate.Value == "")
             {
-                setStateGridview();
-                Qty = Convert.ToString(txtbookqty.Text.Trim());
-                string date = DateTime.Now.ToString("MM/dd/yyyy");
-                date = txtDeliverydte.Text.Split('/')[1] + "/" + txtDeliverydte.Text.Split('/')[0] + "/" + txtDeliverydte.Text.Split('/')[2];
+                MessageBox("Kindly select Customer");
+                txtcustomer.Focus();
+            }
+            else
+            {
+                if (txtDeliverydte.Text != "")
+                {
+                    setStateGridview();
+                    Qty = Convert.ToString(txtbookqty.Text.Trim());
+                    string date = DateTime.Now.ToString("MM/dd/yyyy");
+                    date = txtDeliverydte.Text.Split('/')[1] + "/" + txtDeliverydte.Text.Split('/')[0] + "/" + txtDeliverydte.Text.Split('/')[2];
 
-                Delidate = Convert.ToDateTime(date);
+                    Delidate = Convert.ToDateTime(date);
 
-                if (Qty == "" || Qty == "0")
-                {
-                    Qty = "1";
-                    rqty = "1";
-                }
-                if (txtbookqty.Text != "")
-                {
-                    rqty = Convert.ToString(txtbookqty.Text);
-                    Qty = Convert.ToString(txtbookqty.Text);
-                }
-                if (txtdoc.Text != "")
-                {
-                    grdBookDetails.Columns[5].Visible = true;
-                    grdBookDetails.Columns[4].Visible = true;
-                }
-                else
-                {
-                    grdBookDetails.Columns[5].Visible = false;
-                    grdBookDetails.Columns[4].Visible = false;
-                }
-                try
-                {
-
-
-                    string bookcode = txtbkcod.Text.Split(':')[0].Trim();
-                    if (txtbkcod.Text.Contains(":"))
+                    if (Qty == "" || Qty == "0")
                     {
-                        bookname = txtbkcod.Text.Split(':')[2].Trim();
+                        Qty = "1";
+                        rqty = "1";
+                    }
+                    if (txtbookqty.Text != "")
+                    {
+                        rqty = Convert.ToString(txtbookqty.Text);
+                        Qty = Convert.ToString(txtbookqty.Text);
+                    }
+                    if (txtdoc.Text != "")
+                    {
+                        grdBookDetails.Columns[5].Visible = true;
+                        grdBookDetails.Columns[4].Visible = true;
                     }
                     else
                     {
-                        bookname = bookcode;
+                        grdBookDetails.Columns[5].Visible = false;
+                        grdBookDetails.Columns[4].Visible = false;
                     }
-
-
-                    DataTable dt1 = new DataTable();
-                    if (Session["tempDCData"] != null)
+                    try
                     {
-                        dt1 = (DataTable)Session["tempDCData"];
-                        DataView dv = new DataView(dt1);
-                        dv.RowFilter = "BookCode = '" + bookcode.Trim() + "'";
-                        int i = 0;
-                        foreach (DataRowView row in dv)
-                        {
-                            i++;
-                        }
-                        if (i == 0)
-                        {
-                            //MessageBox(bookcode.Trim());
-                            //   txtcustomer.Focus();
 
+
+                        string bookcode = txtbkcod.Text.Split(':')[0].Trim();
+                        if (txtbkcod.Text.Contains(":"))
+                        {
+                            bookname = txtbkcod.Text.Split(':')[2].Trim();
+                        }
+                        else
+                        {
+                            bookname = bookcode;
+                        }
+
+
+                        DataTable dt1 = new DataTable();
+                        if (Session["tempDCData"] != null)
+                        {
+                            dt1 = (DataTable)Session["tempDCData"];
+                            DataView dv = new DataView(dt1);
+                            dv.RowFilter = "BookCode = '" + bookcode.Trim() + "'";
+                            int i = 0;
+                            foreach (DataRowView row in dv)
+                            {
+                                i++;
+                            }
+                            if (i == 0)
+                            {
+                                //MessageBox(bookcode.Trim());
+                                //   txtcustomer.Focus();
+
+                                Session["tempDCData"] = fillTempBookData(bookcode.Trim(), "");
+                                dt1 = (DataTable)Session["tempDCData"];
+                                loder(bookname + " added successfully", "3000");
+                            }
+                            else
+                            {
+                                loder(bookname + " already added!", "3000");
+
+                            }
+                        }
+                        else
+                        {
                             Session["tempDCData"] = fillTempBookData(bookcode.Trim(), "");
                             dt1 = (DataTable)Session["tempDCData"];
                             loder(bookname + " added successfully", "3000");
                         }
-                        else
-                        {
-                            loder(bookname + " already added!", "3000");
-
-                        }
+                        grdBookDetails.DataSource = dt1;
+                        grdBookDetails.DataBind();
+                        string jv = "clearAddbook()";
+                        ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "as", jv, true);
+                        txtbkcod.Focus();
                     }
-                    else
+                    catch
                     {
-                        Session["tempDCData"] = fillTempBookData(bookcode.Trim(), "");
-                        dt1 = (DataTable)Session["tempDCData"];
-                        loder(bookname + " added successfully", "3000");
+
+
                     }
-                    grdBookDetails.DataSource = dt1;
-                    grdBookDetails.DataBind();
-                    string jv = "clearAddbook()";
-                    ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "as", jv, true);
-                    txtbkcod.Focus();
                 }
-                catch
+                else
                 {
-
-
+                    MessageBox("Select delivery date");
+                    txtDeliverydte.Focus();
                 }
             }
-            else
-            {
-                MessageBox("Select delivery date");
-                txtDeliverydte.Focus();
-            }
-        }
 
-	}
+        }
 
     }
 
@@ -261,7 +261,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
 
 
             DocumentDate = txtdocDate.Text.Split('/')[1] + "/" + txtdocDate.Text.Split('/')[0] + "/" + txtdocDate.Text.Split('/')[2];
-           // ChallanDate = txtChalDate.Text.Split('/')[1] + "/" + txtChalDate.Text.Split('/')[0] + "/" + txtChalDate.Text.Split('/')[2];
+            // ChallanDate = txtChalDate.Text.Split('/')[1] + "/" + txtChalDate.Text.Split('/')[0] + "/" + txtChalDate.Text.Split('/')[2];
             OrderDate = txtOrdDate.Text.Split('/')[1] + "/" + txtOrdDate.Text.Split('/')[0] + "/" + txtOrdDate.Text.Split('/')[2];
 
             if (txtdoc.Text != "")
@@ -300,7 +300,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
             //we are using following field to pass Financial Year AutoId while saving
             _objDC._FinancialYearFrom = Convert.ToInt32(strFY);
             //Xml String
-            _objDC.Xmldata=SaveDcDetail();
+            _objDC.Xmldata = SaveDcDetail();
 
             //_objDC.Save(out DocNo);
 
@@ -334,7 +334,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
                 }
                 else
                 {
-                   MessageBox("Can not create dc more than " + lblsplitval.Text + " amount.");
+                    MessageBox("Can not create dc more than " + lblsplitval.Text + " amount.");
                     return;
                 }
 
@@ -830,7 +830,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
         {
             //CREATE NEW DATATABLE
             //ADD COLUMNS IN DATATABLE
-           
+
             dt.Columns.Add("DCDetailID");
             dt.Columns.Add("HSNCode");
             dt.Columns.Add("GST");
@@ -1029,7 +1029,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
         _d.Columns.Add("Amount");
         _d.Columns.Add("Discount");
         _d.Columns.Add("AdditionalDiscount");
-  
+
 
         foreach (GridViewRow row in grdBookDetails.Rows)
         {
@@ -1075,7 +1075,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
              String.Format("{0:0.00}", amt1),
             ((TextBox)row.FindControl("txtDiscount")).Text,
             ((Label)row.FindControl("txtAddDiscount")).Text
-           
+
             );
         }
         Session["tempDCData"] = null;
@@ -1088,7 +1088,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
     private bool SplitDCValidate()
     {
         bool chkSplitdc = false;
-	 decimal total = 0;
+        decimal total = 0;
         foreach (GridViewRow row in grdBookDetails.Rows)
         {
             Reqty = Convert.ToInt32(((TextBox)row.FindControl("txtquty")).Text);
@@ -1096,22 +1096,22 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
             amt = Convert.ToDecimal(((TextBox)row.FindControl("txtrate")).Text) * Reqty;
             Tdiscount = amt * (discount / 100);
             //amt = amt - Tdiscount;
-	    total += amt - Tdiscount;
+            total += amt - Tdiscount;
         }
 
-       // MessageBox("amt" + lblsplitval.Text );
-       // MessageBox("DC amount" + amt);
-        
+        // MessageBox("amt" + lblsplitval.Text );
+        // MessageBox("DC amount" + amt);
+
         if (Convert.ToBoolean(lblchksplitdc.Text) == false)
         {
-           return true;
+            return true;
         }
-       else if (Convert.ToBoolean(lblchksplitdc.Text) == true && total >= Convert.ToDecimal(lblsplitval.Text))
+        else if (Convert.ToBoolean(lblchksplitdc.Text) == true && total >= Convert.ToDecimal(lblsplitval.Text))
         {
             MessageBox("Can not create dc more than " + lblsplitval.Text + " amount.");
-	    chkSplitdc = false;
+            chkSplitdc = false;
         }
-	 else
+        else
         {
             return true;
         }
@@ -1365,6 +1365,7 @@ public partial class UserControls_uc_DC_Master : System.Web.UI.UserControl
 
         return xmlstr = fnode.OuterXml.ToString();
     }
+
     #endregion
 
 

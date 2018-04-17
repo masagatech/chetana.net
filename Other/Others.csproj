@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Common.cs" />
     <Compile Include="AccountMain.cs" />
+    <Compile Include="SupplierMaster.cs" />
     <Compile Include="CourierDetails.cs" />
     <Compile Include="CustCategory.cs" />
     <Compile Include="OtherClass.cs" />

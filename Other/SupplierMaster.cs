@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace Others
 {
-    public class SupplierBill : DataServiceBase
+    public class SupplierMaster : DataServiceBase
     {
         #region "Field"
 
@@ -18,16 +18,10 @@ namespace Others
         private string _PurchaseName = Constants.NullString;
         private int _InvoiceNo = Constants.NullInt;
         private DateTime _InvoiceDate = Constants.NullDateTime;
-        private int _GSTPer = Constants.NullInt;
-
-        private int _SBillDID = Constants.NullInt;
-        private string _AccountCode = Constants.NullString;
-        private string _AccountName = Constants.NullString;
-        private int _Quantity = Constants.NullInt;
-        private decimal _Amount = Constants.NullDecimal;
+        private decimal _GSTPer = Constants.NullInt;
+        private int _FY = Constants.NullInt;
         private string _Remark = Constants.NullString;
 
-        private int _FY = Constants.NullInt;
         private DateTime _CreatedOn = Constants.NullDateTime;
         private string _CreatedBy = Constants.NullString;
         private DateTime _UpdatedOn = Constants.NullDateTime;
@@ -123,47 +117,10 @@ namespace Others
             }
         }
 
-        public int GSTPer
+        public decimal GSTPer
         {
             get { return _GSTPer; }
             set { _GSTPer = value; }
-        }
-
-
-        public int SBillDID
-        {
-            get { return _SBillDID; }
-            set { _SBillDID = value; }
-        }
-
-        public string AccountCode
-        {
-            get { return _AccountCode; }
-            set { _AccountCode = value; }
-        }
-
-        public string AccountName
-        {
-            get { return _AccountName; }
-            set { _AccountName = value; }
-        }
-
-        public int Quantity
-        {
-            get { return _Quantity; }
-            set { _Quantity = value; }
-        }
-
-        public decimal Amount
-        {
-            get { return _Amount; }
-            set { _Amount = value; }
-        }
-
-        public string Remark
-        {
-            get { return _Remark; }
-            set { _Remark = value; }
         }
 
 
@@ -177,6 +134,12 @@ namespace Others
             {
                 this._FY = value;
             }
+        }
+
+        public string Remark
+        {
+            get { return _Remark; }
+            set { _Remark = value; }
         }
 
         public DateTime CreatedOn
@@ -252,19 +215,13 @@ namespace Others
         }
 
 
-        public string Flag { get; set; }
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
-
         public string SBillDT { get; set; }
 
         #endregion
 
-        #region "User-Defined Function"
-
         public DataSet SaveSupplierBill()
         {
-            return base.ExecuteDataSet("Idv_Chetana_Save_PurchaseMasterAndDetails", new IDataParameter[] {
+            return base.ExecuteDataSet("Idv_Chetana_Save_SupplierMaster", new IDataParameter[] {
                 base.CreateParameter("@AutoID", SqlDbType.Int, SBillID),
                 base.CreateParameter("@SupplierCode", SqlDbType.NVarChar, SupplierCode),
                 base.CreateParameter("@SupplierName", SqlDbType.NVarChar, SupplierName),
@@ -282,58 +239,5 @@ namespace Others
                 base.CreateParameter("@SBillDT", SqlDbType.Xml, SBillDT),
             });
         }
-
-        public DataSet SaveSupplierBillOld()
-        {
-            return base.ExecuteDataSet("Idv_Chetana_Save_SupplierBill", new IDataParameter[] {
-                base.CreateParameter("@SBillID", SqlDbType.Int, SBillID),
-                base.CreateParameter("@SupplierCode", SqlDbType.NVarChar, SupplierCode),
-                base.CreateParameter("@SupplierName", SqlDbType.NVarChar, SupplierName),
-                base.CreateParameter("@PurchaseCode", SqlDbType.NVarChar, PurchaseCode),
-                base.CreateParameter("@PurchaseName", SqlDbType.NVarChar, PurchaseName),
-                base.CreateParameter("@InvoiceNo", SqlDbType.Int, InvoiceNo),
-                base.CreateParameter("@InvoiceDate", SqlDbType.DateTime, InvoiceDate),
-                base.CreateParameter("@GSTPer", SqlDbType.Int, GSTPer),
-                base.CreateParameter("@FY", SqlDbType.Int, FY),
-                base.CreateParameter("@Remark", SqlDbType.NVarChar, Remark),
-                base.CreateParameter("@CreatedBy", SqlDbType.NVarChar, CreatedBy),
-                base.CreateParameter("@UpdatedBy", SqlDbType.NVarChar, UpdatedBy),
-                base.CreateParameter("@IsActive", SqlDbType.Bit, IsActive),
-                base.CreateParameter("@IsDeleted", SqlDbType.Bit, IsDeleted),
-                base.CreateParameter("@SBillDT", SqlDbType.NVarChar, SBillDT),
-            });
-        }
-
-        public void SaveSupplierBillDetails()
-        {
-            SqlCommand command;
-            base.ExecuteNonQuery(out command, "Idv_Chetana_Save_SupplierBill_Details", new IDataParameter[] {
-                base.CreateParameter("@SBillDID", SqlDbType.Int, SBillDID),
-                base.CreateParameter("@SBillID", SqlDbType.Int, SBillID),
-                base.CreateParameter("@AccountCode", SqlDbType.NVarChar, AccountCode),
-                base.CreateParameter("@Quantity", SqlDbType.Int, Quantity),
-                base.CreateParameter("@Amount", SqlDbType.Decimal, Amount),
-                base.CreateParameter("@Remark", SqlDbType.NVarChar, Remark),
-                base.CreateParameter("@CreatedBy", SqlDbType.NVarChar, CreatedBy),
-                base.CreateParameter("@UpdatedBy", SqlDbType.NVarChar, UpdatedBy),
-                base.CreateParameter("@IsActive", SqlDbType.Bit, IsActive)
-            });
-            
-            command.Dispose();
-        }
-
-        public DataSet GetSupplierDetails()
-        {
-            return base.ExecuteDataSet("Idv_Chetana_Get_SupplierDatails", new IDataParameter[] {
-                base.CreateParameter("@Flag", SqlDbType.NVarChar, Flag),
-                base.CreateParameter("@SBillID", SqlDbType.Int, SBillID),
-                base.CreateParameter("@SBillDID", SqlDbType.Int, SBillDID),
-                base.CreateParameter("@InvoiceNo", SqlDbType.Int, InvoiceNo),
-                base.CreateParameter("@FromDate", SqlDbType.DateTime, FromDate),
-                base.CreateParameter("@ToDate", SqlDbType.DateTime, ToDate)
-            });
-        }
-
-        #endregion
     }
 }

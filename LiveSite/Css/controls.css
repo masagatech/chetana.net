@@ -364,6 +364,10 @@
     z-index: 10;
 }
 
+textarea {
+    resize: none;
+}
+
 .top-align {
     vertical-align: top;
 }

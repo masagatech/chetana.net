@@ -9,7 +9,7 @@
 </div>
 <br />
 <br />
-<asp:Panel ID="pnlpurch" DefaultButton="btnAdd" CssClass="panelDetails" runat="server" Style="width: auto; height: auto;">
+<asp:Panel ID="pnlAddSupllierBill" DefaultButton="btn_Save" CssClass="panelDetails" runat="server" Style="width: auto; height: auto;">
     <div style="float: right;">
         <asp:Button ID="btn_Save" CssClass="submitbtn" ValidationGroup="ct1" TabIndex="10"
             runat="server" Text="Save" Width="100px" Height="25px" OnClick="btn_Save_Click" />
@@ -24,7 +24,6 @@
                         <font color="red">*</font>
                     </td>
                     <td>
-                        <asp:Label ID="lblSBillID" runat="server" CssClass="hide"></asp:Label>
                         <asp:TextBox ID="txtSupplierName" AutoComplete="off" Width="250px" CssClass="inp-form"
                             TabIndex="1" runat="server" Height="15px" AutoPostBack="true" OnTextChanged="txtSupplierName_TextChanged">
                         </asp:TextBox>
@@ -39,10 +38,10 @@
                         </ajaxCt:AutoCompleteExtender>
                         <asp:RequiredFieldValidator ID="rfvSupplierName" runat="server" ErrorMessage="Enter Supplier Name"
                             ValidationGroup="ct1" ControlToValidate="txtSupplierName">.</asp:RequiredFieldValidator>
+                        <asp:Label ID="lblSBillID" runat="server" CssClass="hide"></asp:Label>
+                        <asp:Label ID="lblSupplierCode" runat="server" CssClass="hide"></asp:Label>
                     </td>
-                    <td>
-                        <asp:Label ID="lblSupplierCode" CssClass="lbl-form" ForeColor="Blue" Font-Size="15px" runat="server"></asp:Label>
-                    </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>
@@ -63,10 +62,9 @@
                         </ajaxCt:AutoCompleteExtender>
                         <asp:RequiredFieldValidator ID="rfvPurchaseName" runat="server" ErrorMessage="Require Purchase Name"
                             ValidationGroup="ct1" ControlToValidate="txtPurchaseName">.</asp:RequiredFieldValidator>
+                        <asp:Label ID="lblPurchaseCode" runat="server" CssClass="hide"></asp:Label>
                     </td>
-                    <td>
-                        <asp:Label ID="lblPurchaseCode" CssClass="lbl-form" ForeColor="Blue" Font-Size="15px" runat="server"></asp:Label>
-                    </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td width="100px">
@@ -87,8 +85,7 @@
                         <font color="red">*</font>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtInvoiceDate" AutoComplete="off" Width="250px" CssClass="inp-form" TabIndex="4" runat="server" Height="15px">
-                        </asp:TextBox>
+                        <asp:TextBox ID="txtInvoiceDate" AutoComplete="off" Width="250px" CssClass="inp-form" TabIndex="4" runat="server" Height="15px"></asp:TextBox>
                         <ajaxCt:CalendarExtender ID="ceInvoiceDate" runat="server" Format="dd/MM/yyyy" TargetControlID="txtInvoiceDate" />
                         <ajaxCt:MaskedEditExtender ID="meeInvoiceDate" runat="server" TargetControlID="txtInvoiceDate"
                             MaskType="Date" Mask="99/99/9999" AcceptAMPM="true" MessageValidatorTip="false"
@@ -134,7 +131,7 @@
                 <tr>
                     <td valign="top">
                         <asp:Label ID="lblSBillDID" runat="server" CssClass="hide"></asp:Label>
-                        <asp:TextBox ID="txtAccountName" runat="server" autocomplete="off" CssClass="inp-form" Height="15px" TabIndex="6" Width="150px"></asp:TextBox>
+                        <asp:TextBox ID="txtAccountName" runat="server" autocomplete="off" CssClass="inp-form" Height="15px" TabIndex="6" Width="250px"></asp:TextBox>
                         <div id="divACName" class="divauto350">
                         </div>
                         <ajaxCt:AutoCompleteExtender ID="aceAccountName" runat="server" DelimiterCharacters=""
@@ -148,23 +145,19 @@
                             ErrorMessage="Require Account Name" ValidationGroup="ct">.</asp:RequiredFieldValidator>
                     </td>
                     <td valign="top">
-                        <asp:TextBox ID="txtQuantity" Width="50px" CssClass="inp-form text-right" TabIndex="7" Height="15px" runat="server" Enabled="false">
-                        </asp:TextBox>
+                        <asp:TextBox ID="txtQuantity" Width="50px" CssClass="inp-form text-right" TabIndex="7" Height="15px" runat="server" Enabled="false"></asp:TextBox>
                     </td>
                     <td valign="top">
-                        <asp:TextBox ID="txtAmount" runat="server" CssClass="inp-form text-right" Height="15px" TabIndex="5" Width="100px">
-                        </asp:TextBox>
+                        <asp:TextBox ID="txtAmount" runat="server" CssClass="inp-form text-right" Height="15px" TabIndex="5" Width="100px"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvAmount" runat="server" ControlToValidate="txtAmount"
                             ErrorMessage="Require Amount" ValidationGroup="ct">.</asp:RequiredFieldValidator>
                     </td>
                     <td valign="top">
-                        <asp:TextBox ID="txtRemark" runat="server" TextMode="MultiLine" CssClass="inp-form" Height="100px"
-                            TabIndex="8" Width="300px">
-                        </asp:TextBox>
+                        <asp:TextBox ID="txtRemark" runat="server" TextMode="MultiLine" CssClass="inp-form" Height="100px" TabIndex="8" Width="350px"></asp:TextBox>
                     </td>
                     <td valign="top">
-                        <asp:Button ID="btnAdd" CssClass="submitbtn" ValidationGroup="ct" runat="server"
-                            Text="Add" TabIndex="9" Width="80px" OnClick="btnAdd_Click" />
+                        <asp:Button ID="btnAddEdit" CssClass="submitbtn" ValidationGroup="ct" runat="server"
+                            Text="Add" TabIndex="9" Width="80px" OnClick="btnAddEdit_Click" />
                     </td>
                 </tr>
             </table>
@@ -183,31 +176,33 @@
                     <asp:GridView ID="gvSupplierBill" runat="server" AutoGenerateColumns="false" CssClass="product-table"
                         OnRowDataBound="gvSupplierBill_RowDataBound" OnRowDeleting="gvSupplierBill_RowDeleting">
                         <Columns>
-                            <asp:TemplateField HeaderText="Account Name">
+                            <asp:TemplateField HeaderText="Account Name" ItemStyle-Width="360px">
                                 <ItemTemplate>
                                     <asp:Label ID="lblSBillDID" runat="server" Text='<%#Eval("SBillDID") %>' CssClass="hide"></asp:Label>
                                     <asp:Label ID="lblAccountCode" runat="server" Text='<%#Eval("AccountCode") %>' CssClass="hide"></asp:Label>
                                     <asp:Label ID="lblAccountName" runat="server" Text='<%#Eval("AccountName") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Quantity">
+                            <asp:TemplateField HeaderText="Quantity" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="60px">
                                 <ItemTemplate>
                                     <asp:Label ID="lblQuantity" runat="server" Text='<%#Eval("Quantity") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Amount">
+                            <asp:TemplateField HeaderText="Amount" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="80px">
                                 <ItemTemplate>
                                     <asp:Label ID="lblAmount" runat="server" Text='<%#Eval("Amount") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Remark">
+                            <asp:TemplateField HeaderText="Remark" ItemStyle-Width="480px">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRemark" runat="server" Text='<%#Eval("Remark") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Remark">
+                            <asp:TemplateField ItemStyle-Width="120px">
                                 <ItemTemplate>
-                                    <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="submitbtn" Width="80px" CausesValidation="false" CommandName="Delete"
+                                    <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="submitbtn" Width="50px" CausesValidation="false"
+                                        OnClick="btnEdit_Click" TabIndex="10" />
+                                    <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="submitbtn" Width="50px" CausesValidation="false" CommandName="Delete"
                                         TabIndex="10" />
                                 </ItemTemplate>
                             </asp:TemplateField>
@@ -217,22 +212,25 @@
 
                 <table cellspacing="5" cellpadding="5" class="product-table">
                     <tr>
-                        <td>Total Amount :</td>
-                        <td>
+                        <td align="right" width="420px">Total Amount</td>
+                        <td align="right" width="80px">
                             <asp:Label ID="lblTotalAmount" runat="server" CssClass="lbl-form"></asp:Label>
                         </td>
+                        <td width="600px"></td>
                     </tr>
                     <tr>
-                        <td>GST Amount :</td>
-                        <td>
+                        <td align="right">GST Amount</td>
+                        <td align="right">
                             <asp:Label ID="lblGSTAmount" runat="server" CssClass="lbl-form"></asp:Label>
                         </td>
+                        <td></td>
                     </tr>
                     <tr>
-                        <td>GrandTotal :</td>
-                        <td>
+                        <td align="right">GrandTotal</td>
+                        <td align="right">
                             <asp:Label ID="lblGrandTotal" runat="server" CssClass="lbl-form"></asp:Label>
                         </td>
+                        <td></td>
                     </tr>
                 </table>
             </div>
