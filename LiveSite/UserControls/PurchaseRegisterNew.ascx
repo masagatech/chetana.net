@@ -73,8 +73,7 @@
                     <asp:Button ID="btnget" runat="server" CssClass="submitbtn" OnClick="btnget_Click"
                         TabIndex="3" Text="Get" ValidationGroup="Discount" Width="80px" />
                 </td>
-                <td>
-                    &nbsp;</td>
+                <td>&nbsp;</td>
             </tr>
         </table>
     </asp:Panel>

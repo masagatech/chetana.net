@@ -8,8 +8,7 @@
         <td>
             <div class="title">
                 <img src="Images/forms/ico-promotions.png" alt="Edit campaign details">
-                <span runat="server" id="pageName"></span><a href="Campaigns.aspx" title="back to campaign list">
-                </a>
+                <span runat="server" id="pageName"></span><a href="Campaigns.aspx" title="back to campaign list"></a>
             </div>
             <div class="options">
             </div>
@@ -40,8 +39,8 @@
                 <tr>
                     <td colspan="2">
                         <asp:RadioButtonList runat="server" ID="rdbselect" TabIndex="7" RepeatDirection="Horizontal"
-                            CssClass="lbl-form" Width="300px" AutoPostBack="true" 
-                            onselectedindexchanged="rdbselect_SelectedIndexChanged">
+                            CssClass="lbl-form" Width="300px" AutoPostBack="true"
+                            OnSelectedIndexChanged="rdbselect_SelectedIndexChanged">
                             <asp:ListItem Value="DateWise" Text="DateWise" Selected="True"></asp:ListItem>
                             <asp:ListItem Value="DocumentWise" Text="DocumentWise"></asp:ListItem>
                         </asp:RadioButtonList>
@@ -74,8 +73,7 @@
                             </Triggers>
                         </asp:UpdatePanel>
                     </td>
-                    <td width="25px">
-                    </td>
+                    <td width="25px"></td>
                     <td>
                         <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
                             <ContentTemplate>
@@ -89,15 +87,14 @@
                     </td>
                 </tr>
             </table>
-            <asp:Panel ID="Pnld"  runat="server">
+            <asp:Panel ID="Pnld" runat="server">
                 <table>
                     <tr>
                         <td width="60px">
                             <asp:Label ID="Label11" runat="server" Text="From Date" CssClass="lbl-form"></asp:Label>
                             <font color="red">*</font>
                         </td>
-                        <td width="5px">
-                        </td>
+                        <td width="5px"></td>
                         <td>
                             <%-- <asp:UpdatePanel ID="UpPnldate1" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>--%>
@@ -113,14 +110,12 @@
                             <%-- </ContentTemplate>
                 </asp:UpdatePanel>--%>
                         </td>
-                        <td width="25px">
-                        </td>
+                        <td width="25px"></td>
                         <td width="60px">
                             <asp:Label ID="Label3" runat="server" Text="To Date" CssClass="lbl-form"></asp:Label><font
                                 color="red">*</font> &nbsp;
                         </td>
-                        <td width="5px">
-                        </td>
+                        <td width="5px"></td>
                         <td>
                             <%-- <asp:UpdatePanel ID="UpPnldate2" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>--%>
@@ -136,34 +131,31 @@
                             <%-- </ContentTemplate>
                 </asp:UpdatePanel>--%>
                         </td>
-                        <td width="25px">
-                        </td>
+                        <td width="25px"></td>
                         <td>
                             <asp:Button ID="btnget" runat="server" Text="Get" CssClass="submitbtn" TabIndex="24"
                                 ValidationGroup="pdateft" Width="50px" OnClick="btnget_Click" />
                         </td>
                     </tr>
                 </table>
-            </asp:Panel> 
-            <asp:Panel ID="pnldoc123"  runat="server">
+            </asp:Panel>
+            <asp:Panel ID="pnldoc123" runat="server">
                 <table>
                     <tr>
                         <td width="60px">
                             <asp:Label ID="Label7" runat="server" Text="Document No." CssClass="lbl-form"></asp:Label>
                             <font color="red">*</font>
                         </td>
-                        <td width="5px">
-                        </td>
+                        <td width="5px"></td>
                         <td>
-                           
-                            <asp:TextBox ID="txtdoc123" CssClass="inp-form" TabIndex="22" Width="80px" runat="server"
-                                 ></asp:TextBox>
-                             </td>
-                        
-                        
+
+                            <asp:TextBox ID="txtdoc123" CssClass="inp-form" TabIndex="22" Width="80px" runat="server"></asp:TextBox>
+                        </td>
+
+
                         <td>
                             <asp:Button ID="btndoc" runat="server" Text="Get" CssClass="submitbtn" TabIndex="24"
-                                ValidationGroup="pdadoc" Width="50px" onclick="btndoc_Click" />
+                                ValidationGroup="pdadoc" Width="50px" OnClick="btndoc_Click" />
                         </td>
                     </tr>
                 </table>
@@ -197,7 +189,8 @@
                                 <asp:RequiredFieldValidator ID="Reqbnkcode" runat="server" ErrorMessage="Enter Bank Code"
                                     ValidationGroup="bnkpmt" ControlToValidate="txtbankcode">.</asp:RequiredFieldValidator>
                                 <asp:Label ID="lblbankname" CssClass="lbl-form" ForeColor="Blue" Font-Size="15px"
-                                    runat="server"></asp:Label></ContentTemplate>
+                                    runat="server"></asp:Label>
+                            </ContentTemplate>
                         </asp:UpdatePanel>
                     </td>
                 </tr>
@@ -262,11 +255,11 @@
                                 <asp:RequiredFieldValidator ID="ReqAccode" runat="server" ErrorMessage="Enter Account Code"
                                     ValidationGroup="bnkpmt" ControlToValidate="txtAccode">.</asp:RequiredFieldValidator>
                                 <asp:Label ID="lblaccname" CssClass="lbl-form" ForeColor="Blue" Font-Size="15px"
-                                    runat="server"></asp:Label></ContentTemplate>
+                                    runat="server"></asp:Label>
+                            </ContentTemplate>
                         </asp:UpdatePanel>
                     </td>
-                    <td>
-                    </td>
+                    <td></td>
                     <td>
                         <asp:Label ID="lblCustOS" runat="server" CssClass="lbl-form" Font-Size="15px" ForeColor="Blue"
                             Visible="False" Width="120px"></asp:Label>
@@ -280,8 +273,7 @@
                         <asp:TextBox ID="txtperson" Width="85px" CssClass="inp-form" autocomplete="off" TabIndex="6"
                             runat="server"></asp:TextBox>
                     </td>
-                    <td>
-                    </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>
@@ -304,7 +296,8 @@
                                 </ajaxCt:AutoCompleteExtender>
                                 <asp:RequiredFieldValidator ID="Reqrepcode" runat="server" ErrorMessage="Enter Report Code"
                                     ValidationGroup="bnkpmt" ControlToValidate="txtreportcode">.</asp:RequiredFieldValidator>
-                                <asp:Label ID="lblacname" CssClass="lbl-form" ForeColor="Blue" Font-Size="15px" runat="server"></asp:Label></ContentTemplate>
+                                <asp:Label ID="lblacname" CssClass="lbl-form" ForeColor="Blue" Font-Size="15px" runat="server"></asp:Label>
+                            </ContentTemplate>
                         </asp:UpdatePanel>
                     </td>
                 </tr>
@@ -408,7 +401,7 @@
                         <asp:Label ID="LblChk" runat="server" CssClass="lbl-form" Text="IsChequeBounce"></asp:Label>
                     </td>
                     <td>
-                        <asp:CheckBox ID="CheckActive" runat="server"  TabIndex="14" />
+                        <asp:CheckBox ID="CheckActive" runat="server" TabIndex="14" />
                     </td>
                 </tr>
             </table>
@@ -520,9 +513,9 @@
 
 <script type="text/javascript">
 
-shortcut.add("Ctrl+S",function() {
-document.getElementById('ctl00_ContentPlaceHolder1_uc_BankPayment1_btn_Save').click();
-});
+    shortcut.add("Ctrl+S", function () {
+        document.getElementById('ctl00_ContentPlaceHolder1_uc_BankPayment1_btn_Save').click();
+    });
 
 </script>
 

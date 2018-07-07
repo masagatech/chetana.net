@@ -18,6 +18,7 @@ public partial class UserControls_PurchaseRegisterNew : System.Web.UI.UserContro
 {
     string strFY;
     string strChetanaCompanyName = "cppl";
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["ChetanaCompanyName"] != null)
@@ -40,7 +41,9 @@ public partial class UserControls_PurchaseRegisterNew : System.Web.UI.UserContro
             //Bind();
         }
     }
+
     #region MsgBox
+
     public void MessageBox(string msg)
     {
         string jv = "alert('" + msg + "');";
@@ -52,7 +55,9 @@ public partial class UserControls_PurchaseRegisterNew : System.Web.UI.UserContro
         string jv = "sloder('" + msg + "');";
         ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "msg", jv, true);
     }
+
     #endregion
+
     protected void btnget_Click(object sender, EventArgs e)
     {
         string val = "";
@@ -70,16 +75,19 @@ public partial class UserControls_PurchaseRegisterNew : System.Web.UI.UserContro
         }
         Bind(val);
     }
-    
+
     public void Bind(string selectedval)
     {
         string from = txtFromDate.Text.Split('/')[1].ToString() + "/" + txtFromDate.Text.Split('/')[0].ToString() + "/" + txtFromDate.Text.Split('/')[2];
         string to = txtToDate.Text.Split('/')[1].ToString() + "/" + txtToDate.Text.Split('/')[0].ToString() + "/" + txtToDate.Text.Split('/')[2];
+        
         DateTime FromDate = Convert.ToDateTime(from);
         DateTime ToDate = Convert.ToDateTime(to);
         DataSet dt = new DataSet();
+
         dt = PurchaseDetails.GetPurchaseRegister(FromDate, ToDate, Convert.ToInt32(strFY), txtEMcode.Text.Trim(), ddlSD.SelectedValue.ToString() + selectedval);
         ViewState["Total"] = dt.Tables[1];
+
         if (dt.Tables[0].Rows.Count != 0)
         {
             grdDetails.DataSource = dt;
@@ -91,6 +99,7 @@ public partial class UserControls_PurchaseRegisterNew : System.Web.UI.UserContro
         }
 
     }
+
     protected void txtEMcode_TextChanged(object sender, EventArgs e)
     {
         string ECode = txtEMcode.Text.ToString().Split(':', '[', ']')[0].Trim();
@@ -111,6 +120,7 @@ public partial class UserControls_PurchaseRegisterNew : System.Web.UI.UserContro
             txtEMcode.Text = "";
         }
     }
+
     public static void Export(string fileName, GridView gv)
     {
         string style = @"<style> .text { mso-number-format:\@; } </style> ";
@@ -193,6 +203,7 @@ public partial class UserControls_PurchaseRegisterNew : System.Web.UI.UserContro
             }
         }
     }
+
     public void setdefaultdate()
     {
         txtFromDate.Text = Session["FromDate"].ToString();
@@ -200,11 +211,14 @@ public partial class UserControls_PurchaseRegisterNew : System.Web.UI.UserContro
         //DateTime.Now.ToString("dd/MM/yyyy");
 
     }
+
     protected void btnExport_Click(object sender, EventArgs e)
     {
         Export("PurchaseRegister.xls", grdDetails);
     }
+
     List<Array> arr = new List<Array>();
+
     protected void grdDetails_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
@@ -218,7 +232,7 @@ public partial class UserControls_PurchaseRegisterNew : System.Web.UI.UserContro
                 e.Row.Cells[2].Attributes.Add("align", "center");
                 e.Row.Cells[3].Attributes.Add("align", "center");
             }
-       
+
         }
         if (e.Row.RowType == DataControlRowType.Footer)
         {
@@ -232,7 +246,7 @@ public partial class UserControls_PurchaseRegisterNew : System.Web.UI.UserContro
                     else
                         e.Row.Cells[i].Text = "Total";
                 }
-                
+
             }
             else if (ddlSD.SelectedIndex == 1)
             {
